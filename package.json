@@ -1,0 +1,37 @@
+{
+  "name": "magacare",
+  "version": "1.0.0",
+  "description": "Magacare API Rest",
+  "main": "./src/index.js",
+  "nodemonConfig": {
+    "watch": [
+      "*.js"
+    ],
+    "ext": "js",
+    "ignore": [
+      "*.test.js"
+    ],
+    "delay": "3"
+  },
+  "scripts": {
+    "start": "nodemon ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magacare/magacare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/magacare/magacare/issues"
+  },
+  "homepage": "https://github.com/magacare/magacare#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
