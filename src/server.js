@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const HealthRoute = require('./config/health');
 const { connectionString } = require('./config/database');
+const clientRoutes = require('./clients/clients-routes');
 
 const configRotas = (app) => {
   HealthRoute(app);
+  clientRoutes(app);
 };
 
 const configServer = (app) => {
