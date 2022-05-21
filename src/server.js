@@ -1,5 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const HealthRoute = require('./config/health');
+const { connectionString } = require('./config/database');
 
 const configRotas = (app) => {
   HealthRoute(app);
@@ -7,6 +9,7 @@ const configRotas = (app) => {
 
 const configServer = (app) => {
   app.use(express.json());
+  mongoose.connect(connectionString);
   configRotas(app);
 };
 
