@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { createClientOnDatabase } = require('./clients-service');
+const { createClientOnDatabase, updateClientOnDatabase } = require('./clients-service');
 
 const createClient = (req, res) => {
   try {
@@ -14,6 +14,19 @@ const createClient = (req, res) => {
   }
 };
 
+const updateClient = async(req,res) => {
+  try {
+    const {id,client} = req.body;
+    await updateClientOnDatabase(id,client)
+  } catch (error) {
+    return res.status(httpStatus[404]).json(error);
+  }
+}
+
+
+
+
 module.exports = {
   createClient,
+  updateClient,
 };

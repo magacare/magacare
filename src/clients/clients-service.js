@@ -5,6 +5,11 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
+const updateClientOnDatabase = (id, client) => {
+  return Client.findOneAndUpdate({ _id: id }, client, { new: true })
+}
+
 module.exports = {
   createClientOnDatabase,
+  updateClientOnDatabase,
 };
