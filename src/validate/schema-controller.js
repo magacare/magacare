@@ -19,7 +19,15 @@ const ProductSchemaController = Joi.object({
   recommendation: Joi.string().required(),
 });
 
+const WishListSchemaController = Joi.object({
+  title: Joi.string().required().min(4),
+  client: Joi.string().required(),
+  product: Joi.string().required(),
+  createdAt: Joi.string(),
+});
+
 module.exports = {
   ClientSchemaController,
   ProductSchemaController,
+  WishListSchemaController,
 };
