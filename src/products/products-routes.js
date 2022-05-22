@@ -1,4 +1,4 @@
-const { createProduct } = require('./products-controller');
+const { createProduct, updateProduct } = require('./products-controller');
 const { ProductSchemaController } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
@@ -9,4 +9,9 @@ module.exports = (app) => {
     validator.validateFields(ProductSchemaController),
     createProduct,
   );
+  app.put(
+     `${defaultRoute}/:code`,
+     validator.validateFields(ProductSchemaController),
+     updateProduct,
+  )
 };

@@ -21,7 +21,7 @@ const updateClient = async (req, res) => {
 
     const clientUpdated = await updateClientOnDatabase(id, client);
     return res.status(200).json({
-      message: 'User updated',
+      message: 'Client updated',
       client: clientUpdated,
     });
   } catch (error) {
