@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Client = require('./clients-model');
 
 const createClientOnDatabase = (client) => {
@@ -5,12 +6,15 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const searchOneClientOnDatabase = (idOrEmail) => {
-  const params = {identifyer: idOrEmail};
-  return Product.findOne(params);
+const searchOneClientByIdOnDatabase = (id) => {
+    const params = {};
+    if(id !== undefined && id !== null) {
+      params._id = id;
+    }
+    return Client.find(params);
 }
 
 module.exports = {
   createClientOnDatabase,
-  searchOneClientOnDatabase,
+  searchOneClientByIdOnDatabase
 };

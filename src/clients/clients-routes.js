@@ -11,10 +11,10 @@ module.exports = (app) => {
   );
   app.get(
     `${defaultRoute}/:_id`,
-    clientsController.searchOneClienteByEmail
+    clientsController.searchOneClienteById
   );
   app.get(
-    `${defaultRoute}/:_email`,
-    clientsController.searchOneClienteByEmail
-  )
+    defaultRoute,
+    clientsController.searchAllClients
+  );
 };

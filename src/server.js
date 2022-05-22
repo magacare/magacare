@@ -28,8 +28,8 @@ const createServer = () => {
 };
 
 const initServer = (app, port = 3000) => {
-  console.log(`Running! Port: ${port}`);
   app.listen(port);
+  console.log(`Running! Port: ${port}`);
 };
 
 module.exports = {

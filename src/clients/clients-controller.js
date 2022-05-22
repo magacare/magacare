@@ -16,24 +16,24 @@ const createClient = (req, res) => {
 
 const searchOneClienteById = async (req, res) => {
   try {
-    let search = await clientsService.searchOneClientOnDatabase(req.params._id);
+    let search = await clientsService.searchOneClientByIdOnDatabase(req.params._id);
     return res.status(httpStatus[200]).json(search);
   } catch (error) {
-    return res.status(httpStatus[404]).json(error)
+    return res.status(httpStatus[404]).json(error);
   }
 }
 
-const searchOneClienteByEmail = async (req, res) => {
+const searchAllClients = async (req, res) => {
   try {
-    let search = await clientsService.searchOneClientOnDatabase(req.params.email);
+    let search = await clientsService.searchOneClientByIdOnDatabase();
     return res.status(httpStatus[200]).json(search);
   } catch (error) {
-    return res.status(httpStatus[404]).json(error)
+    return res.status(httpStatus[404]).json(error);
   }
 }
 
 module.exports = {
   createClient,
   searchOneClienteById,
-  searchOneClienteByEmail
+  searchAllClients
 };
