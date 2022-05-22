@@ -1,26 +1,44 @@
 const httpStatus = require('http-status');
 const {
+  verifyExists,
   createClientOnDatabase,
   updateClientOnDatabase,
   searchOneClientByIdOnDatabase,
 } = require('./clients-service');
 
-const createClient = (req, res) => {
+const createClient = async (req, res) => {
   try {
     const client = req.body;
+    const { email, cpf } = client;
+
+    const verifyEmailExists = await verifyExists({ email });
+    const verifyCpfExists = await verifyExists({ cpf });
+
+    if(verifyEmailExists) {
+      return res.status(400).json({
+        message: 'This email already exists',
+      });
+    }
+
+    if(verifyCpfExists) {
+      return res.status(400).json({
+        message: 'This cpf already exists',
+      });
+    }
+
     createClientOnDatabase(client);
 
-    return res.status(httpStatus.CREATED).json({
+    return res.status(201).json({
       message: 'User registered',
     });
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(500).json(error.message);
   }
 };
 
 const searchOneClienteById = async (req, res) => {
   try {
-    const search = await searchOneClientByIdOnDatabase(req.params._id);
+    const search = await searchOneClientByIdOnDatabase(req.params.id);
     return res.status(httpStatus[200]).json(search);
   } catch (error) {
     return res.status(httpStatus[404]).json(error);

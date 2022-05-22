@@ -19,5 +19,6 @@ module.exports = {
         else: { after: false },
       },
     }],
+    'max-len': ['error', { code: 150 }],
   },
 };
