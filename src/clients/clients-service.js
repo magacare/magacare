@@ -13,7 +13,14 @@ const searchOneClientByIdOnDatabase = (id) => {
     return Client.find(params);
 }
 
+
+const updateClientOnDatabase = async (id, client) => {
+  const clientUpdated = await Client.findOneAndUpdate({ _id: id }, { $set: client }, { new: true });
+  return clientUpdated;
+};
+
 module.exports = {
   createClientOnDatabase,
+  updateClientOnDatabase,
   searchOneClientByIdOnDatabase
 };
