@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Client = require('./clients-model');
 
 const createClientOnDatabase = (client) => {

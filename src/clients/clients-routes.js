@@ -17,4 +17,12 @@ module.exports = (app) => {
     defaultRoute,
     clientsController.searchAllClients
   );
+  app.get(
+    `${defaultRoute}/:_id`,
+    clientsController.searchOneClienteByEmail
+  );
+  app.get(
+    `${defaultRoute}/:_email`,
+    clientsController.searchOneClienteByEmail
+  )
 };
