@@ -1,4 +1,4 @@
-const { createClient } = require('./clients-controller');
+const { createClient, updateClient } = require('./clients-controller');
 const { ClientSchemaController } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
@@ -9,4 +9,9 @@ module.exports = (app) => {
     validator.validateFields(ClientSchemaController),
     createClient,
   );
+  app.put(
+    defaultRoute+"/:_id",
+    validator.validateFields(ClientSchemaController),
+    updateClient,
+);
 };
