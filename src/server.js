@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const HealthRoute = require('./config/health');
 const { connectionString } = require('./config/database');
 const clientRoutes = require('./clients/clients-routes');
+const productRoutes = require('./products/products-routes');
 const wishListRoutes = require('./wishlists/wishlists-routes');
+
+
 
 const configRotas = (app) => {
   HealthRoute(app);
   clientRoutes(app);
+  productRoutes(app);
   wishListRoutes(app);
 };
 

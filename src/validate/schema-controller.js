@@ -11,6 +11,14 @@ const ClientSchemaController = Joi.object({
   password: Joi.string().required().min(6),
 });
 
+const ProductSchemaController = Joi.object({
+  code: Joi.string().required(),
+  name: Joi.string().required().min(2),
+  description: Joi.string().required(),
+  volume: Joi.string().required(),
+  recommendation: Joi.string().required(),
+});
+
 const WishListSchemaController = Joi.object({
   title: Joi.string().required().min(4),
   client: Joi.string().required(),
@@ -20,5 +28,6 @@ const WishListSchemaController = Joi.object({
 
 module.exports = {
   ClientSchemaController,
+  ProductSchemaController,
   WishListSchemaController,
 };
