@@ -10,8 +10,8 @@ module.exports = (app) => {
     createClient,
   );
   app.put(
-    defaultRoute+"/:_id",
+    `${defaultRoute}/:id`,
     validator.validateFields(ClientSchemaController),
     updateClient,
-);
+  );
 };
