@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
-const { createClientOnDatabase, updateClientOnDatabase, searchOneClientByIdOnDatabase,  } = require('./clients-service');
+const { createClientOnDatabase, updateClientOnDatabase, searchOneClientByIdOnDatabase  } = require('./clients-service');
 
 const createClient = (req, res) => {
   try {
     const client = req.body;
-    clientsService.createClientOnDatabase(client);
+    createClientOnDatabase(client);
 
     return res.status(httpStatus.CREATED).json({
       message: 'User registered',
@@ -16,7 +16,7 @@ const createClient = (req, res) => {
 
 const searchOneClienteById = async (req, res) => {
   try {
-    let search = await clientsService.searchOneClientByIdOnDatabase(req.params._id);
+    let search = await searchOneClientByIdOnDatabase(req.params._id);
     return res.status(httpStatus[200]).json(search);
   } catch (error) {
     return res.status(httpStatus[404]).json(error);
@@ -25,7 +25,7 @@ const searchOneClienteById = async (req, res) => {
 
 const searchAllClients = async (req, res) => {
   try {
-    let search = await clientsService.searchOneClientByIdOnDatabase();
+    let search = await searchOneClientByIdOnDatabase();
     return res.status(httpStatus[200]).json(search);
   } catch (error) {
     return res.status(httpStatus[404]).json(error);
