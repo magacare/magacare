@@ -14,17 +14,20 @@ const createClient = (req, res) => {
   }
 };
 
-const updateClient = async(req,res) => {
+const updateClient = async (req, res) => {
   try {
-    const {id,client} = req.body;
-    await updateClientOnDatabase(id,client)
+    const { id } = req.params;
+    const client = req.body;
+
+    const clientUpdated = await updateClientOnDatabase(id, client);
+    return res.status(200).json({
+      message: 'User updated',
+      client: clientUpdated,
+    });
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(404).json(error);
   }
-}
-
-
-
+};
 
 module.exports = {
   createClient,

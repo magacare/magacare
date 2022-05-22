@@ -5,9 +5,10 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const updateClientOnDatabase = (id, client) => {
-  return Client.findOneAndUpdate({ _id: id }, client, { new: true })
-}
+const updateClientOnDatabase = async (id, client) => {
+  const clientUpdated = await Client.findOneAndUpdate({ _id: id }, { $set: client }, { new: true });
+  return clientUpdated;
+};
 
 module.exports = {
   createClientOnDatabase,
