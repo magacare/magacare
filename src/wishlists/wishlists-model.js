@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const current = new Date();
+const timeStamp = new Date(Date.UTC(
+  current.getFullYear(),
+  current.getMonth(),
+  current.getDate(),
+  current.getHours(),
+  current.getMinutes(),
+  current.getSeconds(),
+  current.getMilliseconds(),
+));
+
 const schema = mongoose.Schema({
   title: {
     type: String,
@@ -15,7 +26,7 @@ const schema = mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    required: true,
+    default: timeStamp,
   },
 
 });

@@ -1,5 +1,5 @@
 const {
-  verifyExists,
+  verifyExistsClients,
   createClientOnDatabase,
   updateClientOnDatabase,
   searchOneClientByIdOnDatabase,
@@ -10,8 +10,8 @@ const createClient = async (req, res) => {
     const client = req.body;
     const { email, cpf } = client;
 
-    const verifyEmailExists = await verifyExists({ email });
-    const verifyCpfExists = await verifyExists({ cpf });
+    const verifyEmailExists = await verifyExistsClients({ email });
+    const verifyCpfExists = await verifyExistsClients({ cpf });
 
     if(verifyEmailExists) {
       return res.status(400).json({

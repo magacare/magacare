@@ -1,12 +1,25 @@
-const { createWishListOnDatabase, updateWishListOnDatabase } = require('./wishlists-service');
+const {
+  createWishListOnDatabase,
+  updateWishListOnDatabase,
+  verifyExistsWishList,
+} = require('./wishlists-service');
 
-const createWishList = (req, res) => {
+const createWishList = async (req, res) => {
   try {
     const wishList = req.body;
-    createWishListOnDatabase(wishList);
+    const { title } = wishList;
 
+    const verifyTitleExists = await verifyExistsWishList({ title });
+
+    if(verifyTitleExists) {
+      return res.status(400).json({
+        error: 'This title already exists',
+      });
+    }
+
+    createWishListOnDatabase(wishList);
     return res.status(201).json({
-      message: 'WishList registered',
+      error: 'WishList registered',
     });
   } catch (error) {
     return res.status(404).json(error);
