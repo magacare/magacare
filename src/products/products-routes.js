@@ -10,8 +10,8 @@ module.exports = (app) => {
     createProduct,
   );
   app.put(
-     `${defaultRoute}/:code`,
-     validator.validateFields(ProductSchemaController),
-     updateProduct,
-  )
+    `${defaultRoute}/:code`,
+    validator.validateFields(ProductSchemaController),
+    updateProduct,
+  );
 };

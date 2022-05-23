@@ -6,8 +6,6 @@ const clientRoutes = require('./clients/clients-routes');
 const productRoutes = require('./products/products-routes');
 const wishListRoutes = require('./wishlists/wishlists-routes');
 
-
-
 const configRotas = (app) => {
   HealthRoute(app);
   clientRoutes(app);

@@ -1,4 +1,9 @@
-const { createClient, updateClient, searchOneClienteById, searchAllClients } = require('./clients-controller');
+const {
+  createClient,
+  updateClient,
+  searchOneClienteById,
+  searchAllClients,
+} = require('./clients-controller');
 const { ClientSchemaController } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
@@ -11,11 +16,11 @@ module.exports = (app) => {
   );
   app.get(
     `${defaultRoute}/:_id`,
-    searchOneClienteById
+    searchOneClienteById,
   );
   app.get(
     defaultRoute,
-    searchAllClients
+    searchAllClients,
   );
   app.put(
     `${defaultRoute}/:id`,
