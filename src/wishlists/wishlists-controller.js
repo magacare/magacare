@@ -1,6 +1,7 @@
 const {
   createWishListOnDatabase,
   updateWishListOnDatabase,
+  searchOneWishlistOnDatabase,
   verifyExistsWishList,
 } = require('./wishlists-service');
 
@@ -63,5 +64,5 @@ module.exports = {
   createWishList,
   updateWishList,
   searchOneWishlist,
-  searchAllWishlists
+  searchAllWishlists,
 };
