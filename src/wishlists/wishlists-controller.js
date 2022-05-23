@@ -41,7 +41,27 @@ const updateWishList = async (req, res) => {
   }
 };
 
+const searchOneWishlist = async (req, res) => {
+  try {
+    const wishlist = await searchOneWishlistOnDatabase(req.params.id);
+    return res.status(200).json(wishlist);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
+
+const searchAllWishlists = async (req, res) => {
+  try {
+    const wishlists = await searchOneWishlistOnDatabase();
+    return res.status(200).json(wishlists);
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createWishList,
   updateWishList,
+  searchOneWishlist,
+  searchAllWishlists
 };

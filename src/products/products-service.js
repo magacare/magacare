@@ -15,8 +15,17 @@ const verifyExistsProducts = async (value) => {
   return data;
 };
 
+const searchOneProductOnDatabase = (code) => {
+  let params = {};
+  if(code !== undefined && code !== null) {
+    params = { code: code };
+  }
+  return Products.find(params);
+};
+
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
+  searchOneProductOnDatabase
 };
