@@ -1,4 +1,3 @@
-const httpStatus = require('http-status');
 const { createProductOnDatabase, updateProductOnDatabase } = require('./products-service');
 
 const createProduct = (req, res) => {
@@ -6,11 +5,11 @@ const createProduct = (req, res) => {
     const product = req.body;
     createProductOnDatabase(product);
 
-    return res.status(httpStatus.CREATED).json({
+    return res.status(201).json({
       messagem: 'Product registered',
     });
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(404).json(error.message);
   }
 };
 

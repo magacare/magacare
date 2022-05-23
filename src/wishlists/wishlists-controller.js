@@ -1,4 +1,3 @@
-const httpStatus = require('http-status');
 const { createWishListOnDatabase, updateWishListOnDatabase } = require('./wishlists-service');
 
 const createWishList = (req, res) => {
@@ -6,11 +5,11 @@ const createWishList = (req, res) => {
     const wishList = req.body;
     createWishListOnDatabase(wishList);
 
-    return res.status(httpStatus.CREATED).json({
+    return res.status(201).json({
       message: 'WishList registered',
     });
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(404).json(error);
   }
 };
 

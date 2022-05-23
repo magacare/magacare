@@ -1,4 +1,3 @@
-const httpStatus = require('http-status');
 const {
   verifyExists,
   createClientOnDatabase,
@@ -39,18 +38,18 @@ const createClient = async (req, res) => {
 const searchOneClienteById = async (req, res) => {
   try {
     const search = await searchOneClientByIdOnDatabase(req.params.id);
-    return res.status(httpStatus[200]).json(search);
+    return res.status(200).json(search);
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(404).json(error.message);
   }
 };
 
 const searchAllClients = async (req, res) => {
   try {
     const search = await searchOneClientByIdOnDatabase();
-    return res.status(httpStatus[200]).json(search);
+    return res.status(200).json(search);
   } catch (error) {
-    return res.status(httpStatus[404]).json(error);
+    return res.status(404).json(error);
   }
 };
 
