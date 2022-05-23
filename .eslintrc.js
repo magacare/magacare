@@ -11,5 +11,14 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'keyword-spacing': ['error', {
+      overrides: {
+        try: { after: true },
+        catch: { after: true },
+        if: { after: false },
+        else: { after: false },
+      },
+    }],
+    'max-len': ['error', { code: 150 }],
   },
 };
