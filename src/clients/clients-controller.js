@@ -7,7 +7,7 @@ const createClient = (req, res) => {
     createClientOnDatabase(client);
 
     return res.status(httpStatus.CREATED).json({
-      message: 'User registered',
+      message: 'User registered'
     });
   } catch (error) {
     return res.status(httpStatus[404]).json(error);
