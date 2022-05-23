@@ -3,6 +3,7 @@ const {
   updateClient,
   searchOneClienteById,
   searchAllClients,
+  searchOneClientByEmail,
 } = require('./clients-controller');
 const { ClientSchemaController } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
@@ -13,6 +14,10 @@ module.exports = (app) => {
     defaultRoute,
     validator.validateFields(ClientSchemaController),
     createClient,
+  );
+  app.get(
+    `${defaultRoute}/email`,
+    searchOneClientByEmail,
   );
   app.get(
     `${defaultRoute}/:id`,

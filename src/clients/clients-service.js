@@ -6,12 +6,14 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const searchOneClientByIdOnDatabase = (id) => {
+const searchOneClientOnDatabase = (id) => {
   let params = {};
   if(id !== undefined && id !== null) {
     params = { _id: id };
+    return Clients.findOne(params)
+  } else {
+    return Clients.find(params);
   }
-  return Clients.find(params);
 };
 
 const updateClientOnDatabase = async (id, client) => {
@@ -24,6 +26,6 @@ const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
-  searchOneClientByIdOnDatabase,
+  searchOneClientOnDatabase,
   verifyExistsClients,
 };
