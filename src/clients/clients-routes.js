@@ -15,7 +15,7 @@ module.exports = (app) => {
     createClient,
   );
   app.get(
-    `${defaultRoute}/:_id`,
+    `${defaultRoute}/:id`,
     searchOneClienteById,
   );
   app.get(
