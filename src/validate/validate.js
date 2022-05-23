@@ -7,6 +7,12 @@ const validateFields = (schema) => (req, res, next) => {
   return res.status(400).send({ error: error.details[0].message });
 };
 
+const verifyExistsData = async (Database, value) => {
+  const data = await Database.findOne(value);
+  return data;
+};
+
 module.exports = {
   validateFields,
+  verifyExistsData,
 };

@@ -1,4 +1,5 @@
 const Clients = require('./clients-model');
+const { verifyExistsData } = require('../validate/validate');
 
 const createClientOnDatabase = (client) => {
   const clientCreated = Clients(client);
@@ -18,10 +19,7 @@ const updateClientOnDatabase = async (id, client) => {
   return clientUpdated;
 };
 
-const verifyExistsClients = async (value) => {
-  const data = await Clients.findOne(value);
-  return data;
-};
+const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 
 module.exports = {
   createClientOnDatabase,

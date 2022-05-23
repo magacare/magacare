@@ -1,4 +1,5 @@
 const Wishlists = require('./wishlists-model');
+const { verifyExistsData } = require('../validate/validate');
 
 const createWishListOnDatabase = (wishlist) => {
   const clientCreated = Wishlists(wishlist);
@@ -10,23 +11,20 @@ const updateWishListOnDatabase = async (id, wishlist) => {
   return wishlistUpdated;
 };
 
-const verifyExistsWishList = async (value) => {
-  const data = await Wishlists.findOne(value);
-  return data;
-};
+const verifyExistsWishList = (value) => verifyExistsData(Wishlists, value);
 
 const searchOneWishlistOnDatabase = (id) => {
   let params = {};
   if(id !== undefined && id !== null) {
     params = { _id: id };
-    return Wishlist.find(params);
+    return Wishlists.find(params);
   }
-  return Wishlist.find(params);
+  return Wishlists.find(params);
 };
 
 module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
   verifyExistsWishList,
-  searchOneWishlistOnDatabase
+  searchOneWishlistOnDatabase,
 };
