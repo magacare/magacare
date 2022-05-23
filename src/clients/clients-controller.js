@@ -28,7 +28,7 @@ const createClient = async (req, res) => {
     createClientOnDatabase(client);
 
     return res.status(201).json({
-      message: 'User registered',
+      message: 'Client registered',
     });
   } catch (error) {
     return res.status(500).json(error.message);
