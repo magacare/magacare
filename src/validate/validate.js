@@ -1,13 +1,10 @@
 const validateFields = (schema) => (req, res, next) => {
   const data = req.body;
-  const result = schema.validate(data);
-  if(!result.error) {
+  const { error } = schema.validate(data);
+  if(!error) {
     return next();
   }
-
-  return res.status(404).json({
-    message: 'There are invalid fields',
-  });
+  return res.status(400).send({ error: error.details[0].message });
 };
 
 module.exports = {

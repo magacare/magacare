@@ -4,6 +4,7 @@ const schema = mongoose.Schema({
   code: {
     type: String,
     required: true,
+    unique: true,
   },
   name: {
     type: String,
@@ -12,7 +13,6 @@ const schema = mongoose.Schema({
   },
   description: {
     type: String,
-    unique: true,
     required: true,
   },
   volume: {

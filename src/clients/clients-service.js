@@ -18,7 +18,7 @@ const updateClientOnDatabase = async (id, client) => {
   return clientUpdated;
 };
 
-const verifyExists = async (value) => {
+const verifyExistsClients = async (value) => {
   const data = await Clients.findOne(value);
   return data;
 };
@@ -27,5 +27,5 @@ module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
   searchOneClientByIdOnDatabase,
-  verifyExists,
+  verifyExistsClients,
 };

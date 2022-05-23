@@ -1,10 +1,30 @@
-const { createProductOnDatabase, updateProductOnDatabase, searchOneProductOnDatabase } = require('./products-service');
+const {
+  createProductOnDatabase,
+  updateProductOnDatabase,
+  verifyExistsProducts,
+} = require('./products-service');
 
-const createProduct = (req, res) => {
+const createProduct = async (req, res) => {
   try {
     const product = req.body;
-    createProductOnDatabase(product);
+    const { code, name } = product;
 
+    const verifyCodeExists = await verifyExistsProducts({ code });
+    const verifyNameExists = await verifyExistsProducts({ name });
+
+    if(verifyCodeExists) {
+      return res.status(400).json({
+        message: 'This code already exists',
+      });
+    }
+
+    if(verifyNameExists) {
+      return res.status(400).json({
+        message: 'This name already exists',
+      });
+    }
+
+    createProductOnDatabase(product);
     return res.status(201).json({
       messagem: 'Product registered',
     });

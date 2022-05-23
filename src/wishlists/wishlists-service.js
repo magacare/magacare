@@ -1,13 +1,18 @@
-const Wishlist = require('./wishlists-model');
+const Wishlists = require('./wishlists-model');
 
 const createWishListOnDatabase = (wishlist) => {
-  const clientCreated = Wishlist(wishlist);
+  const clientCreated = Wishlists(wishlist);
   return clientCreated.save();
 };
 
 const updateWishListOnDatabase = async (id, wishlist) => {
-  const wishlistUpdated = await Wishlist.findOneAndUpdate({ _id: id }, { $set: wishlist }, { new: true });
+  const wishlistUpdated = await Wishlists.findOneAndUpdate({ _id: id }, { $set: wishlist }, { new: true });
   return wishlistUpdated;
+};
+
+const verifyExistsWishList = async (value) => {
+  const data = await Wishlists.findOne(value);
+  return data;
 };
 
 const searchOneWishlistOnDatabase = (id) => {
@@ -22,5 +27,6 @@ const searchOneWishlistOnDatabase = (id) => {
 module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
+  verifyExistsWishList,
   searchOneWishlistOnDatabase
 };

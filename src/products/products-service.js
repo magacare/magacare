@@ -10,6 +10,11 @@ const updateProductOnDatabase = async (code, product) => {
   return productUpdated;
 };
 
+const verifyExistsProducts = async (value) => {
+  const data = await Products.findOne(value);
+  return data;
+};
+
 const searchOneProductOnDatabase = (code) => {
   let params = {};
   if(code !== undefined && code !== null) {
@@ -21,5 +26,6 @@ const searchOneProductOnDatabase = (code) => {
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
+  verifyExistsProducts,
   searchOneProductOnDatabase
 };
