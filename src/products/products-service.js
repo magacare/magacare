@@ -10,7 +10,16 @@ const updateProductOnDatabase = async (code, product) => {
   return productUpdated;
 };
 
+const searchOneProductOnDatabase = (code) => {
+  let params = {};
+  if(code !== undefined && code !== null) {
+    params = { code: code };
+  }
+  return Products.find(params);
+};
+
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
+  searchOneProductOnDatabase
 };
