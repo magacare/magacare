@@ -3,6 +3,7 @@ const {
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
+  searchOneProductOnDatabase,
 } = require('./products-service');
 
 const createProduct = async (req, res) => {
@@ -58,18 +59,8 @@ const searchOneProduct = async (req, res) => {
   }
 };
 
-const searchAllProducts = async (req, res) => {
-  try {
-    const products = await searchOneProductOnDatabase();
-    return res.status(200).json(products);
-  } catch (error) {
-    return res.status(404).json(error);
-  }
-};
-
 module.exports = {
   createProduct,
   updateProduct,
-  searchOneProduct,
-  searchAllProducts,
+  searchOneProduct
 };

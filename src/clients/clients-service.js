@@ -6,14 +6,21 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const searchOneClientOnDatabase = (id) => {
-  let params = {};
-  if(id !== undefined && id !== null) {
-    params = { _id: id };
-    return Clients.findOne(params)
-  } else {
-    return Clients.find(params);
-  }
+const searchOneClientByIdOnDatabase = (id) => {
+  return Clients.findOne({ _id: id })
+};
+
+const searchOneClientByEmailonDatabase = (email) => {
+  return Clients.findOne({ email: email });
+};
+
+const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      "fullName": { $regex: filter, $options: 'i' }
+    },
+  ).limit(limit*1).skip((page-1)*limit);
+  return clients;
 };
 
 const updateClientOnDatabase = async (id, client) => {
@@ -26,6 +33,8 @@ const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
-  searchOneClientOnDatabase,
-  verifyExistsClients,
+  searchOneClientByIdOnDatabase,
+  searchOneClientByEmailonDatabase,
+  searchClientsByFilterOnDatabase,
+  verifyExistsClients
 };
