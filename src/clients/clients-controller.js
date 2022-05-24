@@ -37,8 +37,10 @@ const createClient = async (req, res) => {
 };
 
 const searchOneClienteById = async (req, res) => {
+  const { id } = req.params
+
   try {
-    const client = await searchOneClientByIdOnDatabase(req.params.id);
+    const client = await searchOneClientByIdOnDatabase(id);
     return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error.message);

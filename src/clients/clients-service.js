@@ -6,8 +6,9 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const searchOneClientByIdOnDatabase = (id) => {
-  return Clients.findOne({ id })
+const searchOneClientByIdOnDatabase = async (id) => {
+  const clientFound = await Clients.findOne({ _id: id });
+  return clientFound;
 };
 
 const searchOneClientByEmailonDatabase = (email) => {
