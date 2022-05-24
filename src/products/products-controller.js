@@ -1,4 +1,5 @@
 const {
+  searchOneProductOnDatabase,
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
@@ -44,7 +45,7 @@ const updateProduct = async (req, res) => {
       product: productUpdated,
     });
   } catch (error) {
-    return res.status(404).json(error);
+    return res.status(404).json(error.message);
   }
 };
 
@@ -70,5 +71,5 @@ module.exports = {
   createProduct,
   updateProduct,
   searchOneProduct,
-  searchAllProducts
+  searchAllProducts,
 };
