@@ -20,7 +20,7 @@ module.exports = (app) => {
     searchOneClientByEmail,
   );
   app.get(
-    `${defaultRoute}/:id`,
+    `${defaultRoute}/id/:id`,
     searchOneClienteById,
   );
   app.get(

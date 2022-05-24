@@ -6,14 +6,13 @@ const createClientOnDatabase = (client) => {
   return clientCreated.save();
 };
 
-const searchOneClientByIdOnDatabase = async (id) => {
-  const client = await Clients.findOne({ _id: id });
-  return client;
+const searchOneClientByIdOnDatabase = (id) => {
+  return Clients.findOne({ _id: id })
 };
 
 const searchOneClientByEmailonDatabase = (email) => {
   return Clients.findOne({ email: email });
-}
+};
 
 const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
   const clients = await Clients.find(
@@ -37,5 +36,5 @@ module.exports = {
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
   searchClientsByFilterOnDatabase,
-  verifyExistsClients,
+  verifyExistsClients
 };

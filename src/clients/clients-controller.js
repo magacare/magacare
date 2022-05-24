@@ -49,7 +49,6 @@ const searchOneClienteById = async (req, res) => {
 const searchOneClientByEmail = async (req, res) => {
   try {
     const { email } = req.query;
-
     const client = await searchOneClientByEmailonDatabase(email);
     return res.status(200).json(client);
   } catch (error) {
@@ -59,10 +58,19 @@ const searchOneClientByEmail = async (req, res) => {
 
 const searchClientsByFilter = async (req, res) => {
   try {
-    const { page = 1, limit = 5 } = req.query;
+    const { filter, page = 1, limit = 5 } = req.query;
 
     const search = await searchClientsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(search);
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
+const searchAllClients = async (req, res) => {
+  try {
+    const clients = await searchOneClientByIdOnDatabase();
+    return res.status(200).json(clients);
   } catch (error) {
     return res.status(404).json(error);
   }
@@ -89,4 +97,5 @@ module.exports = {
   searchClientsByFilter,
   searchOneClienteById,
   searchOneClientByEmail,
+  searchAllClients
 };
