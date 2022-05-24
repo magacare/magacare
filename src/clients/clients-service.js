@@ -11,8 +11,9 @@ const searchOneClientByIdOnDatabase = async (id) => {
   return clientFound;
 };
 
-const searchOneClientByEmailonDatabase = (email) => {
-  return Clients.findOne({ email });
+const searchOneClientByEmailonDatabase = async (email) => {
+  const clientFound = await Clients.findOne({ email });
+  return clientFound;
 };
 
 const updateClientOnDatabase = async (id, client) => {
