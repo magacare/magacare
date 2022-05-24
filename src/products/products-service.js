@@ -13,13 +13,20 @@ const updateProductOnDatabase = async (code, product) => {
 
 const verifyExistsProducts = (value) => verifyExistsData(Products, value);
 
-const searchOneProductOnDatabase = (code) => {
-  return Products.find({ code });
+const searchOneProductOnDatabase = async (code) => {
+  const product = await Products.find({ code });
+  return product;
 };
+
+const searchAllProductsOnDatabase = async () => {
+  const products = await Products.find({});
+  return products;
+}
 
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
   searchOneProductOnDatabase,
+  searchAllProductsOnDatabase,
 };
