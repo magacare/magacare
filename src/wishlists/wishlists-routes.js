@@ -1,7 +1,11 @@
 const {
-  createWishList, updateWishList, searchOneWishlist, searchAllWishlists,
+  createWishList,
+  updateWishList,
+  searchOneWishlist,
+  searchAllWishlists,
 } = require('./wishlists-controller');
-const { WishListSchemaController } = require('../validate/schema-controller');
+
+const { WishListSchemaController, WishListSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
@@ -13,7 +17,7 @@ module.exports = (app) => {
   );
   app.put(
     `${defaultRoute}/:id`,
-    validator.validateFields(WishListSchemaController),
+    validator.validateFields(WishListSchemaControllerUpdate),
     updateWishList,
   );
   app.get(

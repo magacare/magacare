@@ -5,6 +5,7 @@ const {
   searchAllClients,
   searchOneClientByEmail,
 } = require('./clients-controller');
+
 const { ClientSchemaController } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
