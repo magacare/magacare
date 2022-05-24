@@ -17,7 +17,7 @@ const ProductSchemaController = Joi.object({
   name: Joi.string().required().min(2).message('The product name should have at least 2 characters'),
   description: Joi.string().required(),
   volume: Joi.string().required(),
-  recommendation: Joi.string().required().valid('Pele seca', 'Pele oleosa', 'Pele mista', 'Pele normal').lowercase(),
+  recommendation: Joi.string().required().valid('pele seca', 'pele oleosa', 'pele mista', 'pele normal', 'todas as peles').lowercase(),
 });
 
 const WishListSchemaController = Joi.object({
