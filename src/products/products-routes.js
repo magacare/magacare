@@ -17,7 +17,7 @@ module.exports = (app) => {
     updateProduct,
   );
   app.get(
-    `${defaultRoute}/:code`,
+    `${defaultRoute}/code/:code`,
     searchOneProduct,
   );
 };

@@ -14,11 +14,7 @@ const updateProductOnDatabase = async (code, product) => {
 const verifyExistsProducts = (value) => verifyExistsData(Products, value);
 
 const searchOneProductOnDatabase = (code) => {
-  let params = {};
-  if (code !== undefined && code !== null) {
-    params = { code };
-  }
-  return Products.find(params);
+  return Products.find({ code });
 };
 
 module.exports = {

@@ -7,11 +7,11 @@ const createClientOnDatabase = (client) => {
 };
 
 const searchOneClientByIdOnDatabase = (id) => {
-  return Clients.findOne({ _id: id })
+  return Clients.findOne({ id })
 };
 
 const searchOneClientByEmailonDatabase = (email) => {
-  return Clients.findOne({ email: email });
+  return Clients.findOne({ email });
 };
 
 const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
