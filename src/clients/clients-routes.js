@@ -5,6 +5,7 @@ const {
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+  deleteClient,
 } = require('./clients-controller');
 
 const { ClientSchemaController, ClientSchemaControllerUpdate } = require('../validate/schema-controller');
@@ -37,5 +38,9 @@ module.exports = (app) => {
     `${defaultRoute}/:id`,
     validator.validateFields(ClientSchemaControllerUpdate),
     updateClient,
+  );
+  app.delete(
+    `${defaultRoute}/:id`,
+    deleteClient,
   );
 };

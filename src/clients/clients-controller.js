@@ -7,9 +7,12 @@ const {
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
+  deleteClientOnDatabase,
 } = require('./clients-service');
 
 const checkPassword = require('../utils/checkPassword');
+
+const Wishlists = require('../wishlists/wishlists-model');
 
 const createClient = async (req, res) => {
   try {
@@ -152,6 +155,21 @@ const updateClient = async (req, res) => {
   }
 };
 
+const deleteClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Wishlists.deleteMany({ client: id });
+
+    const clientDeleted = await deleteClientOnDatabase(id);
+    return res.status(200).json({
+      message: 'client deleted',
+      product: clientDeleted,
+    });
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createClient,
   updateClient,
@@ -159,4 +177,5 @@ module.exports = {
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+  deleteClient,
 };

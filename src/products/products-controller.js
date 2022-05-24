@@ -5,6 +5,7 @@ const {
   verifyExistsProducts,
   searchAllProductsOnDatabase,
   searchProductsByFilterOnDatabase,
+  deleteProductOnDatabase,
 } = require('./products-service');
 
 const createProduct = async (req, res) => {
@@ -87,10 +88,25 @@ const searchProductsByFilter = async (req, res) => {
   }
 };
 
+const deleteProduct = async (req, res) => {
+  try {
+    const { code } = req.params;
+
+    const productDelete = await deleteProductOnDatabase(code);
+    return res.status(200).json({
+      message: 'product deleted',
+      product: productDelete,
+    });
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createProduct,
   updateProduct,
   searchOneProduct,
   searchAllProducts,
   searchProductsByFilter,
+  deleteProduct,
 };
