@@ -37,9 +37,17 @@ const createProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { code } = req.params;
-    const product = req.body;
+    const { name } = req.body;
 
-    const productUpdated = await updateProductOnDatabase(code, product);
+    const verifyNameExists = await verifyExistsProducts({ name });
+
+    if(verifyNameExists) {
+      return res.status(400).json({
+        message: 'This name already exists',
+      });
+    }
+
+    const productUpdated = await updateProductOnDatabase(code, req.body);
     return res.status(200).json({
       message: 'Product updated',
       product: productUpdated,
@@ -61,5 +69,5 @@ const searchOneProduct = async (req, res) => {
 module.exports = {
   createProduct,
   updateProduct,
-  searchOneProduct
+  searchOneProduct,
 };

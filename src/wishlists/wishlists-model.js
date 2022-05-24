@@ -21,14 +21,12 @@ const schema = mongoose.Schema({
     ref: 'Clients',
   },
   product: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Products',
+    type: String,
   }],
   createdAt: {
     type: Date,
     default: timeStamp,
   },
-
 });
 
-module.exports = mongoose.model('WhishLists', schema);
+module.exports = mongoose.model('WishLists', schema);

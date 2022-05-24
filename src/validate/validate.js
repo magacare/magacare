@@ -12,7 +12,13 @@ const verifyExistsData = async (Database, value) => {
   return data;
 };
 
+const verifyExistsManyData = async (Database, value) => {
+  const data = await Database.find(value);
+  return data;
+};
+
 module.exports = {
   validateFields,
   verifyExistsData,
+  verifyExistsManyData,
 };
