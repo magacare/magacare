@@ -3,7 +3,6 @@ const {
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
-  searchOneProductOnDatabase,
 } = require('./products-service');
 
 const createProduct = async (req, res) => {

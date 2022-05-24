@@ -4,7 +4,6 @@ const {
   updateClientOnDatabase,
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
-  searchClientsByFilterOnDatabase,
 } = require('./clients-service');
 
 const createClient = async (req, res) => {
@@ -56,17 +55,6 @@ const searchOneClientByEmail = async (req, res) => {
   }
 };
 
-const searchClientsByFilter = async (req, res) => {
-  try {
-    const { filter, page = 1, limit = 5 } = req.query;
-
-    const search = await searchClientsByFilterOnDatabase(filter, page, limit);
-    return res.status(200).json(search);
-  } catch (error) {
-    return res.status(404).json(error);
-  }
-};
-
 const updateClient = async (req, res) => {
   try {
     const { id } = req.params;
@@ -108,7 +96,6 @@ const updateClient = async (req, res) => {
 module.exports = {
   createClient,
   updateClient,
-  searchClientsByFilter,
   searchOneClienteById,
   searchOneClientByEmail
 };

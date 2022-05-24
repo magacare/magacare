@@ -1,7 +1,7 @@
 const { 
   createProduct, updateProduct, searchOneProduct
 } = require('./products-controller');
-const { ProductSchemaController } = require('../validate/schema-controller');
+const { ProductSchemaController, ProductSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
