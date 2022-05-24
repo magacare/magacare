@@ -14,15 +14,6 @@ const searchOneClientByEmailonDatabase = (email) => {
   return Clients.findOne({ email });
 };
 
-const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
-  const clients = await Clients.find(
-    {
-      "fullName": { $regex: filter, $options: 'i' }
-    },
-  ).limit(limit*1).skip((page-1)*limit);
-  return clients;
-};
-
 const searchAllClientsOnDatabase = async () => {
   const clients = await Clients.find({});
   return clients;
@@ -40,7 +31,6 @@ module.exports = {
   updateClientOnDatabase,
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
-  searchClientsByFilterOnDatabase,
   verifyExistsClients,
   searchAllClientsOnDatabase
 };
