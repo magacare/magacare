@@ -11,6 +11,7 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
+    'no-underscore-dangle': ['error', { allow: ['_id'] }],
     'keyword-spacing': ['error', {
       overrides: {
         try: { after: true },

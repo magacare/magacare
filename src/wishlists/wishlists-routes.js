@@ -1,7 +1,7 @@
 const {
   createWishList,
   updateWishList,
-  searchOneWishlist
+  searchOneWishlist,
 } = require('./wishlists-controller');
 
 const { WishListSchemaController, WishListSchemaControllerUpdate } = require('../validate/schema-controller');
