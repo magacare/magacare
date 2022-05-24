@@ -20,10 +20,10 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Clients',
   },
-  product: {
+  product: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Products',
-  },
+  }],
   createdAt: {
     type: Date,
     default: timeStamp,
