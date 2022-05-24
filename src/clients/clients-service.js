@@ -23,6 +23,11 @@ const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
   return clients;
 };
 
+const searchAllClientsOnDatabase = async () => {
+  const clients = await Clients.find({});
+  return clients;
+}
+
 const updateClientOnDatabase = async (id, client) => {
   const clientUpdated = await Clients.findOneAndUpdate({ _id: id }, { $set: client }, { new: true });
   return clientUpdated;
@@ -36,5 +41,6 @@ module.exports = {
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
   searchClientsByFilterOnDatabase,
-  verifyExistsClients
+  verifyExistsClients,
+  searchAllClientsOnDatabase
 };
