@@ -17,8 +17,13 @@ const searchOneClientByEmailonDatabase = async (email) => {
 };
 
 const searchAllClientsOnDatabase = async () => {
+<<<<<<< HEAD
   const clientsFound = await Clients.find({});
   return clientsFound;
+=======
+  const clients = await Clients.find({});
+  return clients;
+>>>>>>> 3018b4b7ff2acda7b1b0147404f35f5d22216b51
 }
 
 const updateClientOnDatabase = async (id, client) => {
