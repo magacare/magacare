@@ -2,7 +2,6 @@ const {
   createClient,
   updateClient,
   searchOneClienteById,
-  searchClientsByFilter,
   searchOneClientByEmail,
 } = require('./clients-controller');
 
@@ -23,10 +22,6 @@ module.exports = (app) => {
   app.get(
     `${defaultRoute}/id/:id`,
     searchOneClienteById,
-  );
-  app.get(
-    defaultRoute,
-    searchClientsByFilter,
   );
   app.put(
     `${defaultRoute}/:id`,
