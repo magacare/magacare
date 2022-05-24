@@ -67,15 +67,6 @@ const searchClientsByFilter = async (req, res) => {
   }
 };
 
-const searchAllClients = async (req, res) => {
-  try {
-    const clients = await searchOneClientByIdOnDatabase();
-    return res.status(200).json(clients);
-  } catch (error) {
-    return res.status(404).json(error);
-  }
-};
-
 const updateClient = async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,6 +87,5 @@ module.exports = {
   updateClient,
   searchClientsByFilter,
   searchOneClienteById,
-  searchOneClientByEmail,
-  searchAllClients
+  searchOneClientByEmail
 };

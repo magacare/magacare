@@ -14,12 +14,7 @@ const updateWishListOnDatabase = async (id, wishlist) => {
 const verifyExistsWishList = (value) => verifyExistsData(Wishlists, value);
 
 const searchOneWishlistOnDatabase = (id) => {
-  let params = {};
-  if(id !== undefined && id !== null) {
-    params = { _id: id };
-    return Wishlists.find(params);
-  }
-  return Wishlists.find(params);
+    return Wishlists.findOne({ id });
 };
 
 module.exports = {
