@@ -2,7 +2,7 @@ const {
   createClient,
   updateClient,
   searchOneClienteById,
-  searchAllClients,
+  searchClientsByFilter,
   searchOneClientByEmail,
 } = require('./clients-controller');
 const { ClientSchemaController } = require('../validate/schema-controller');
@@ -25,7 +25,7 @@ module.exports = (app) => {
   );
   app.get(
     defaultRoute,
-    searchAllClients,
+    searchClientsByFilter,
   );
   app.put(
     `${defaultRoute}/:id`,

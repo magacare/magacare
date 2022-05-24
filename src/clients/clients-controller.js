@@ -2,7 +2,9 @@ const {
   verifyExistsClients,
   createClientOnDatabase,
   updateClientOnDatabase,
-  searchOneClientOnDatabase,
+  searchOneClientByIdOnDatabase,
+  searchOneClientByEmailonDatabase,
+  searchClientsByFilterOnDatabase,
 } = require('./clients-service');
 
 const createClient = async (req, res) => {
@@ -37,8 +39,8 @@ const createClient = async (req, res) => {
 
 const searchOneClienteById = async (req, res) => {
   try {
-    const search = await searchOneClientOnDatabase(req.params.id);
-    return res.status(200).json(search);
+    const client = await searchOneClientByIdOnDatabase(req.params.id);
+    return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error.message);
   }
@@ -46,17 +48,20 @@ const searchOneClienteById = async (req, res) => {
 
 const searchOneClientByEmail = async (req, res) => {
   try {
-    const { email } = await req.body;
-    const client = await searchOneClientOnDatabase(email);
+    const { email } = req.query;
+
+    const client = await searchOneClientByEmailonDatabase(email);
     return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error);
   }
 };
 
-const searchAllClients = async (req, res) => {
+const searchClientsByFilter = async (req, res) => {
   try {
-    const search = await searchOneClientOnDatabase();
+    const { page = 1, limit = 5 } = req.query;
+
+    const search = await searchClientsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(search);
   } catch (error) {
     return res.status(404).json(error);
@@ -81,7 +86,7 @@ const updateClient = async (req, res) => {
 module.exports = {
   createClient,
   updateClient,
-  searchAllClients,
+  searchClientsByFilter,
   searchOneClienteById,
   searchOneClientByEmail,
 };
