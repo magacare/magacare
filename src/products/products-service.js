@@ -7,7 +7,7 @@ const createProductOnDatabase = (product) => {
 };
 
 const updateProductOnDatabase = async (code, product) => {
-  const productUpdated = await Products.findOneAndUpdate(code, { $set: product }, { new: true });
+  const productUpdated = await Products.findOneAndUpdate({ code }, { $set: product }, { new: true });
   return productUpdated;
 };
 

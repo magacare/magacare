@@ -1,5 +1,7 @@
-const { createProduct, updateProduct, searchOneProduct, searchAllProducts } = require('./products-controller');
-const { ProductSchemaController } = require('../validate/schema-controller');
+const {
+  createProduct, updateProduct, searchOneProduct, searchAllProducts,
+} = require('./products-controller');
+const { ProductSchemaController, ProductSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
@@ -11,15 +13,15 @@ module.exports = (app) => {
   );
   app.put(
     `${defaultRoute}/:code`,
-    validator.validateFields(ProductSchemaController),
+    validator.validateFields(ProductSchemaControllerUpdate),
     updateProduct,
   );
   app.get(
-      `${defaultRoute}/:code`,
-      searchOneProduct
-    );
-    app.get(
-      defaultRoute,
-      searchAllProducts
-    );
+    `${defaultRoute}/:code`,
+    searchOneProduct,
+  );
+  app.get(
+    defaultRoute,
+    searchAllProducts,
+  );
 };

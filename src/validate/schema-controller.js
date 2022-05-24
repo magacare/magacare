@@ -20,6 +20,13 @@ const ProductSchemaController = Joi.object({
   recommendation: Joi.string().required().valid('pele seca', 'pele oleosa', 'pele mista', 'pele normal', 'todas as peles').lowercase(),
 });
 
+const ProductSchemaControllerUpdate = Joi.object({
+  name: Joi.string().required().min(2).message('The product name should have at least 2 characters'),
+  description: Joi.string().required(),
+  volume: Joi.string().required(),
+  recommendation: Joi.string().required().valid('pele seca', 'pele oleosa', 'pele mista', 'pele normal', 'todas as peles').lowercase(),
+});
+
 const WishListSchemaController = Joi.object({
   title: Joi.string().required().min(4).message('The title of wishlist should have at least 4 characters'),
   client: Joi.string().required().min(2).message('The id of client should have at least 2 characters'),
@@ -29,5 +36,6 @@ const WishListSchemaController = Joi.object({
 module.exports = {
   ClientSchemaController,
   ProductSchemaController,
+  ProductSchemaControllerUpdate,
   WishListSchemaController,
 };
