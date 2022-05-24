@@ -68,10 +68,33 @@ const updateClient = async (req, res) => {
     const { id } = req.params;
     const client = req.body;
 
-    const clientUpdated = await updateClientOnDatabase(id, client);
-    return res.status(200).json({
-      message: 'Client updated',
-      client: clientUpdated,
+    const { email, cpf } = client;
+
+    const verifyIdExists = await verifyExistsClients({ _id: id });
+    const verifyEmailExists = await verifyExistsClients({ email });
+    const verifyCpfExists = await verifyExistsClients({ cpf });
+
+    if(verifyEmailExists) {
+      return res.status(400).json({
+        message: 'This email already exists',
+      });
+    }
+
+    if(verifyCpfExists) {
+      return res.status(400).json({
+        message: 'This cpf already exists',
+      });
+    }
+
+    if(verifyIdExists) {
+      const clientUpdated = await updateClientOnDatabase(id, client);
+      return res.status(200).json({
+        message: 'Client updated',
+        client: clientUpdated,
+      });
+    }
+    return res.status(404).json({
+      message: 'Please, return a valid id',
     });
   } catch (error) {
     return res.status(404).json(error);
