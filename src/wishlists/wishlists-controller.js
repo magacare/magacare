@@ -31,6 +31,15 @@ const updateWishList = async (req, res) => {
   try {
     const { id } = req.params;
     const wishlist = req.body;
+    const { title } = wishlist;
+
+    const verifyTitleExists = await verifyExistsWishList({ title });
+
+    if(verifyTitleExists) {
+      return res.status(400).json({
+        error: 'This title already exists',
+      });
+    }
 
     const wishlistUpdated = await updateWishListOnDatabase(id, wishlist);
     return res.status(200).json({

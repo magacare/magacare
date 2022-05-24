@@ -15,7 +15,7 @@ const verifyExistsProducts = (value) => verifyExistsData(Products, value);
 
 const searchOneProductOnDatabase = (code) => {
   let params = {};
-  if(code !== undefined && code !== null) {
+  if (code !== undefined && code !== null) {
     params = { code };
   }
   return Products.find(params);
