@@ -15,7 +15,7 @@ const verifyExistsWishList = (value) => verifyExistsData(Wishlists, value);
 
 const searchOneWishlistOnDatabase = (id) => {
   let params = {};
-  if (id !== undefined && id !== null) {
+  if(id !== undefined && id !== null) {
     params = { _id: id };
     return Wishlists.find(params);
   }
