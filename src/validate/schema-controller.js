@@ -30,7 +30,7 @@ const ProductSchemaControllerUpdate = Joi.object({
 const WishListSchemaController = Joi.object({
   title: Joi.string().required().min(4).message('The title of wishlist should have at least 4 characters'),
   client: Joi.string().required().min(2).message('The id of client should have at least 2 characters'),
-  product: Joi.array().required().min(2).message('The code of product should have at least 2 characters'),
+  product: Joi.array().required().min(1).message('The wishlist must contain at least 1 product'),
 });
 
 module.exports = {
