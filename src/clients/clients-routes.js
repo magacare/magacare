@@ -6,7 +6,7 @@ const {
   searchAllClients,
 } = require('./clients-controller');
 
-const { ClientSchemaController } = require('../validate/schema-controller');
+const { ClientSchemaController, ClientSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
@@ -30,7 +30,7 @@ module.exports = (app) => {
   );
   app.put(
     `${defaultRoute}/:id`,
-    validator.validateFields(ClientSchemaController),
+    validator.validateFields(ClientSchemaControllerUpdate),
     updateClient,
   );
 };
