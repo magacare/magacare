@@ -7,7 +7,7 @@ const {
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
-  searchClientByWishlistOnDatabase,
+  searchWishlistByClientOnDatabase,
 } = require('./clients-service');
 
 const checkPassword = require('../utils/checkPassword');
@@ -84,7 +84,7 @@ const searchClientsByFilter = async (req, res) => {
 const searchClientByWishlist = async (req, res) => {
   try {
     const { id } = req.params;
-    const client = await searchClientByWishlistOnDatabase(id);
+    const client = await searchWishlistByClientOnDatabase(id);
     return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error.message);

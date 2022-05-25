@@ -31,7 +31,7 @@ module.exports = (app) => {
     searchClientsByFilter,
   );
   app.get(
-    `${defaultRoute}/wishlist/:id`,
+    `${defaultRoute}/wishlists/:id`,
     searchClientByWishlist,
   );
   app.get(
