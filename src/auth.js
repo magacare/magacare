@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
   const authHeaders = req.headers.authorization;
 
   if(!authHeaders) {
-    return res.status(401).json({ error: 'Token não enviado!' });
+    return res.status(401).json({ error: 'Token not send!' });
   }
 
   const [, token] = authHeaders.split(' ');
@@ -21,6 +21,6 @@ module.exports = async (req, res, next) => {
 
     return next();
   } catch (err) {
-    return res.status(401).json({ error: 'Token invalido!' });
+    return res.status(401).json({ error: 'Invalid token!' });
   }
 };

@@ -10,7 +10,7 @@ const autenticateClient = async (req, res) => {
   const client = await verfiyClientExists({ email });
 
   if(!client) {
-    return res.status(401).json({ error: 'Client not exists' });
+    return res.status(401).json({ error: 'Client not exist' });
   }
 
   if(!(await checkPassword(password, client.password))) {
