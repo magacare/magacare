@@ -24,7 +24,6 @@ const updateWishListOnDatabase = async (id, wishlist) => {
 };
 
 const verifyExistsWishList = (value) => verifyExistsData(Wishlists, value);
-const verifyExistsProductsOnWishList = (value) => verifyExistsManyData(Wishlists, value);
 const verifyExistsClient = (value) => verifyExistsData(Clients, value);
 const verifyExistsProduct = (value) => verifyExistsManyData(Products, value);
 
@@ -75,7 +74,6 @@ module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
   verifyExistsWishList,
-  verifyExistsProductsOnWishList,
   searchOneWishlistOnDatabase,
   verifyExistsClient,
   verifyExistsProduct,
