@@ -6,6 +6,7 @@ const {
   searchAllProductsOnDatabase,
   searchProductsByFilterOnDatabase,
   deleteProductOnDatabase,
+  searchWishlistsByProductOnDatabase,
 } = require('./products-service');
 
 const createProduct = async (req, res) => {
@@ -88,6 +89,16 @@ const searchProductsByFilter = async (req, res) => {
   }
 };
 
+const searchWishlistsByProduct = async (req, res) => {
+  try {
+    const { code } = req.params;
+    const wishlists = await searchWishlistsByProductOnDatabase(code);
+    return res.status(200).json(wishlists);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
+
 const deleteProduct = async (req, res) => {
   try {
     const { code } = req.params;
@@ -99,8 +110,6 @@ const deleteProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(404).json(error);
-  }
-};
 
 module.exports = {
   createProduct,
@@ -108,5 +117,6 @@ module.exports = {
   searchOneProduct,
   searchAllProducts,
   searchProductsByFilter,
+  searchWishlistsByProduct,
   deleteProduct,
 };

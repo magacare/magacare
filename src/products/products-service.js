@@ -1,4 +1,5 @@
 const Products = require('./products-model');
+const Wishlists = require('../wishlists/wishlists-model');
 const { verifyExistsData } = require('../validate/validate');
 
 const createProductOnDatabase = (product) => {
@@ -32,6 +33,12 @@ const searchProductsByFilterOnDatabase = async (filter, page, limit) => {
   return products;
 };
 
+const searchWishlistsByProductOnDatabase = async (productCode) => {
+  const wishlistsSearch = await Wishlists.find( { product: { $in: productCode } } );
+  const wishlists = wishlistsSearch.map(wishlist => wishlist.id);
+  return wishlists;
+};
+
 const deleteProductOnDatabase = async (code) => {
   const productDelete = await Products.findOneAndDelete(code);
   return productDelete;
@@ -44,5 +51,6 @@ module.exports = {
   searchOneProductOnDatabase,
   searchAllProductsOnDatabase,
   searchProductsByFilterOnDatabase,
+  searchWishlistsByProductOnDatabase,
   deleteProductOnDatabase,
 };

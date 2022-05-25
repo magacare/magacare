@@ -21,6 +21,10 @@ module.exports = (app) => {
     searchOneProduct,
   );
   app.get(
+    `${defaultRoute}/wishlists/:code`,
+    searchWishlistsByProduct,
+  );
+  app.get(
     defaultRoute,
     searchAllProducts,
   );
