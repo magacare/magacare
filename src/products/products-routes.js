@@ -29,7 +29,7 @@ module.exports = (app) => {
     searchAllProducts,
   );
   app.get(
-    `${defaultRoute}/filter`,
+    `${defaultRoute}/search`,
     searchProductsByFilter,
   );
   app.delete(

@@ -9,6 +9,7 @@ const {
   verifyExistsProductsOnWishList,
   searchAllWishlistsOnDatabase,
   searchWishlistsByClientIdOnDatabase,
+  searchWishlistByFilterOnDatabase,
 } = require('./wishlists-service');
 
 const createWishList = async (req, res) => {
@@ -140,8 +141,18 @@ const searchWishlistsByClientId = async (req, res) => {
     return res.status(200).json(wishlists);
   } catch (error) {
     return res.status(404).json(error.message);
-  }
-}
+  };
+};
+
+const searchWishlistsByFilter = async (req, res) => {
+  try {
+    const { searchBy, filter, page = 1, limit = 5 } = req.query;
+    const wishlists = await searchWishlistByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
+    return res.status(200).json(wishlists);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  };
+};
 
 const searchAllWishlists = async (req, res) => {
   try {
@@ -173,4 +184,5 @@ module.exports = {
   searchAllWishlists,
   deleteWishlist,
   searchWishlistsByClientId,
+  searchWishlistsByFilter,
 };

@@ -5,6 +5,7 @@ const {
   searchAllWishlists,
   deleteWishlist,
   searchWishlistsByClientId,
+  searchWishlistsByFilter,
 } = require('./wishlists-controller');
 
 const { WishListSchemaController, WishListSchemaControllerUpdate } = require('../validate/schema-controller');
@@ -29,6 +30,10 @@ module.exports = (app) => {
   app.get(
     `${defaultRoute}/client/:id`,
     searchWishlistsByClientId,
+  );
+  app.get(
+    `${defaultRoute}/search`,
+    searchWishlistsByFilter,
   );
   app.get(
     defaultRoute,

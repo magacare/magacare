@@ -42,7 +42,6 @@ const searchProductsByFilterOnDatabase = async (searchBy, filter, page, limit) =
     case "recommendation":
       const productsByRecommendation = await Products.find({ recommendation: filter })
       .limit(limit * 1).skip((page - 1) * limit);
-
       return productsByRecommendation;
   };
 };

@@ -38,11 +38,30 @@ const searchWishlistsByClientIdOnDatabase = async (clientId) => {
   const wishlistsIdAndProducts = wishlistSearch.map(wishlist => {
     const wishlistModel = {
       id: wishlist.id,
+      title: wishlist.title,
       products: wishlist.product
     }
     return wishlistModel;
   })
   return wishlistsIdAndProducts;
+};
+
+const searchWishlistByFilterOnDatabase = async (searchBy, filter, page, limit) => {
+  switch (searchBy) {
+    case "client":
+      const wishlistsByClient = await Wishlists.find({ client: filter })
+      .limit(limit * 1).skip((page - 1) * limit);
+      return wishlistsByClient;
+
+    case "id":
+      const wishlistsById = await searchOneWishlistOnDatabase(filter);
+      return wishlistsById;
+
+    case "product":
+      const wishlistsByProducts = await Wishlists.find({ product: { $in: filter } })
+      .limit(limit * 1).skip((page - 1) * limit);
+      return wishlistsByProducts;
+  };
 };
 
 const searchAllWishlistsOnDatabase = () => Wishlists.find({});
@@ -63,4 +82,5 @@ module.exports = {
   searchAllWishlistsOnDatabase,
   deleteWishlistOnDatabase,
   searchWishlistsByClientIdOnDatabase,
+  searchWishlistByFilterOnDatabase,
 };
