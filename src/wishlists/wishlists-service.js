@@ -35,6 +35,11 @@ const searchOneWishlistOnDatabase = async (id) => {
 
 const searchAllWishlistsOnDatabase = () => Wishlists.find({});
 
+const deleteWishlistOnDatabase = async (id) => {
+  const wishlistDeleted = await Wishlists.findOneAndDelete({ _id: id });
+  return wishlistDeleted;
+};
+
 module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
@@ -44,4 +49,5 @@ module.exports = {
   verifyExistsClient,
   verifyExistsProduct,
   searchAllWishlistsOnDatabase,
+  deleteWishlistOnDatabase,
 };

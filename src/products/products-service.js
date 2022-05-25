@@ -27,7 +27,7 @@ const searchAllProductsOnDatabase = async () => {
 const searchProductsByFilterOnDatabase = async (filter, page, limit) => {
   const products = await Products.find(
     {
-      name: { "$regex": filter, "$options": 'i' },
+      name: { $regex: filter, $options: 'i' },
     },
   ).limit(limit * 1).skip((page - 1) * limit);
   return products;
@@ -39,6 +39,11 @@ const searchWishlistsByProductOnDatabase = async (productCode) => {
   return wishlists;
 };
 
+const deleteProductOnDatabase = async (code) => {
+  const productDelete = await Products.findOneAndDelete(code);
+  return productDelete;
+};
+
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
@@ -47,4 +52,5 @@ module.exports = {
   searchAllProductsOnDatabase,
   searchProductsByFilterOnDatabase,
   searchWishlistsByProductOnDatabase,
+  deleteProductOnDatabase,
 };

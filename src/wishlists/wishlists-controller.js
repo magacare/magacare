@@ -2,6 +2,7 @@ const {
   createWishListOnDatabase,
   updateWishListOnDatabase,
   searchOneWishlistOnDatabase,
+  deleteWishlistOnDatabase,
   verifyExistsWishList,
   verifyExistsClient,
   verifyExistsProduct,
@@ -62,7 +63,7 @@ const createWishList = async (req, res) => {
     createWishListOnDatabase(wishList);
 
     return res.status(201).json({
-      error: 'WishList registered',
+      message: 'WishList registered',
     });
   } catch (error) {
     return res.status(404).json(error);
@@ -140,9 +141,24 @@ const searchAllWishlists = async (req, res) => {
   }
 };
 
+const deleteWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const wishlistDeleted = await deleteWishlistOnDatabase(id);
+    return res.status(200).json({
+      message: 'wishlist deleted',
+      product: wishlistDeleted,
+    });
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createWishList,
   updateWishList,
   searchOneWishlist,
   searchAllWishlists,
+  deleteWishlist,
 };
