@@ -79,7 +79,7 @@ const searchAllProducts = async (req, res) => {
 
 const searchProductsByFilter = async (req, res) => {
   try {
-    const { filter, page=1, limit=5 } = req.query;
+    const { filter, page = 1, limit = 5 } = req.query;
     const products = await searchProductsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(products);
   } catch (error) {

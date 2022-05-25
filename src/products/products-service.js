@@ -21,14 +21,14 @@ const searchOneProductOnDatabase = async (code) => {
 const searchAllProductsOnDatabase = async () => {
   const products = await Products.find({});
   return products;
-}
+};
 
 const searchProductsByFilterOnDatabase = async (filter, page, limit) => {
   const products = await Products.find(
     {
-      "name": { "$regex": filter, "$options": 'i' }
+      name: { $regex: filter, $options: 'i' },
     },
-  ).limit(limit*1).skip((page-1)*limit);
+  ).limit(limit * 1).skip((page - 1) * limit);
   return products;
 };
 
@@ -38,5 +38,5 @@ module.exports = {
   verifyExistsProducts,
   searchOneProductOnDatabase,
   searchAllProductsOnDatabase,
-  searchProductsByFilterOnDatabase
+  searchProductsByFilterOnDatabase,
 };

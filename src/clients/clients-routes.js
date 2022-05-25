@@ -27,7 +27,7 @@ module.exports = (app) => {
   );
   app.get(
     `${defaultRoute}/filter`,
-    searchClientsByFilter
+    searchClientsByFilter,
   );
   app.get(
     defaultRoute,
