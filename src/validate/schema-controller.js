@@ -1,5 +1,10 @@
 const Joi = require('joi');
 
+const SessionController = Joi.object({
+  email: Joi.string().required().email(),
+  password: Joi.string().required().min(6).message('The password should have at least 6 characters.'),
+});
+
 const ClientSchemaController = Joi.object({
   fullName: Joi.string().required().min(4).message('The name of client should have at least 4 characters.'),
   email: Joi.string().required().email(),
@@ -53,6 +58,7 @@ const WishListSchemaControllerUpdate = Joi.object({
 });
 
 module.exports = {
+  SessionController,
   ClientSchemaController,
   ClientSchemaControllerUpdate,
   ProductSchemaController,

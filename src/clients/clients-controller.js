@@ -7,9 +7,13 @@ const {
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
+  deleteClientOnDatabase,
+  searchWishlistByClientOnDatabase,
 } = require('./clients-service');
 
 const checkPassword = require('../utils/checkPassword');
+
+const Wishlists = require('../wishlists/wishlists-model');
 
 const createClient = async (req, res) => {
   try {
@@ -48,7 +52,7 @@ const createClient = async (req, res) => {
   }
 };
 
-const searchOneClienteById = async (req, res) => {
+const searchOneClientById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -75,6 +79,16 @@ const searchClientsByFilter = async (req, res) => {
 
     const clients = await searchClientsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(clients);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
+
+const searchWishlistByClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const client = await searchWishlistByClientOnDatabase(id);
+    return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error.message);
   }
@@ -152,11 +166,35 @@ const updateClient = async (req, res) => {
   }
 };
 
+const deleteClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleteWishlist = await Wishlists.deleteMany({ client: id });
+
+    if(deleteWishlist) {
+      const clientDeleted = await deleteClientOnDatabase({ _id: id });
+      return res.status(200).json({
+        message: 'client and wishlist deleted',
+        client: clientDeleted,
+      });
+    }
+    const clientDeleted2 = await deleteClientOnDatabase({ _id: id });
+    return res.status(200).json({
+      message: 'client deleted',
+      client: clientDeleted2,
+    });
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createClient,
   updateClient,
-  searchOneClienteById,
+  searchOneClientById,
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+  deleteClient,
+  searchWishlistByClient,
 };

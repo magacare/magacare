@@ -2,12 +2,12 @@ const {
   createWishListOnDatabase,
   updateWishListOnDatabase,
   searchOneWishlistOnDatabase,
+  deleteWishlistOnDatabase,
   verifyExistsWishList,
   verifyExistsClient,
   verifyExistsProduct,
   verifyExistsProductsOnWishList,
   searchAllWishlistsOnDatabase,
-  searchWishlistsByProductOnDatabase,
 } = require('./wishlists-service');
 
 const createWishList = async (req, res) => {
@@ -26,7 +26,7 @@ const createWishList = async (req, res) => {
 
     const productExistsOnWishLists = code && await verifyExistsProductsOnWishList({ product: { $in: [...code] } });
 
-    if(code && productExistsOnWishLists.length > 0) {
+    if(code && productExistsOnWishLists.length > 1) {
       return res.status(400).json({
         error: 'The wish list has products duplicate',
         products: code,
@@ -62,7 +62,7 @@ const createWishList = async (req, res) => {
     createWishListOnDatabase(wishList);
 
     return res.status(201).json({
-      error: 'WishList registered',
+      message: 'WishList registered',
     });
   } catch (error) {
     return res.status(404).json(error);
@@ -131,16 +131,6 @@ const searchOneWishlist = async (req, res) => {
   }
 };
 
-const searchWishlistsByProduct = async (req, res) => {
-  try {
-    const { code } = req.params;
-    const wishlists = await searchWishlistsByProductOnDatabase(code);
-    return res.status(200).json(wishlists);
-  } catch (error) {
-    return res.status(404).json(error.message);
-  }
-};
-
 const searchAllWishlists = async (req, res) => {
   try {
     const wishlists = await searchAllWishlistsOnDatabase();
@@ -150,10 +140,24 @@ const searchAllWishlists = async (req, res) => {
   }
 };
 
+const deleteWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const wishlistDeleted = await deleteWishlistOnDatabase(id);
+    return res.status(200).json({
+      message: 'wishlist deleted',
+      product: wishlistDeleted,
+    });
+  } catch (error) {
+    return res.status(404).json(error);
+  }
+};
+
 module.exports = {
   createWishList,
   updateWishList,
   searchOneWishlist,
   searchAllWishlists,
-  searchWishlistsByProduct,
+  deleteWishlist,
 };

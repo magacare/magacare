@@ -1,33 +1,33 @@
 const {
-  createClient,
   updateClient,
-  searchOneClienteById,
+  searchOneClientById,
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+  deleteClient,
+  searchWishlistByClient,
 } = require('./clients-controller');
 
-const { ClientSchemaController, ClientSchemaControllerUpdate } = require('../validate/schema-controller');
+const { ClientSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
   const defaultRoute = '/clients';
-  app.post(
-    defaultRoute,
-    validator.validateFields(ClientSchemaController),
-    createClient,
-  );
   app.get(
     `${defaultRoute}/email`,
     searchOneClientByEmail,
   );
   app.get(
     `${defaultRoute}/id/:id`,
-    searchOneClienteById,
+    searchOneClientById,
   );
   app.get(
     `${defaultRoute}/filter`,
     searchClientsByFilter,
+  );
+  app.get(
+    `${defaultRoute}/wishlists/:id`,
+    searchWishlistByClient,
   );
   app.get(
     defaultRoute,
@@ -37,5 +37,9 @@ module.exports = (app) => {
     `${defaultRoute}/:id`,
     validator.validateFields(ClientSchemaControllerUpdate),
     updateClient,
+  );
+  app.delete(
+    `${defaultRoute}/:id`,
+    deleteClient,
   );
 };

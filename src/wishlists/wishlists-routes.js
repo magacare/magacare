@@ -3,7 +3,7 @@ const {
   updateWishList,
   searchOneWishlist,
   searchAllWishlists,
-  searchWishlistsByProduct,
+  deleteWishlist,
 } = require('./wishlists-controller');
 
 const { WishListSchemaController, WishListSchemaControllerUpdate } = require('../validate/schema-controller');
@@ -26,11 +26,11 @@ module.exports = (app) => {
     searchOneWishlist,
   );
   app.get(
-    `${defaultRoute}/product/:code`,
-    searchWishlistsByProduct,
-  );
-  app.get(
     defaultRoute,
     searchAllWishlists,
+  );
+  app.delete(
+    `${defaultRoute}/:id`,
+    deleteWishlist,
   );
 };
