@@ -13,14 +13,10 @@ const updateProductOnDatabase = async (code, product) => {
 
 const verifyExistsProducts = (value) => verifyExistsData(Products, value);
 
-<<<<<<< HEAD
-const searchOneProductOnDatabase = (code) => Products.find({ code });
-=======
 const searchOneProductOnDatabase = async (code) => {
   const product = await Products.find({ code });
   return product;
 };
->>>>>>> 89e6c83 (mlc: add get all products)
 
 const searchAllProductsOnDatabase = async () => {
   const products = await Products.find({});

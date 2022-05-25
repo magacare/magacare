@@ -80,8 +80,5 @@ module.exports = {
   createProduct,
   updateProduct,
   searchOneProduct,
-<<<<<<< HEAD
-=======
   searchAllProducts,
->>>>>>> 89e6c83 (mlc: add get all products)
 };
