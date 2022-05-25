@@ -25,13 +25,13 @@ const createClient = async (req, res) => {
 
     if(verifyEmailExists) {
       return res.status(400).json({
-        message: 'This email already exists',
+        message: 'This email is already in use',
       });
     }
 
     if(verifyCpfExists) {
       return res.status(400).json({
-        message: 'This cpf already exists',
+        message: 'This cpf is already in use',
       });
     }
 
@@ -47,7 +47,7 @@ const createClient = async (req, res) => {
     return res.status(201).json({
       message: 'Client registered',
     });
-  } catch (error) {
+  } catch(error) {
     return res.status(500).json(error.message);
   }
 };
@@ -58,7 +58,7 @@ const searchOneClientById = async (req, res) => {
   try {
     const client = await searchOneClientByIdOnDatabase(id);
     return res.status(200).json(client);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -68,17 +68,19 @@ const searchOneClientByEmail = async (req, res) => {
     const { email } = req.query;
     const client = await searchOneClientByEmailonDatabase(email);
     return res.status(200).json(client);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
 
 const searchClientsByFilter = async (req, res) => {
   try {
-    const { searchBy, filter, page = 1, limit = 5 } = req.query;
+    const {
+      searchBy, filter, page = 1, limit = 5,
+    } = req.query;
     const clients = await searchClientsByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
     return res.status(200).json(clients);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -88,7 +90,7 @@ const searchWishlistByClient = async (req, res) => {
     const { id } = req.params;
     const client = await searchWishlistByClientOnDatabase(id);
     return res.status(200).json(client);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -97,7 +99,7 @@ const searchAllClients = async (req, res) => {
   try {
     const clients = await searchAllClientsOnDatabase();
     return res.status(200).json(clients);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error);
   }
 };
@@ -115,21 +117,21 @@ const updateClient = async (req, res) => {
     const verifyEmailExists = await verifyExistsClients({ email });
     const verifyCpfExists = await verifyExistsClients({ cpf });
 
-    if(verifyEmailExists && !email) {
+    if(verifyEmailExists) {
       return res.status(400).json({
-        message: 'This email already exists',
+        message: 'This email is already in use',
       });
     }
 
-    if(verifyCpfExists && !cpf) {
+    if(verifyCpfExists) {
       return res.status(400).json({
-        message: 'This cpf already exists',
+        message: 'This cpf is already in use',
       });
     }
 
-    if(verifyIdExists) {
-      const clientRegistered = verifyIdExists;
+    const clientRegistered = verifyIdExists;
 
+    if(clientRegistered) {
       if((!(oldPassword && confirmPassword) && password)) {
         return res
           .status(401)
@@ -141,6 +143,13 @@ const updateClient = async (req, res) => {
           .status(401)
           .json({ error: 'This password does not match' });
       }
+
+      if(confirmPassword !== password) {
+        return res
+          .status(401)
+          .json({ error: 'The password and the confirmation password do not match' });
+      }
+
       const hashPassword = oldPassword && confirmPassword && password
         ? await bcryptpjs.hash(confirmPassword, 8)
         : clientRegistered.password;
@@ -160,7 +169,7 @@ const updateClient = async (req, res) => {
     return res.status(404).json({
       message: 'Please, return a valid id',
     });
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -182,7 +191,7 @@ const deleteClient = async (req, res) => {
       message: 'client deleted',
       client: clientDeleted2,
     });
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error);
   }
 };
