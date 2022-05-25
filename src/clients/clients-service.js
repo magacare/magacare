@@ -16,6 +16,7 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
+<<<<<<< HEAD
 const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
   const clients = await Clients.find(
     {
@@ -32,6 +33,8 @@ const searchClientByWishlistOnDatabase = async (idWishlist) => {
   return searchClient;
 }
 
+=======
+>>>>>>> af6265dc5c4aa34eda1ac5b4aeab9a812760d905
 const searchAllClientsOnDatabase = async () => {
   const clientsFound = await Clients.find({});
   return clientsFound;
@@ -43,6 +46,15 @@ const updateClientOnDatabase = async (id, client) => {
 };
 
 const verifyExistsClients = (value) => verifyExistsData(Clients, value);
+
+const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      fullName: { $regex: filter, $options: 'i' },
+    },
+  ).limit(limit * 1).skip((page - 1) * limit);
+  return clients;
+};
 
 module.exports = {
   createClientOnDatabase,
