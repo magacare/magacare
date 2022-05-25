@@ -39,7 +39,7 @@ const createClient = async (req, res) => {
 };
 
 const searchOneClienteById = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
 
   try {
     const client = await searchOneClientByIdOnDatabase(id);
@@ -71,9 +71,9 @@ const searchClientsByFilter = async (req, res) => {
 }
 
 const searchAllClients = async (req, res) => {
-  try{
+  try {
     const clients = await searchAllClientsOnDatabase();
-    return res.status(200).json(clients)
+    return res.status(200).json(clients);
   } catch (error) {
     return res.status(404).json(error);
   }
