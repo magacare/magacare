@@ -5,6 +5,10 @@ const {
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
+<<<<<<< HEAD
+=======
+  searchClientsByFilterOnDatabase
+>>>>>>> whflawiZ
 } = require('./clients-service');
 
 const createClient = async (req, res) => {
@@ -54,9 +58,20 @@ const searchOneClientByEmail = async (req, res) => {
     const client = await searchOneClientByEmailonDatabase(email);
     return res.status(200).json(client);
   } catch (error) {
-    return res.status(404).json(error);
+    return res.status(404).json(message.error);
   }
 };
+
+const searchClientsByFilter = async (req, res) => {
+  try {
+    const { filter, page=1, limit=5 } = req.query;
+
+    const clients = await searchClientsByFilterOnDatabase(filter, page, limit);
+    return res.status(200).json(clients);
+  } catch (error) {
+    return res.status(404).json(message.error);
+  }
+}
 
 const searchAllClients = async (req, res) => {
   try {
@@ -111,4 +126,8 @@ module.exports = {
   searchOneClienteById,
   searchOneClientByEmail,
   searchAllClients,
+<<<<<<< HEAD
+=======
+  searchClientsByFilter
+>>>>>>> whflawiZ
 };

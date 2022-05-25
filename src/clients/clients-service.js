@@ -28,6 +28,15 @@ const updateClientOnDatabase = async (id, client) => {
 
 const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 
+const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      "fullName": { "$regex": filter, "$options": 'i' }
+    },
+  ).limit(limit*1).skip((page-1)*limit);
+  return clients;
+};
+
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
@@ -35,4 +44,8 @@ module.exports = {
   searchOneClientByEmailonDatabase,
   verifyExistsClients,
   searchAllClientsOnDatabase,
+<<<<<<< HEAD
+=======
+  searchClientsByFilterOnDatabase
+>>>>>>> whflawiZ
 };
