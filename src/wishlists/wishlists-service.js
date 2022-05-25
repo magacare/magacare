@@ -30,6 +30,8 @@ const verifyExistsProduct = (value) => verifyExistsManyData(Products, value);
 
 const searchOneWishlistOnDatabase = (id) => Wishlists.findOne({ id });
 
+const searchAllWishlistsOnDatabase = () => Wishlists.find({});
+
 module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
@@ -38,4 +40,5 @@ module.exports = {
   searchOneWishlistOnDatabase,
   verifyExistsClient,
   verifyExistsProduct,
+  searchAllWishlistsOnDatabase,
 };

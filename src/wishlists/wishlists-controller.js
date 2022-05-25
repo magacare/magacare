@@ -6,6 +6,7 @@ const {
   verifyExistsClient,
   verifyExistsProduct,
   verifyExistsProductsOnWishList,
+  searchAllWishlistsOnDatabase,
 } = require('./wishlists-service');
 
 const createWishList = async (req, res) => {
@@ -129,8 +130,18 @@ const searchOneWishlist = async (req, res) => {
   }
 };
 
+const searchAllWishlists = async (req, res) => {
+  try {
+    const wishlists = await searchAllWishlistsOnDatabase();
+    return res.status(200).json(wishlists);
+  } catch (error) {
+    return res.status(404).json(error.message);
+}
+};
+
 module.exports = {
   createWishList,
   updateWishList,
   searchOneWishlist,
+  searchAllWishlists,
 };
