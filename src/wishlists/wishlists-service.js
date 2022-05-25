@@ -28,7 +28,10 @@ const verifyExistsProductsOnWishList = (value) => verifyExistsManyData(Wishlists
 const verifyExistsClient = (value) => verifyExistsData(Clients, value);
 const verifyExistsProduct = (value) => verifyExistsManyData(Products, value);
 
-const searchOneWishlistOnDatabase = (id) => Wishlists.findOne({ id });
+const searchOneWishlistOnDatabase = async (id) => {
+  const wishlist = await Wishlists.findOne({ _id: id });
+  return wishlist;
+};
 
 const searchAllWishlistsOnDatabase = () => Wishlists.find({});
 
