@@ -23,10 +23,20 @@ const searchAllProductsOnDatabase = async () => {
   return products;
 }
 
+const searchProductsByFilterOnDatabase = async (filter, page, limit) => {
+  const products = await Products.find(
+    {
+      "name": { "$regex": filter, "$options": 'i' }
+    },
+  ).limit(limit*1).skip((page-1)*limit);
+  return products;
+};
+
 module.exports = {
   createProductOnDatabase,
   updateProductOnDatabase,
   verifyExistsProducts,
   searchOneProductOnDatabase,
   searchAllProductsOnDatabase,
+  searchProductsByFilterOnDatabase
 };
