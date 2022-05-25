@@ -18,7 +18,7 @@ const createWishList = async (req, res) => {
     const verifyTitleExists = await verifyExistsWishList({ title });
     const clientExists = await verifyExistsClient({ _id: client });
 
-    if(verifyTitleExists) {
+    if (verifyTitleExists) {
       return res.status(400).json({
         error: 'This title already exists',
       });
@@ -26,7 +26,7 @@ const createWishList = async (req, res) => {
 
     const productExistsOnWishLists = code && await verifyExistsProductsOnWishList({ product: { $in: [...code] } });
 
-    if(code && productExistsOnWishLists.length > 0) {
+    if (code && productExistsOnWishLists.length > 1) {
       return res.status(400).json({
         error: 'The wish list has products duplicate',
         products: code,
@@ -37,23 +37,23 @@ const createWishList = async (req, res) => {
 
     const productsNotExists = [];
 
-    if(code) {
+    if (code) {
       code.forEach((item) => {
         const existProduct = productExists.find((prod) => prod.code === item);
-        if(!existProduct) {
+        if (!existProduct) {
           productsNotExists.push(item);
         }
       });
     }
 
-    if(code && productsNotExists.length > 0) {
+    if (code && productsNotExists.length > 0) {
       return res.status(400).json({
         error: 'This products not exist',
         products: productsNotExists,
       });
     }
 
-    if(!clientExists) {
+    if (!clientExists) {
       return res.status(400).json({
         error: 'This client does not exist',
       });
@@ -77,7 +77,7 @@ const updateWishList = async (req, res) => {
 
     const verifyTitleExists = await verifyExistsWishList({ title });
 
-    if(verifyTitleExists && !title) {
+    if (verifyTitleExists && !title) {
       return res.status(400).json({
         error: 'This title already exists',
       });
@@ -85,7 +85,7 @@ const updateWishList = async (req, res) => {
 
     const productExistsOnWishLists = code && await verifyExistsProductsOnWishList({ product: { $in: code } });
 
-    if(code && productExistsOnWishLists.length > 0) {
+    if (code && productExistsOnWishLists.length > 0) {
       return res.status(400).json({
         error: 'The wish list has products duplicate',
         products: code,
@@ -95,16 +95,16 @@ const updateWishList = async (req, res) => {
     const productExists = code && await verifyExistsProduct({ code: { $in: [...code] } });
     const productsNotExists = [];
 
-    if(code) {
+    if (code) {
       code.forEach((item) => {
         const existProduct = productExists.find((prod) => prod.code === item);
-        if(!existProduct) {
+        if (!existProduct) {
           productsNotExists.push(item);
         }
       });
     }
 
-    if(code && productsNotExists.length > 0) {
+    if (code && productsNotExists.length > 0) {
       return res.status(400).json({
         error: 'These products not exist',
         products: productsNotExists,
