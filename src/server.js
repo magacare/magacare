@@ -5,10 +5,12 @@ const { connectionString } = require('./config/database');
 const clientRoutes = require('./clients/clients-routes');
 const productRoutes = require('./products/products-routes');
 const wishListRoutes = require('./wishlists/wishlists-routes');
+const sessionRoute = require('./session/session-routes');
 const authMiddleware = require('./auth');
 
 const configRoutesNotProtected = (app) => {
   HealthRoute(app);
+  sessionRoute(app);
 };
 
 const configRoutesProtected = (app) => {
