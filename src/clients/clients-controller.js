@@ -6,7 +6,7 @@ const {
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
-  searchClientsByFilterOnDatabase
+  searchClientsByFilterOnDatabase,
 } = require('./clients-service');
 
 const checkPassword = require('../utils/checkPassword');
@@ -65,20 +65,20 @@ const searchOneClientByEmail = async (req, res) => {
     const client = await searchOneClientByEmailonDatabase(email);
     return res.status(200).json(client);
   } catch (error) {
-    return res.status(404).json(message.error);
+    return res.status(404).json(error.message);
   }
 };
 
 const searchClientsByFilter = async (req, res) => {
   try {
-    const { filter, page=1, limit=5 } = req.query;
+    const { filter, page = 1, limit = 5 } = req.query;
 
     const clients = await searchClientsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(clients);
   } catch (error) {
-    return res.status(404).json(message.error);
+    return res.status(404).json(error.message);
   }
-}
+};
 
 const searchAllClients = async (req, res) => {
   try {
@@ -158,5 +158,5 @@ module.exports = {
   searchOneClienteById,
   searchOneClientByEmail,
   searchAllClients,
-  searchClientsByFilter
+  searchClientsByFilter,
 };
