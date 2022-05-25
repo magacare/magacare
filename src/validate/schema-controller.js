@@ -22,6 +22,8 @@ const ClientSchemaControllerUpdate = Joi.object({
     .message('The postal code should have at least 8 numbers.'),
   gender: Joi.string().valid('mulher cis', 'mulher trans', 'homem cis', 'homem trans', 'não binário', 'prefiro não responder').lowercase(),
   password: Joi.string().min(6).message('The password should have at least 6 characters.'),
+  oldPassword: Joi.string().min(6).message('The password should have at least 6 characters.'),
+  confirmPassword: Joi.string().min(6).message('The password should have at least 6 characters.'),
 });
 
 const ProductSchemaController = Joi.object({
