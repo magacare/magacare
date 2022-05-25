@@ -7,7 +7,11 @@ const {
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
+<<<<<<< HEAD
   deleteClientOnDatabase,
+=======
+  searchWishlistByClientOnDatabase,
+>>>>>>> whflawiZ
 } = require('./clients-service');
 
 const checkPassword = require('../utils/checkPassword');
@@ -78,6 +82,16 @@ const searchClientsByFilter = async (req, res) => {
 
     const clients = await searchClientsByFilterOnDatabase(filter, page, limit);
     return res.status(200).json(clients);
+  } catch (error) {
+    return res.status(404).json(error.message);
+  }
+};
+
+const searchClientByWishlist = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const client = await searchWishlistByClientOnDatabase(id);
+    return res.status(200).json(client);
   } catch (error) {
     return res.status(404).json(error.message);
   }
@@ -184,5 +198,9 @@ module.exports = {
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+<<<<<<< HEAD
   deleteClient,
+=======
+  searchClientByWishlist
+>>>>>>> whflawiZ
 };

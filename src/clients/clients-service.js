@@ -1,4 +1,5 @@
 const Clients = require('./clients-model');
+const Wishlists = require('../wishlists/wishlists-model');
 const { verifyExistsData } = require('../validate/validate');
 
 const createClientOnDatabase = (client) => {
@@ -16,6 +17,21 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
+const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      fullName: { $regex: filter, $options: 'i' },
+    },
+  ).limit(limit * 1).skip((page - 1) * limit);
+  return clients;
+};
+
+const searchWishlistByClientOnDatabase = async (idClient) => {
+  const wishlists = await Wishlists.find({ client: idClient });
+  const idsWishlists = wishlists.map(wishlist => wishlist.id);
+  return idsWishlists;
+}
+
 const searchAllClientsOnDatabase = async () => {
   const clientsFound = await Clients.find({});
   return clientsFound;
@@ -28,6 +44,7 @@ const updateClientOnDatabase = async (id, client) => {
 
 const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 
+<<<<<<< HEAD
 const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
   const clients = await Clients.find(
     {
@@ -42,6 +59,8 @@ const deleteClientOnDatabase = async (id) => {
   return clientDeleted;
 };
 
+=======
+>>>>>>> whflawiZ
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
@@ -50,5 +69,9 @@ module.exports = {
   verifyExistsClients,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
+<<<<<<< HEAD
   deleteClientOnDatabase,
+=======
+  searchWishlistByClientOnDatabase
+>>>>>>> whflawiZ
 };
