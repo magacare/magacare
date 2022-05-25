@@ -158,12 +158,19 @@ const updateClient = async (req, res) => {
 const deleteClient = async (req, res) => {
   try {
     const { id } = req.params;
-    await Wishlists.deleteMany({ client: id });
+    const deleteWishlist = await Wishlists.deleteMany({ client: id });
 
-    const clientDeleted = await deleteClientOnDatabase(id);
+    if(deleteWishlist) {
+      const clientDeleted = await deleteClientOnDatabase({ _id: id });
+      return res.status(200).json({
+        message: 'client and wishlist deleted',
+        client: clientDeleted,
+      });
+    }
+    const clientDeleted2 = await deleteClientOnDatabase({ _id: id });
     return res.status(200).json({
       message: 'client deleted',
-      product: clientDeleted,
+      client: clientDeleted2,
     });
   } catch (error) {
     return res.status(404).json(error);
