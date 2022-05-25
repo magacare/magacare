@@ -1,5 +1,5 @@
 const {
-  createProduct, updateProduct, searchOneProduct, searchAllProducts, searchProductsByFilter,
+  createProduct, updateProduct, searchOneProduct, searchAllProducts, searchProductsByFilter, searchWishlistsByProduct
 } = require('./products-controller');
 const { ProductSchemaController, ProductSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
@@ -19,6 +19,10 @@ module.exports = (app) => {
   app.get(
     `${defaultRoute}/code/:code`,
     searchOneProduct,
+  );
+  app.get(
+    `${defaultRoute}/wishlists/:code`,
+    searchWishlistsByProduct,
   );
   app.get(
     defaultRoute,

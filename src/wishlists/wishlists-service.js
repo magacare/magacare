@@ -33,12 +33,6 @@ const searchOneWishlistOnDatabase = async (id) => {
   return wishlist;
 };
 
-const searchWishlistsByProductOnDatabase = async (productCode) => {
-  const wishlistsSearch = await Wishlists.find( { product: { $in: productCode } } );
-  const wishlists = wishlistsSearch.map(wishlist => wishlist.id);
-  return wishlists;
-};
-
 const searchAllWishlistsOnDatabase = () => Wishlists.find({});
 
 module.exports = {
@@ -50,5 +44,4 @@ module.exports = {
   verifyExistsClient,
   verifyExistsProduct,
   searchAllWishlistsOnDatabase,
-  searchWishlistsByProductOnDatabase,
 };
