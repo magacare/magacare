@@ -3,11 +3,19 @@ const mongoose = require('mongoose');
 const HealthRoute = require('./config/health');
 const { connectionString } = require('./config/database');
 const clientRoutes = require('./clients/clients-routes');
+const clientRoutesNotAuth = require('./clients/client-routes-notauth');
 const productRoutes = require('./products/products-routes');
 const wishListRoutes = require('./wishlists/wishlists-routes');
+const sessionRoute = require('./session/session-routes');
+const authMiddleware = require('./auth');
 
-const configRotas = (app) => {
+const configRoutesNotProtected = (app) => {
   HealthRoute(app);
+  sessionRoute(app);
+  clientRoutesNotAuth(app);
+};
+
+const configRoutesProtected = (app) => {
   clientRoutes(app);
   productRoutes(app);
   wishListRoutes(app);
@@ -15,8 +23,12 @@ const configRotas = (app) => {
 
 const configServer = (app) => {
   app.use(express.json());
+  configRoutesNotProtected(app);
+
+  // REQUIRE A TOKEN FOR REQUEST
+  app.use(authMiddleware);
   mongoose.connect(connectionString);
-  configRotas(app);
+  configRoutesProtected(app);
 };
 
 const createServer = () => {
@@ -34,5 +46,6 @@ module.exports = {
   createServer,
   initServer,
   configServer,
-  configRotas,
+  configRoutesNotProtected,
+  configRoutesProtected,
 };

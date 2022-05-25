@@ -1,5 +1,4 @@
 const {
-  createClient,
   updateClient,
   searchOneClienteById,
   searchOneClientByEmail,
@@ -8,16 +7,11 @@ const {
   deleteClient,
 } = require('./clients-controller');
 
-const { ClientSchemaController, ClientSchemaControllerUpdate } = require('../validate/schema-controller');
+const { ClientSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');
 
 module.exports = (app) => {
   const defaultRoute = '/clients';
-  app.post(
-    defaultRoute,
-    validator.validateFields(ClientSchemaController),
-    createClient,
-  );
   app.get(
     `${defaultRoute}/email`,
     searchOneClientByEmail,
