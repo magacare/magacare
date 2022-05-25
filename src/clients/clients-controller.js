@@ -1,3 +1,4 @@
+const bcryptpjs = require('bcryptjs');
 const {
   verifyExistsClients,
   createClientOnDatabase,
@@ -10,7 +11,7 @@ const {
 const createClient = async (req, res) => {
   try {
     const client = req.body;
-    const { email, cpf } = client;
+    const { email, cpf, password } = client;
 
     const verifyEmailExists = await verifyExistsClients({ email });
     const verifyCpfExists = await verifyExistsClients({ cpf });
@@ -27,7 +28,14 @@ const createClient = async (req, res) => {
       });
     }
 
-    createClientOnDatabase(client);
+    const hashPassword = await bcryptpjs.hash(password, 8);
+
+    const clientWithEncryptedPassword = {
+      ...client,
+      password: hashPassword,
+    };
+
+    createClientOnDatabase(clientWithEncryptedPassword);
 
     return res.status(201).json({
       message: 'Client registered',
