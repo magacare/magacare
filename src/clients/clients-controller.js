@@ -51,7 +51,7 @@ const createClient = async (req, res) => {
   }
 };
 
-const searchOneClienteById = async (req, res) => {
+const searchOneClientById = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -180,7 +180,7 @@ const deleteClient = async (req, res) => {
 module.exports = {
   createClient,
   updateClient,
-  searchOneClienteById,
+  searchOneClientById,
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,

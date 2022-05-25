@@ -1,6 +1,6 @@
 const {
   updateClient,
-  searchOneClienteById,
+  searchOneClientById,
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
@@ -18,7 +18,7 @@ module.exports = (app) => {
   );
   app.get(
     `${defaultRoute}/id/:id`,
-    searchOneClienteById,
+    searchOneClientById,
   );
   app.get(
     `${defaultRoute}/filter`,

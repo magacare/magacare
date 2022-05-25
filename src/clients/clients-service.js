@@ -21,15 +21,6 @@ const searchAllClientsOnDatabase = async () => {
   return clientsFound;
 };
 
-const searchOneClientOnDatabase = (id) => {
-  let params = {};
-  if(id !== undefined && id !== null) {
-    params = { _id: id };
-    return Clients.findOne(params);
-  }
-  return Clients.find(params);
-};
-
 const updateClientOnDatabase = async (id, client) => {
   const clientUpdated = await Clients.findOneAndUpdate({ _id: id }, { $set: client }, { new: true });
   return clientUpdated;
@@ -59,6 +50,5 @@ module.exports = {
   verifyExistsClients,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
-  searchOneClientOnDatabase,
   deleteClientOnDatabase,
 };
