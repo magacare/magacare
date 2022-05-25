@@ -16,25 +16,6 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
-<<<<<<< HEAD
-const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
-  const clients = await Clients.find(
-    {
-      fullName: { "$regex": filter, "$options": 'i' },
-    },
-  ).limit(limit * 1).skip((page - 1) * limit);
-  return clients;
-};
-
-const searchClientByWishlistOnDatabase = async (idWishlist) => {
-  const searchWishlist = await Wishlists.findOne({ _id: idWishlist });
-  const { client } = searchWishlist;
-  const searchClient = await Clients.findOne({_id: client});
-  return searchClient;
-}
-
-=======
->>>>>>> af6265dc5c4aa34eda1ac5b4aeab9a812760d905
 const searchAllClientsOnDatabase = async () => {
   const clientsFound = await Clients.find({});
   return clientsFound;
