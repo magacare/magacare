@@ -9,6 +9,9 @@ const {
   searchWishlistsByProductOnDatabase,
 } = require('./products-service');
 
+
+const Wishlists = require('../wishlists/wishlists-model');
+
 const createProduct = async (req, res) => {
   try {
     const product = req.body;
@@ -102,11 +105,17 @@ const searchWishlistsByProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { code } = req.params;
+    const findProductInWishlist = await Wishlists.findOne({ product: code });
 
-    const productDelete = await deleteProductOnDatabase(code);
+    if(findProductInWishlist) {
+      return res.status(401).json({
+        message: 'Product cannot be deleted as it is on a wish list',
+       });
+    }
+    const productDeleted = await deleteProductOnDatabase({ code: code });
     return res.status(200).json({
-      message: 'product deleted',
-      product: productDelete,
+      message: 'Product deleted',
+      client: productDeleted,
     });
   } catch (error) {
     return res.status(404).json(error);
