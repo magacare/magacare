@@ -5,10 +5,7 @@ const {
   searchOneClientByIdOnDatabase,
   searchOneClientByEmailonDatabase,
   searchAllClientsOnDatabase,
-<<<<<<< HEAD
-=======
   searchClientsByFilterOnDatabase
->>>>>>> whflawiZ
 } = require('./clients-service');
 
 const createClient = async (req, res) => {
@@ -126,8 +123,5 @@ module.exports = {
   searchOneClienteById,
   searchOneClientByEmail,
   searchAllClients,
-<<<<<<< HEAD
-=======
   searchClientsByFilter
->>>>>>> whflawiZ
 };

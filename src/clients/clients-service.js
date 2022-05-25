@@ -44,8 +44,5 @@ module.exports = {
   searchOneClientByEmailonDatabase,
   verifyExistsClients,
   searchAllClientsOnDatabase,
-<<<<<<< HEAD
-=======
   searchClientsByFilterOnDatabase
->>>>>>> whflawiZ
 };
