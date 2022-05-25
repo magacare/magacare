@@ -5,6 +5,7 @@ const {
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
+  searchClientByWishlist,
 } = require('./clients-controller');
 
 const { ClientSchemaController, ClientSchemaControllerUpdate } = require('../validate/schema-controller');
@@ -28,6 +29,10 @@ module.exports = (app) => {
   app.get(
     `${defaultRoute}/filter`,
     searchClientsByFilter,
+  );
+  app.get(
+    `${defaultRoute}/wishlist/:id`,
+    searchClientByWishlist,
   );
   app.get(
     defaultRoute,

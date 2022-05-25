@@ -1,4 +1,5 @@
 const Clients = require('./clients-model');
+const Wishlists = require('../wishlists/wishlists-model');
 const { verifyExistsData } = require('../validate/validate');
 
 const createClientOnDatabase = (client) => {
@@ -16,6 +17,22 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
+const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      fullName: { $regex: filter, $options: 'i' },
+    },
+  ).limit(limit * 1).skip((page - 1) * limit);
+  return clients;
+};
+
+const searchClientByWishlistOnDatabase = async (idWishlist) => {
+  const searchWishlist = await Wishlists.findOne({ _id: idWishlist });
+  const { client } = searchWishlist;
+  const searchClient = await Clients.findOne({_id: client});
+  return searchClient;
+}
+
 const searchAllClientsOnDatabase = async () => {
   const clientsFound = await Clients.find({});
   return clientsFound;
@@ -28,15 +45,6 @@ const updateClientOnDatabase = async (id, client) => {
 
 const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 
-const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
-  const clients = await Clients.find(
-    {
-      fullName: { $regex: filter, $options: 'i' },
-    },
-  ).limit(limit * 1).skip((page - 1) * limit);
-  return clients;
-};
-
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
@@ -45,4 +53,5 @@ module.exports = {
   verifyExistsClients,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
+  searchClientByWishlistOnDatabase
 };
