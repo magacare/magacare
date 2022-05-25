@@ -24,13 +24,27 @@ const searchAllProductsOnDatabase = async () => {
   return products;
 };
 
-const searchProductsByFilterOnDatabase = async (filter, page, limit) => {
-  const products = await Products.find(
-    {
-      name: { $regex: filter, $options: 'i' },
-    },
-  ).limit(limit * 1).skip((page - 1) * limit);
-  return products;
+const searchProductsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
+  switch (searchBy) {
+    case "name":
+      const productsByName = await Products.find(
+        {
+          name: { $regex: filter, $options: 'i' }
+        },
+      ).limit(limit * 1).skip((page - 1) * limit);
+      return productsByName;
+
+    case "code":
+      const productsByCode = await searchOneProductOnDatabase(filter);
+
+      return productsByCode;
+
+    case "recommendation":
+      const productsByRecommendation = await Products.find({ recommendation: filter })
+      .limit(limit * 1).skip((page - 1) * limit);
+
+      return productsByRecommendation;
+  };
 };
 
 const searchWishlistsByProductOnDatabase = async (productCode) => {

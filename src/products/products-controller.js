@@ -81,8 +81,8 @@ const searchAllProducts = async (req, res) => {
 
 const searchProductsByFilter = async (req, res) => {
   try {
-    const { filter, page = 1, limit = 5 } = req.query;
-    const products = await searchProductsByFilterOnDatabase(filter, page, limit);
+    const { searchBy, filter, page = 1, limit = 5 } = req.query;
+    const products = await searchProductsByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
     return res.status(200).json(products);
   } catch (error) {
     return res.status(404).json(error.message);
