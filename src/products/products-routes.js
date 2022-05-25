@@ -1,5 +1,5 @@
 const {
-  createProduct, updateProduct, searchOneProduct, searchAllProducts, searchProductsByFilter, deleteProduct,
+  createProduct, updateProduct, searchOneProduct, searchAllProducts, searchProductsByFilter, searchWishlistsByProduct, deleteProduct,
 } = require('./products-controller');
 const { ProductSchemaController, ProductSchemaControllerUpdate } = require('../validate/schema-controller');
 const validator = require('../validate/validate');

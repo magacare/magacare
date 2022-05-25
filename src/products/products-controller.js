@@ -110,6 +110,8 @@ const deleteProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(404).json(error);
+  }
+};
 
 module.exports = {
   createProduct,
