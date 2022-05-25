@@ -100,7 +100,7 @@ const searchAllClients = async (req, res) => {
     const clients = await searchAllClientsOnDatabase();
     return res.status(200).json(clients);
   } catch(error) {
-    return res.status(404).json(error);
+    return res.status(404).json(error.message);
   }
 };
 
@@ -192,7 +192,7 @@ const deleteClient = async (req, res) => {
       client: clientDeleted2,
     });
   } catch(error) {
-    return res.status(404).json(error);
+    return res.status(404).json(error.message);
   }
 };
 
