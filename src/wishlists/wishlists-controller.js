@@ -6,7 +6,6 @@ const {
   verifyExistsWishList,
   verifyExistsClient,
   verifyExistsProduct,
-  verifyExistsProductsOnWishList,
   searchAllWishlistsOnDatabase,
   searchWishlistsByClientIdOnDatabase,
   searchWishlistByFilterOnDatabase,
@@ -15,23 +14,28 @@ const {
 const createWishList = async (req, res) => {
   try {
     const wishList = req.body;
-    const { title, product: code, client } = wishList;
+    const { product: code, client } = wishList;
 
-    const verifyTitleExists = await verifyExistsWishList({ title });
-    const clientExists = await verifyExistsClient({ _id: client });
-
-    if(verifyTitleExists) {
+    if(code.length <= 0) {
       return res.status(400).json({
-        error: 'This title already exists',
+        error: 'The wish list should have one product at least',
       });
     }
 
-    const productExistsOnWishLists = code && await verifyExistsProductsOnWishList({ product: { $in: [...code] } });
+    const clientExists = await verifyExistsClient({ _id: client });
 
-    if(code && productExistsOnWishLists.length > 1) {
+    if(!clientExists) {
       return res.status(400).json({
-        error: 'The wish list has products duplicate',
-        products: code,
+        error: 'This client does not exist',
+      });
+    }
+
+    const duplicatedCodes = code.filter(((productCode) => (item) => productCode.has(item) || !productCode.add(item))(new Set()));
+
+    if(duplicatedCodes.length > 0) {
+      return res.status(400).json({
+        error: 'You cannot add duplicate products',
+        products: duplicatedCodes,
       });
     }
 
@@ -50,14 +54,8 @@ const createWishList = async (req, res) => {
 
     if(code && productsNotExists.length > 0) {
       return res.status(400).json({
-        error: 'This products not exist',
+        error: 'You cannot add product not existent',
         products: productsNotExists,
-      });
-    }
-
-    if(!clientExists) {
-      return res.status(400).json({
-        error: 'This client does not exist',
       });
     }
 
@@ -75,29 +73,44 @@ const updateWishList = async (req, res) => {
   try {
     const { id } = req.params;
     const wishlist = req.body;
-    const { title, product: code } = wishlist;
+    const { product: code } = wishlist;
 
-    const verifyTitleExists = await verifyExistsWishList({ title });
-
-    if(verifyTitleExists && !title) {
+    if(code.length <= 0) {
       return res.status(400).json({
-        error: 'This title already exists',
+        error: 'The wish list update should have one product at least',
       });
     }
 
-    const productExistsOnWishLists = code && await verifyExistsProductsOnWishList({ product: { $in: code } });
-
-    if(code && productExistsOnWishLists.length > 0) {
+    const duplicatedCodesSent = code.filter(((productCode) => (item) => productCode.has(item) || !productCode.add(item))(new Set()));
+    if(duplicatedCodesSent.length > 0) {
       return res.status(400).json({
-        error: 'The wish list has products duplicate',
-        products: code,
+        error: 'You cannot add duplicate products',
+        products: duplicatedCodesSent,
+      });
+    }
+
+    const wishListFound = code && await verifyExistsWishList({ _id: id });
+    const productsInWhishList = wishListFound.product;
+    const productsDuplicated = code.filter((product) => {
+      const findOnWhisList = productsInWhishList.find((p) => p === product);
+      if(findOnWhisList) {
+        return product;
+      }
+      return false;
+    });
+
+    if(productsDuplicated.length > 0) {
+      return res.status(400).json({
+        error: 'You cannot add duplicate products',
+        products: productsDuplicated,
       });
     }
 
     const productExists = code && await verifyExistsProduct({ code: { $in: [...code] } });
+
     const productsNotExists = [];
 
-    if(code) {
+    if(code.length > 0) {
       code.forEach((item) => {
         const existProduct = productExists.find((prod) => prod.code === item);
         if(!existProduct) {
@@ -108,7 +121,7 @@ const updateWishList = async (req, res) => {
 
     if(code && productsNotExists.length > 0) {
       return res.status(400).json({
-        error: 'These products not exist',
+        error: 'You cannot add products not existents',
         products: productsNotExists,
       });
     }
