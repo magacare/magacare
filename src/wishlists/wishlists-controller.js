@@ -66,8 +66,8 @@ const createWishList = async (req, res) => {
     return res.status(201).json({
       message: 'WishList registered',
     });
-  } catch (error) {
-    return res.status(404).json(error);
+  } catch(error) {
+    return res.status(404).json(error.message);
   }
 };
 
@@ -119,7 +119,7 @@ const updateWishList = async (req, res) => {
       message: 'Wishlist updated',
       wishlist: wishlistUpdated,
     });
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -128,7 +128,7 @@ const searchOneWishlist = async (req, res) => {
   try {
     const wishlist = await searchOneWishlistOnDatabase(req.params.id);
     return res.status(200).json(wishlist);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -139,26 +139,28 @@ const searchWishlistsByClientId = async (req, res) => {
 
     const wishlists = await searchWishlistsByClientIdOnDatabase(id);
     return res.status(200).json(wishlists);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
-  };
+  }
 };
 
 const searchWishlistsByFilter = async (req, res) => {
   try {
-    const { searchBy, filter, page = 1, limit = 5 } = req.query;
+    const {
+      searchBy, filter, page = 1, limit = 5,
+    } = req.query;
     const wishlists = await searchWishlistByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
     return res.status(200).json(wishlists);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
-  };
+  }
 };
 
 const searchAllWishlists = async (req, res) => {
   try {
     const wishlists = await searchAllWishlistsOnDatabase();
     return res.status(200).json(wishlists);
-  } catch (error) {
+  } catch(error) {
     return res.status(404).json(error.message);
   }
 };
@@ -172,8 +174,8 @@ const deleteWishlist = async (req, res) => {
       message: 'wishlist deleted',
       product: wishlistDeleted,
     });
-  } catch (error) {
-    return res.status(404).json(error);
+  } catch(error) {
+    return res.status(404).json(error.message);
   }
 };
 

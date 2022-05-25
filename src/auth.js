@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
     req.userId = decodePassword.id;
 
     return next();
-  } catch (err) {
+  } catch(err) {
     return res.status(401).json({ error: 'Invalid token!' });
   }
 };

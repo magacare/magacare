@@ -15,7 +15,7 @@ module.exports = {
     'keyword-spacing': ['error', {
       overrides: {
         try: { after: true },
-        catch: { after: true },
+        catch: { after: false },
         if: { after: false },
         else: { after: false },
       },
