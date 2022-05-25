@@ -23,11 +23,11 @@ const configRoutesProtected = (app) => {
 
 const configServer = (app) => {
   app.use(express.json());
+  mongoose.connect(connectionString);
   configRoutesNotProtected(app);
 
   // REQUIRE A TOKEN FOR REQUEST
   app.use(authMiddleware);
-  mongoose.connect(connectionString);
   configRoutesProtected(app);
 };
 
