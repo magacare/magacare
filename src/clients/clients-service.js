@@ -1,5 +1,4 @@
 const Clients = require('./clients-model');
-const Wishlists = require('../wishlists/wishlists-model');
 const { verifyExistsData } = require('../validate/validate');
 
 const createClientOnDatabase = (client) => {
@@ -53,5 +52,4 @@ module.exports = {
   verifyExistsClients,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
-  searchClientByWishlistOnDatabase
 };
