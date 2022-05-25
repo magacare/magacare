@@ -4,11 +4,8 @@ const {
   searchOneClientByEmail,
   searchAllClients,
   searchClientsByFilter,
-<<<<<<< HEAD
   deleteClient,
-=======
-  searchClientByWishlist,
->>>>>>> whflawiZ
+  searchWishlistByClient,
 } = require('./clients-controller');
 
 const { ClientSchemaControllerUpdate } = require('../validate/schema-controller');
@@ -30,7 +27,7 @@ module.exports = (app) => {
   );
   app.get(
     `${defaultRoute}/wishlists/:id`,
-    searchClientByWishlist,
+    searchWishlistByClient,
   );
   app.get(
     defaultRoute,

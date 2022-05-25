@@ -44,23 +44,11 @@ const updateClientOnDatabase = async (id, client) => {
 
 const verifyExistsClients = (value) => verifyExistsData(Clients, value);
 
-<<<<<<< HEAD
-const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
-  const clients = await Clients.find(
-    {
-      fullName: { $regex: filter, $options: 'i' },
-    },
-  ).limit(limit * 1).skip((page - 1) * limit);
-  return clients;
-};
-
 const deleteClientOnDatabase = async (id) => {
   const clientDeleted = await Clients.findOneAndDelete(id);
   return clientDeleted;
 };
 
-=======
->>>>>>> whflawiZ
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
@@ -69,9 +57,6 @@ module.exports = {
   verifyExistsClients,
   searchAllClientsOnDatabase,
   searchClientsByFilterOnDatabase,
-<<<<<<< HEAD
   deleteClientOnDatabase,
-=======
   searchWishlistByClientOnDatabase
->>>>>>> whflawiZ
 };
