@@ -22,7 +22,7 @@ module.exports = (app) => {
     searchOneClientById,
   );
   app.get(
-    `${defaultRoute}/filter`,
+    `${defaultRoute}/search`,
     searchClientsByFilter,
   );
   app.get(

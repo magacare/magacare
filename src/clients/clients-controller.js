@@ -75,9 +75,8 @@ const searchOneClientByEmail = async (req, res) => {
 
 const searchClientsByFilter = async (req, res) => {
   try {
-    const { filter, page = 1, limit = 5 } = req.query;
-
-    const clients = await searchClientsByFilterOnDatabase(filter, page, limit);
+    const { searchBy, filter, page = 1, limit = 5 } = req.query;
+    const clients = await searchClientsByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
     return res.status(200).json(clients);
   } catch (error) {
     return res.status(404).json(error.message);

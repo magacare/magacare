@@ -17,13 +17,27 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
-const searchClientsByFilterOnDatabase = async (filter, page, limit) => {
-  const clients = await Clients.find(
-    {
-      fullName: { $regex: filter, $options: 'i' },
-    },
-  ).limit(limit * 1).skip((page - 1) * limit);
-  return clients;
+const searchClientsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
+  switch (searchBy) {
+    case "name":
+      const clientsByName = await Clients.find(
+        {
+          fullName: { $regex: filter, $options: 'i' }
+        },
+      ).limit(limit * 1).skip((page - 1) * limit);
+      return clientsByName;
+
+    case "id":
+      const clientsById = await searchOneClientByIdOnDatabase(filter);
+
+      return clientsById;
+
+    case "gender":
+      const clientsByGender = await Clients.find({ gender: { $regex: filter, $options: 'i' } })
+      .limit(limit * 1).skip((page - 1) * limit);
+
+      return clientsByGender;
+  };
 };
 
 const searchWishlistByClientOnDatabase = async (idClient) => {
