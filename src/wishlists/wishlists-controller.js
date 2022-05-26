@@ -143,7 +143,7 @@ const searchOneWishlist = async (req, res) => {
     const wishlist = await searchOneWishlistOnDatabase(req.params.id);
     return res.status(200).json(wishlist);
   } catch(error) {
-    return res.status(404).json(error.message);
+    return res.status(404).json({ erro: 'Error finding wishlist.' });
   }
 };
 
@@ -154,7 +154,7 @@ const searchWishlistsByClientId = async (req, res) => {
     const wishlists = await searchWishlistsByClientIdOnDatabase(id);
     return res.status(200).json(wishlists);
   } catch(error) {
-    return res.status(404).json(error.message);
+    return res.status(404).json({ erro: 'Error finding wishlist.' });
   }
 };
 
@@ -164,9 +164,11 @@ const searchWishlistsByFilter = async (req, res) => {
       searchBy, filter, page = 1, limit = 5,
     } = req.query;
     const wishlists = await searchWishlistByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
-    return res.status(200).json(wishlists);
+    if(wishlists.length !== 0) {
+      return res.status(200).json(wishlists);
+    } return res.status(400).json({ erro: 'No wishlist found.' });
   } catch(error) {
-    return res.status(404).json(error.message);
+    return res.status(404).json({ erro: 'Error finding wishlist.' });
   }
 };
 
@@ -175,7 +177,7 @@ const searchAllWishlists = async (req, res) => {
     const wishlists = await searchAllWishlistsOnDatabase();
     return res.status(200).json(wishlists);
   } catch(error) {
-    return res.status(404).json(error.message);
+    return res.status(404).json({ erro: 'Error finding wishlist.' });
   }
 };
 
