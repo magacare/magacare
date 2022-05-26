@@ -343,3 +343,138 @@ Passar parâmetros no body da requisição em formato JSON:
 | :---------- | :------------------------------------------ |
 | `code`      | **Obrigatório**. Passar como parâmetro na URL da requisição o code do client que deseja deletar |
 
+## Gerenciamento de wishlist
+
+#### Cadastro da wishlist
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  POST/YOUR-SERVER/wishlists
+```
+Passar parâmetros no body da requisição em formato JSON:
+- Não pode conter produtos repetidos na lista de produtos
+-
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `title` | `string` | **Obrigatório** |
+| `client` | `string` | **Obrigatório**. Chave única |
+| `product` | `array` | **Obrigatório** |
+
+### Retorna todos as wishlists
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  POST YOUR-SERVER/wishlists
+```
+
+#### Buscar wishlists pelo seu id
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  GET YOUR-SERVER/wishlist/id/:id
+```
+Passar como parâmetro na URL da requisição o code do product que deseja detalhar.
+
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**. 
+
+#### Filtrar por "contém", utilizando id da wishlist, lista paginada
+
+Exemplo: ao pesquisar por "777" a pesquisa pode retornar: “000444777”, “888999777”.
+
+```http
+  GET YOUR-SERVER/wishlists/search?searchBy=id&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  id | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+#### Filtrar por "contém", utilizando o code do product, lista paginada
+
+Exemplo: ao pesquisar por "999" pesquisa pode retornar: “11488999”, “99963571”.
+
+```http
+  GET YOUR-SERVER/products/search?searchBy=recommendation&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  product | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Filtrar por "contém", utilizando id do client, lista paginada
+
+Exemplo: ao pesquisar por "777" a pesquisa pode retornar: “000444777”, “7770004785”.
+
+```http
+  GET YOUR-SERVER/wishlists/search?searchBy=client&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  client | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Pesquisar Wishlists por client
+
+```http
+  GET YOUR-SERVER/wishlists/client/:id
+```
+Passar como parâmetro na URL da requisição o id do client que deseja pesquisar.
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**. 
+
+#### Atualizar Wishlist
+```http
+  PUT YOUR-SERVER//:id
+```
+ Passar como parâmetro na URL da requisição o ID da wishlist que deseja atualizar
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório** |
+
+Passar parâmetros no body da requisição em formato JSON:
+- O client não pode ser alterado
+     
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `title` | `string` | **Opcional** |
+| `product` | `array` | **Obrigatório** | O array será composto pelos id dos products que desejo inserir.
+
+#### Remover product da wishlist
+```http
+  DELETE YOUR-SERVER/wislists/products/:id
+```
+Passar como parâmetro na URL da requisição o ID do product que desejamos remover da wishlist
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório** |
+
+Passar parâmetros no body da requisição em formato JSON:
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `title` | `string` | **Opcional** |
+| `product` | `array` | **Obrigatório** | O array deve conter o id do product que desejo remover da wishilist.
+
+
+#### Remover wishlist
+```http
+  DELETE YOUR-SERVER/wishlists/:id
+```
+Passar como parâmetro na URL da requisição o id da wishlist que deseja deletar.
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório** |
+
