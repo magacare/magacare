@@ -24,25 +24,31 @@ const searchAllProductsOnDatabase = async () => {
   return products;
 };
 
+const searchProductsByNameFilterOnDatabase = async (filter, page, limit) => {
+  const productsByName = await Products.find(
+    {
+      name: { $regex: filter, $options: 'i' },
+    },
+  ).limit(limit * 1).skip((page - 1) * limit);
+  return productsByName;
+};
+
+const searchProductsByRecommendationFilterOnDatabase = async (filter, page, limit) => {
+  const productsByRecommendation = await Products.find({ recommendation: filter })
+    .limit(limit * 1).skip((page - 1) * limit);
+  return productsByRecommendation;
+};
+
 const searchProductsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
   switch (searchBy) {
     case 'name':
-      const productsByName = await Products.find(
-        {
-          name: { $regex: filter, $options: 'i' },
-        },
-      ).limit(limit * 1).skip((page - 1) * limit);
-      return productsByName;
-
+      return searchProductsByNameFilterOnDatabase(filter, page, limit);
     case 'code':
-      const productsByCode = await searchOneProductOnDatabase(filter);
-
-      return productsByCode;
-
+      return searchOneProductOnDatabase(filter);
     case 'recommendation':
-      const productsByRecommendation = await Products.find({ recommendation: filter })
-        .limit(limit * 1).skip((page - 1) * limit);
-      return productsByRecommendation;
+      return searchProductsByRecommendationFilterOnDatabase(filter, page, limit);
+    default:
+      return searchAllProductsOnDatabase();
   }
 };
 
@@ -66,4 +72,6 @@ module.exports = {
   searchProductsByFilterOnDatabase,
   searchWishlistsByProductOnDatabase,
   deleteProductOnDatabase,
+  searchProductsByNameFilterOnDatabase,
+  searchProductsByRecommendationFilterOnDatabase,
 };
