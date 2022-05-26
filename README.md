@@ -220,3 +220,126 @@ Passar parâmetros no body da requisição em formato JSON:
 | :---------- | :------------------------------------------ |
 | `id`      | **Obrigatório**. Passar como parâmetro na URL da requisição o ID do client que deseja deletar |
 
+## Gerenciamente de Products
+
+#### Cadastro do product
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  POST/YOUR-SERVER/products
+```
+Passar parâmetros no body da requisição em formato JSON:
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Obrigatório** |
+| `code` | `string` | **Obrigatório**. Chave única |
+| `description` | `string` | **Obrigatório** |
+| `volume` | `string` | **Obrigatório**. |
+| `recommendation` | `string` | **Obrigatório**. Opções ('pele seca', 'pele oleosa', 'pele mista', 'pele normal', 'todas as peles') |
+
+### Retorna todos os products
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  POST YOUR-SERVER/products
+```
+
+#### Buscar products pelo seu code
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
+
+```http
+  GET YOUR-SERVER/products/code/:code
+```
+Passar como parâmetro na URL da requisição o code do product que deseja detalhar.
+
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**. 
+
+#### Filtrar por "contém", utilizando o nome, lista paginada
+
+Exemplo: ao pesquisar pelos produtos com nome ‘protetor’ , a pesquisa pode retornar nomes tais como: “Protetor solar”, “Proteror labial”.
+
+```http
+  GET YOUR-SERVER/products/search?searchBy=name&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  name | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+#### Filtrar por "contém", utilizando a recomendação, lista paginada
+
+Exemplo: ao pesquisar por "pele" pesquisa pode retornar: “pele seca”, “pele normal”.
+
+```http
+  GET YOUR-SERVER/products/search?searchBy=recommendation&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  recommendatio | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Filtrar por "contém", utilizando code do product, lista paginada
+
+Exemplo: ao pesquisar por "777" a pesquisa pode retornar: “000444777”, “888999777”.
+
+```http
+  GET YOUR-SERVER/products/search?searchBy=code&filter=exemplodefilter&page=1&limit=4
+```
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  code | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Pesquisar as Wishlists que o product aparece
+
+```http
+  GET YOUR-SERVER/products/wishlists/:code
+```
+Passar como parâmetro na URL da requisição o code do product que deseja pesquisar.
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `code`      | **Obrigatório**. 
+
+#### Atualizar Product
+```http
+  PUT YOUR-SERVER//:id
+```
+ Passar como parâmetro na URL da requisição o ID do client que deseja atualizar
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `code`      | **Obrigatório** |
+
+Passar parâmetros no body da requisição em formato JSON:
+- O código do produto não pode ser alterado
+     
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `name` | `string` | **Opcional**. Desde que não seja igual ao e-mail de outro client |
+| `description` | `string` | **Opcional** |
+| `recommendation` | `string` | **Opcional** |
+
+
+#### Remover product
+```http
+  DELETE YOUR-SERVER/clients/:id
+```
+- Se um produto está em uma lista de desejos, então, ele não poderá ser removido.
+
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `code`      | **Obrigatório**. Passar como parâmetro na URL da requisição o code do client que deseja deletar |
+
