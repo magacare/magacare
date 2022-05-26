@@ -26,6 +26,20 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/Clients"
+              },
+              "example": {
+                "Clients": {
+                  "value": {
+                    "fullname": "Maria Luisa Campos",
+                    "email": "marialuisa@email.com.br",
+                    "birthdate": "16/01/2001",
+                    "cpf": "12345678901",
+                    "phonenumber": "81998929985",
+                    "postalcode": "50070123",
+                    "gender": "Mulher Cis",
+                    "password": "testeteste123"
+                  }
+                }
               }
             }
           }
