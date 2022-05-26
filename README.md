@@ -455,9 +455,9 @@ Passar parâmetros no body da requisição em formato JSON:
 
 #### Remover product da wishlist
 ```http
-  DELETE YOUR-SERVER/wislists/products/:id
+  DELETE YOUR-SERVER/wislists/products/:code
 ```
-Passar como parâmetro na URL da requisição o ID do product que desejamos remover da wishlist
+Passar como parâmetro na URL da requisição o code do product que desejamos remover da wishlist
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
 | `id`      | **Obrigatório** |
