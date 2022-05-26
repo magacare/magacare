@@ -1,0 +1,2 @@
+DATABASE=mongodb+srv://<databaseName>:<password></password><pathDatabase>
+
