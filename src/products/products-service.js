@@ -15,7 +15,7 @@ const updateProductOnDatabase = async (code, product) => {
 const verifyExistsProducts = (value) => verifyExistsData(Products, value);
 
 const searchOneProductOnDatabase = async (code) => {
-  const product = await Products.find({ code });
+  const product = await Products.findOne({ code });
   return product;
 };
 
