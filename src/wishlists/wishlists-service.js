@@ -28,6 +28,8 @@ const verifyExistsProductsOnWishList = (value) => verifyExistsManyData(Wishlists
 const verifyExistsClient = (value) => verifyExistsData(Clients, value);
 const verifyExistsProduct = (value) => verifyExistsManyData(Products, value);
 
+const searchAllWishlistsOnDatabase = () => Wishlists.find({});
+
 const searchOneWishlistOnDatabase = async (id) => {
   const wishlist = await Wishlists.findOne({ _id: id });
   return wishlist;
@@ -46,25 +48,30 @@ const searchWishlistsByClientIdOnDatabase = async (clientId) => {
   return wishlistsIdAndProducts;
 };
 
+const searchWishlistByClientFilterOnDatabase = async (filter, page, limit) => {
+  const wishlists = await Wishlists.find({ client: filter })
+    .limit(limit * 1).skip((page - 1) * limit);
+  return wishlists;
+};
+
+const searchWishlistsByProductFilterOnDatabase = async (filter, page, limit) => {
+  const wishlistsByProducts = await Wishlists.find({ product: { $in: filter } })
+    .limit(limit * 1).skip((page - 1) * limit);
+  return wishlistsByProducts;
+};
+
 const searchWishlistByFilterOnDatabase = async (searchBy, filter, page, limit) => {
   switch (searchBy) {
     case 'client':
-      const wishlistsByClient = await Wishlists.find({ client: filter })
-        .limit(limit * 1).skip((page - 1) * limit);
-      return wishlistsByClient;
-
+      return searchWishlistByClientFilterOnDatabase(filter, page, limit);
     case 'id':
-      const wishlistsById = await searchOneWishlistOnDatabase(filter);
-      return wishlistsById;
-
+      return searchOneWishlistOnDatabase(filter);
     case 'product':
-      const wishlistsByProducts = await Wishlists.find({ product: { $in: filter } })
-        .limit(limit * 1).skip((page - 1) * limit);
-      return wishlistsByProducts;
+      return searchWishlistsByProductFilterOnDatabase(filter, page, limit);
+    default:
+      return searchAllWishlistsOnDatabase();
   }
 };
-
-const searchAllWishlistsOnDatabase = () => Wishlists.find({});
 
 const deleteWishlistOnDatabase = async (id) => {
   const wishlistDeleted = await Wishlists.findOneAndDelete({ _id: id });
@@ -83,4 +90,6 @@ module.exports = {
   deleteWishlistOnDatabase,
   searchWishlistsByClientIdOnDatabase,
   searchWishlistByFilterOnDatabase,
+  searchWishlistByClientFilterOnDatabase,
+  searchWishlistsByProductFilterOnDatabase,
 };
