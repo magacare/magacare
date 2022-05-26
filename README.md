@@ -12,30 +12,56 @@ módulo de lista de desejos dos produtos da Magacare, e-commerce especializada e
 - Gerenciamento de produtos
 - Gerenciamento da lista de desejos
 
-## Requisitos
+### Requisitos
 
-- Node.js instalado
+- Node.js instalado na sua máquina
     - Esta API foi desenvolvida com o node v16.13.0
 
-## Iniciando o projeto
+### Iniciando o projeto
 - Clonar ou baixar esse projeto para seu computador;
 - Digite no terminal o comando `npm install`, assim instalará todas as dependências necessárias para rodar a API; 
 - Digite o comando `npm start` para iniciar o server;
 
-## Modelagem do Banco de Dados - MongoDB
+
+### Configurando variável de ambiente para conexão com seu banco de dados
+- Esta aplicação utilizou como banco de dados o MongoDB e para configurá-lo você deve:
+- Criar um arquivo chamado .env com uma variável de ambiente chamada DATABASE, utilize o arquivo `.envExemple` para ver um exemplo de configuração.
+- A variável DATABASE deve receber a string do banco de dados criado previamente no MongoDB-Atlas.
+
+- A string do banco de dados pode ser acessada pelo MongoDB-atlas, ao acessar sua Database:
+    - 1º click em Connect 
+    - 2º click em Connect your application
+    - 3º copie a string do seu banco de dados
+
+- Se preferir manipular o banco de dados localmente, você deve instalar na sua máquina:
+    - MongoDB Community Server e o MongoDB Compass.
+    - Após a instalação, utilizar a string de conexão de sua preferência, como por exemplo:
+    `mongodb://localhost:27017/<nomoBancoDeDados>`
+    - Configurar o .env com essas informações
+
+- Uma outra opção seria baixar a extensão no VSCode para conectar com o seu banco de dados atlas diretamente pela IDE. 
+    - Nome da extensão: MongoDB
+    - Após instalar a extensão, basta clicar em add MongoDB Connection e passar a string de conexão do seu banco de dados no atlas.
+
+
+### Modelagem do Banco de Dados - MongoDB
 ![](https://github.com/magacare/magacare/blob/main/database/print-db-magacare.png)
 
 - Para maiores detalhes sobre a modelagem do banco de dados utilize o  documento chamado `db_magacare.pdf` que está pasta `database`.
 
-## Modelo json para testes da aplicação
+### Modelo json para testes da aplicação
 - Caso tenha interesse:
     - Utilize um documento chamado `model_db.json` que está pasta `database` para acessar modelos de json para teste da aplicação na sua ferramenta de prefência.
+    
 ## Documentação da API
 
+## Gerenciamento de clientes
+
 #### Cadastro do client
+Rota não autenticada
 
 ```http
-  POST/YOUR-SERVER/api/clients/register
+  POST/YOUR-SERVER/clients
 ```
 Passar parâmetros no body da requisição em formato JSON:
 
@@ -47,12 +73,14 @@ Passar parâmetros no body da requisição em formato JSON:
 | `cpf` | `string` | **Obrigatório**. Chave única |
 | `phoneNumber` | `string` | **Obrigatório** |
 | `postalCode` | `string` | **Obrigatório** |
-| `gender` | `string` | **Obrigatório**. Default: prefiro não responder |
+| `gender` | `string` | **Obrigatório**. Opções: ('mulher cis', 'mulher trans', 'homem cis', 'homem trans', 'não binário', 'prefiro não responder') |
 | `password` | `string` | **Obrigatório** |
 
 #### Autenticação do client
+Rota não autenticada
+
 ```http
-  POST YOUR-SERVER/api/clients/authenticate
+  POST YOUR-SERVER/session
 ```
 Passar parâmetros no body da requisição em formato JSON:
 
@@ -61,48 +89,134 @@ Passar parâmetros no body da requisição em formato JSON:
 | `email` | `string` | **Obrigatório** |
 | `password` | `string` | **Obrigatório** |
 
-Na resposta dessa requisição você terá acesso ao ***token*** JWT, tipo bearer para ter permissão de acesso para as demais rotas da aplicação.
+Na resposta dessa requisição você terá como resposta o ***token*** JWT, tipo bearer para ter permissão de acesso para as demais rotas da aplicação.
 
 ### Retorna todos os clients
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
 
 ```http
-  POST YOUR-SERVER/api/clients
+  POST YOUR-SERVER/clients
 ```
 
 #### Buscar client pelo seu id
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
 
 ```http
-  GET YOUR-SERVER/api/clients/:id
+  GET YOUR-SERVER/clients/id/:id
 ```
+ Passar como parâmetro na URL da requisição o ID do client que deseja detalhar.
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**.
 
-| Parâmetro   | Tipo       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `id`      | `string` | **Obrigatório**. Passar como parâmetro na URL da requisição o ID do client que deseja detalhar.
-
-#### Buscar client pelo seu email paginada
+#### Buscar client pelo seu email
+Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
 
 ```http
-  GET YOUR-SERVER/api/clients/email?email=exemplo@email.com&page=1&limit=4
+  GET YOUR-SERVER/clients/email?email=exemplo@email.com&page=1&limit=4
 ```
-| Parâmetro   |  Descrição                                 |
-| :---------- | :------------------------------------------|
-| `email`      | **Obrigatório**. Passar como Query params, o que email que deseja filtrar | 
-| `page`      | **Obrigatório**. Iniciar com 1, primeira página | 
-| `limit`      | **Obrigatório**. Passar o número de itens que deseja ter em cada paginação | 
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `email`      | O email que deseja filtrar | **Obrigatório**. O email que deseja filtrar | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
-Passar como Query params onde: 
 
-key: email
+#### Filtrar por "contém", utilizando o nome, lista paginada
 
-value: o email que desejo procurar
+Exemplo: ao pesquisar pelos clientes com nome ‘silva’ a pesquisa pode retorna nomes tais
+como: “Silvana”, “Silvanir”, “Júlia Silva”.
 
-#### Buscar por nome do client paginada
+Passar parâmetros no Query params:
+```http
+  GET YOUR-SERVER/clients/search?searchBy=name&filter=exemplodefilter&page=1&limit=4
+```
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  name | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+#### Filtrar por "contém", utilizando o gênero, lista paginada
+
+Exemplo: ao pesquisar por "cis" a pesquisa pode retornar: “Homem cis”, “Mulher cis”.
 
 ```http
-  GET YOUR-SERVER/api/clients/search?filter=exemplodefilter&page=1&limit=4
+  GET YOUR-SERVER/clients/search?searchBy=gender&filter=exemplodefilter&page=1&limit=4
 ```
-| Parâmetro   |  Descrição                                 |
-| :---------- | :------------------------------------------|
-| `filter`      | **Obrigatório**. Passar como Query params, o que deseja filtrar | 
-| `page`      | **Obrigatório**. Iniciar com 1, primeira página | 
-| `limit`      | **Obrigatório**. Passar o número de itens que deseja ter em cada paginação | 
+Passar parâmetros no Query params:
+
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  gender | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Filtrar por "contém", utilizando ID, lista paginada
+
+Exemplo: ao pesquisar por "777" a pesquisa pode retornar: “000444777”, “888999777”.
+
+```http
+  GET YOUR-SERVER/clients/search?searchBy=gender&filter=exemplodefilter&page=1&limit=4
+```
+
+Passar parâmetros no Query params:
+| Query Params   | Value       |  Descrição                                 |
+| :---------- | :--------- | :------------------------------------------|
+| `searchBy`   |  id | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
+| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+
+
+#### Pesquisar se client possui Wishlists
+
+```http
+  GET YOUR-SERVER/clients/wishlists/:id
+```
+ Passar como parâmetro na URL da requisição o ID do client que deseja pesquiar.
+ 
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**.
+
+#### Atualizar client
+```http
+  PUT YOUR-SERVER/clients/:id
+```
+Passar como parâmetro na URL da requisição o ID do client que deseja atualizar.
+
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório** |
+
+Passar parâmetros no body da requisição em formato JSON:
+- O id do client não pode ser alterado
+     
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `fullName` | `string` | **Opcional** |
+| `email` | `string` | **Opcional**. Desde que não seja igual ao e-mail de outro client |
+| `birthDate` | `string` | **Opcional** |
+| `cpf` | `string` | **Opcional**.  Desde que não seja igual ao CPF de outro client |
+| `phoneNumber` | `string` | **Opcional** |
+| `postalCode` | `string` | **Opcional** |
+| `gender` | `string` | **Opcional** |
+| `password` | `string` | **Opcional** |
+| `oldPassword` | `string` | **Opcional** |
+| `confirmPassword` | `string` | **Opcional** |
+
+
+#### Remover client
+```http
+  DELETE YOUR-SERVER/clients/:id
+```
+- Ao deletar um clients as wishlists associadas a ele também serão deletadas
+
+| Parâmetro   | Descrição                                   |
+| :---------- | :------------------------------------------ |
+| `id`      | **Obrigatório**. Passar como parâmetro na URL da requisição o ID do client que deseja deletar |
+
