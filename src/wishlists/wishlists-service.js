@@ -77,6 +77,12 @@ const deleteWishlistOnDatabase = async (id) => {
   return wishlistDeleted;
 };
 
+const deleteProductOnDatabase = (id, values) => Wishlists.findOneAndUpdate(
+  { _id: id },
+  { $set: values },
+  { new: true },
+);
+
 module.exports = {
   createWishListOnDatabase,
   updateWishListOnDatabase,
@@ -90,4 +96,5 @@ module.exports = {
   searchWishlistByFilterOnDatabase,
   searchWishlistByClientFilterOnDatabase,
   searchWishlistsByProductFilterOnDatabase,
+  deleteProductOnDatabase,
 };
