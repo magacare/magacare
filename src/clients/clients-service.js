@@ -17,24 +17,36 @@ const searchOneClientByEmailonDatabase = async (email) => {
   return clientFound;
 };
 
+const searchClientsByNameFilterOnDatabase = async (filter, page, limit) => {
+  const clients = await Clients.find(
+    {
+      fullName: { $regex: filter, $options: 'i' },
+    },
+  ).limit(limit * 1).skip((page - 1) * limit);
+  return clients;
+};
+
+const searchClientsByGenderFilterOnDatabase = async (filter, page, limit) => {
+  const clientsByGender = await Clients.find({ gender: { $regex: filter, $options: 'i' } })
+    .limit(limit * 1).skip((page - 1) * limit);
+  return clientsByGender;
+};
+
+const searchAllClientsOnDatabase = async () => {
+  const clientsFound = await Clients.find({});
+  return clientsFound;
+};
+
 const searchClientsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
   switch (searchBy) {
     case 'name':
-      const clientsByName = await Clients.find(
-        {
-          fullName: { $regex: filter, $options: 'i' },
-        },
-      ).limit(limit * 1).skip((page - 1) * limit);
-      return clientsByName;
-
+      return searchClientsByNameFilterOnDatabase(filter, page, limit);
     case 'id':
-      const clientsById = await searchOneClientByIdOnDatabase(filter);
-      return clientsById;
-
+      return searchOneClientByIdOnDatabase(filter);
     case 'gender':
-      const clientsByGender = await Clients.find({ gender: { $regex: filter, $options: 'i' } })
-        .limit(limit * 1).skip((page - 1) * limit);
-      return clientsByGender;
+      return searchClientsByGenderFilterOnDatabase(filter, page, limit);
+    default:
+      return searchAllClientsOnDatabase();
   }
 };
 
@@ -42,11 +54,6 @@ const searchWishlistByClientOnDatabase = async (idClient) => {
   const wishlists = await Wishlists.find({ client: idClient });
   const idsWishlists = wishlists.map((wishlist) => wishlist.id);
   return idsWishlists;
-};
-
-const searchAllClientsOnDatabase = async () => {
-  const clientsFound = await Clients.find({});
-  return clientsFound;
 };
 
 const updateClientOnDatabase = async (id, client) => {
@@ -71,4 +78,6 @@ module.exports = {
   searchClientsByFilterOnDatabase,
   deleteClientOnDatabase,
   searchWishlistByClientOnDatabase,
+  searchClientsByNameFilterOnDatabase,
+  searchClientsByGenderFilterOnDatabase,
 };
