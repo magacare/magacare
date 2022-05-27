@@ -59,7 +59,7 @@ const searchOneClientById = async (req, res) => {
     const client = await searchOneClientByIdOnDatabase(id);
     return res.status(200).json(client);
   } catch(error) {
-    return res.status(404).json({ erro: 'Erro ao buscar o cliente.' });
+    return res.status(500).json({ message: 'No client found.' });
   }
 };
 
@@ -69,9 +69,9 @@ const searchOneClientByEmail = async (req, res) => {
     const client = await searchOneClientByEmailonDatabase(email);
     if(client) {
       return res.status(200).json(client);
-    } return res.status(400).json({ erro: 'No client found.' });
+    } return res.status(400).json({ message: 'No client found.' });
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding client.' });
+    return res.status(404).json({ message: 'Error finding client.' });
   }
 };
 
@@ -80,12 +80,12 @@ const searchClientsByFilter = async (req, res) => {
     const {
       searchBy, filter, page = 1, limit = 5,
     } = req.query;
-    const clients = await searchClientsByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
+    const clients = await searchClientsByFilterOnDatabase(searchBy, filter, page, limit);
     if(clients.length !== 0) {
       return res.status(200).json(clients);
-    } return res.status(400).json({ erro: 'No client found.' });
+    } return res.status(400).json({ message: 'No client found.' });
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding client.' });
+    return res.status(404).json({ message: 'Error finding client.' });
   }
 };
 
@@ -95,7 +95,7 @@ const searchWishlistByClient = async (req, res) => {
     const client = await searchWishlistByClientOnDatabase(id);
     return res.status(200).json(client);
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding client.' });
+    return res.status(404).json({ message: 'Error finding client.' });
   }
 };
 
@@ -104,7 +104,7 @@ const searchAllClients = async (req, res) => {
     const clients = await searchAllClientsOnDatabase();
     return res.status(200).json(clients);
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding clients.' });
+    return res.status(404).json({ message: 'Error finding clients.' });
   }
 };
 
