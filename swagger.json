@@ -70,13 +70,13 @@
         ],
         "summary": "Update client",
         "description": "Rote that updates clients and it is not possible to update with an Email or with an CPF that already exists.",
-        "parameters": {
+        "parameters": [{
           "in": "path",
           "name": "id",
           "type": "string",
           "required": "true",
           "description": "Client's id to update."
-        },
+        }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -121,16 +121,40 @@
         "tags": ["Clients"],
         "summary": "Delete clients by ID.",
         "description": "Rote responsable to delete clients. If the client has a wishlist, it's also deleted.",
-        "parameters": {
+        "parameters": [{
           "in": "path",
           "name": "id",
           "type": "string",
           "required": "true",
           "description": "Client's id to delete."
-        },
+        }],
         "responses": {
           "200": {
             "description": "Client deleted."
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
+      }
+    },
+    "clients/wishlists/{id}": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Search client's wishlists.",
+        "description": "Rote responsable to search the wishlist of the client by his id.",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Client's id to search wishlists"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK."
           },
           "404": {
             "description": "Error."
@@ -192,10 +216,37 @@
           "Clients"
         ],
         "summary": "Search client with filter and pagination.",
-        "description": "Rote responsable to search client by filter (name, code or gender) and pagination, where you can choose the page and the limit of clients in each page.",
-        "parameters": [{
-          "in": "query"
-        }],
+        "description": "Rote responsable to search client by filter (name, id or gender) and pagination, where you can choose the page and the limit of clients in each page.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchBy",
+            "type": "string",
+            "required": "true",
+            "description": "Decides the type of filter you want to use. It can be the client's id, name or gender."
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "required": "true",
+            "description": "Filter used to search the client."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "required": "false",
+            "description": "Search's page. The default page is 1."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "required": "false",
+            "description": "How many clients showing in each page. The default quantity is 5."
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK."
