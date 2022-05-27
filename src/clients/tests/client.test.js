@@ -228,7 +228,6 @@ describe('Clients routes', () => {
       });
     });
 
-    // esse
     it('should get client by filter by fullName', async () => {
       const response = await supertest(app)
         .get('/clients')
@@ -309,7 +308,6 @@ describe('Clients routes', () => {
       expect(statusCode).toBe(400);
     });
 
-    // esse
     it('should update a client with invalid cpf and return error 400', async () => {
       const response = await supertest(app)
         .get('/clients')
