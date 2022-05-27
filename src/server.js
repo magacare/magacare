@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const HealthRoute = require('./config/health');
 const { connectionString } = require('./config/database');
 const clientRoutes = require('./clients/clients-routes');
-const clientRoutesNotAuth = require('./clients/client-routes-notauth');
+const clientRoutesNotAuth = require('./clients/clients-routes-notauth');
 const productRoutes = require('./products/products-routes');
 const wishListRoutes = require('./wishlists/wishlists-routes');
 const sessionRoute = require('./session/session-routes');
@@ -23,7 +23,6 @@ const configRoutesProtected = (app) => {
 
 const configServer = (app) => {
   app.use(express.json());
-  mongoose.connect(connectionString);
   configRoutesNotProtected(app);
 
   // REQUIRE A TOKEN FOR REQUEST
@@ -37,9 +36,10 @@ const createServer = () => {
   return app;
 };
 
-const initServer = (app, port = 3000) => {
+const initServer = async (app, port = 3000) => {
   app.listen(port);
   console.log(`Running! Port: ${port}`);
+  await mongoose.connect(connectionString);
 };
 
 module.exports = {
