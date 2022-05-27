@@ -25,8 +25,8 @@
         "tags": [
           "Clients"
         ],
-        "summary": "Cadastrar novo cliente.",
-        "description": "Rota responsável por cadastrar novos clientes que desejam criar listas de desejo.",
+        "summary": "Create new client",
+        "description": "Rote responsable to create new clients.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -51,16 +51,14 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object", 
-                  "$ref": "#/components/schemas/Cadastro de cliente"
-                }
-              }
-            }
+          "201": {
+            "description": "Client created."
+          },
+          "400": {
+            "description": "The email or the CPF is already in use."
+          },
+          "500": {
+            "description": "Error."
           }
         }
       }
@@ -70,13 +68,20 @@
         "tags": [
           "Clients"
         ],
-        "summary": "Atualizar cliente.",
-        "description": "Rota responsável pela atualização de clientes, não sendo possível alterar o ID e atualizar por um email e cpf que já consta na base de clientes.",
+        "summary": "Update client",
+        "description": "Rote that updates clients and it is not possible to update with an Email or with an CPF that already exists.",
+        "parameters": {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Client's id to update."
+        },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Atualização de cliente"
+                "$ref": "#/components/schemas/Update client"
               },
               "example": {
                 "Clients": {
@@ -96,20 +101,115 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Client updated."
+          },
+          "400": {
+            "description": "The email or the CPF is already in use."
+          },
+          "401": {
+            "description": "Some information is wrong."
+          },
+          "404": {
+            "description": "Error."
+          }
         }
       },
+      "delete": {
+        "tags": ["Clients"],
+        "summary": "Delete clients by ID.",
+        "description": "Rote responsable to delete clients. If the client has a wishlist, it's also deleted.",
+        "parameters": {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Client's id to delete."
+        },
+        "responses": {
+          "200": {
+            "description": "Client deleted."
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
+      }
+    },
+    "clients/id/{id}": {
       "get": {
         "tags": [
           "Clients"
         ],
-        "summary": "Buscar cliente por ID.",
-        "description": "Rota responsável pela busca de cliente de acordo com seu ID."
+        "summary": "Search client by ID.",
+        "description": "Rote responsable to search client with his ID.",
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref":"#/components/schemas/Create client",
+              "example": {
+                "Clients": {
+                  "value": {
+                    "fullname": "Maria Luisa Campos",
+                    "email": "marialuisa@email.com.br",
+                    "birthdate": "16/01/2001",
+                    "cpf": "12345678901",
+                    "phonenumber": "81998929985",
+                    "postalcode": "50070123",
+                    "gender": "Mulher Cis",
+                    "password": "testeteste123"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
+      }
+    },
+    "clients/email": {
+      "get": {
+        "tags": ["Clients"],
+        "summary": "Search clients by email",
+        "description": "Rote that search clients by his email by query params.",
+        "parameters": [{
+          "in": "query",
+          "name": "email",
+          "type": "string",
+          "required": "true",
+          "description": "Client's email to get his informations. "
+        }]
+      }
+    },
+    "clients/search": {
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Search client with filter and pagination.",
+        "description": "Rote responsable to search client by filter (name, code or gender) and pagination, where you can choose the page and the limit of clients in each page.",
+        "parameters": [{
+          "in": "query"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
-      "Cadastro de cliente": {
+      "Create client": {
         "type": "object",
         "properties": {
           "fullname": {
@@ -150,7 +250,7 @@
           }
         }
       },
-      "Atualização de cliente": {
+      "Update client": {
         "type": "object",
         "properties": {
           "fullname": {
