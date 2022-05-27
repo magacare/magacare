@@ -5,7 +5,8 @@
   "main": "./src/index.js",
   "nodemonConfig": {
     "watch": [
-      "*.js", "*.json"
+      "*.js",
+      "*.json"
     ],
     "ext": "js",
     "ignore": [
