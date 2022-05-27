@@ -144,7 +144,7 @@
           "Clients"
         ],
         "summary": "Search client's wishlists.",
-        "description": "Route responsable to search the wishlist of the client by his id.",
+        "description": "Route responsable to search the client's wishlists by his id.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -168,7 +168,7 @@
           "Clients"
         ],
         "summary": "Search client by ID.",
-        "description": "Route responsable to search client with his ID.",
+        "description": "Route responsable to search client by his ID.",
         "responses": {
           "200": {
             "description": "OK.",
