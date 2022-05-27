@@ -16,7 +16,7 @@
   "tags": [
     {
       "name": "Clients",
-      "description": "Rotas do módulo clients."
+      "description": "Routes of clients module."
     }
   ],
   "paths": {
@@ -26,7 +26,7 @@
           "Clients"
         ],
         "summary": "Create new client",
-        "description": "Rote responsable to create new clients.",
+        "description": "Route responsable to create new clients.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -69,7 +69,7 @@
           "Clients"
         ],
         "summary": "Update client",
-        "description": "Rote that updates clients and it is not possible to update with an Email or with an CPF that already exists.",
+        "description": "Route that updates clients and it is not possible to update with an Email or with an CPF that already exists.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -120,7 +120,7 @@
       "delete": {
         "tags": ["Clients"],
         "summary": "Delete clients by ID.",
-        "description": "Rote responsable to delete clients. If the client has a wishlist, it's also deleted.",
+        "description": "Route responsable to delete clients. If the client has a wishlist, it's also deleted.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -144,7 +144,7 @@
           "Clients"
         ],
         "summary": "Search client's wishlists.",
-        "description": "Rote responsable to search the wishlist of the client by his id.",
+        "description": "Route responsable to search the wishlist of the client by his id.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -168,7 +168,7 @@
           "Clients"
         ],
         "summary": "Search client by ID.",
-        "description": "Rote responsable to search client with his ID.",
+        "description": "Route responsable to search client with his ID.",
         "responses": {
           "200": {
             "description": "OK.",
@@ -200,7 +200,7 @@
       "get": {
         "tags": ["Clients"],
         "summary": "Search clients by email",
-        "description": "Rote that search clients by his email by query params.",
+        "description": "Route that search clients by his email by query params.",
         "parameters": [{
           "in": "query",
           "name": "email",
@@ -216,7 +216,7 @@
           "Clients"
         ],
         "summary": "Search client with filter and pagination.",
-        "description": "Rote responsable to search client by filter (name, id or gender) and pagination, where you can choose the page and the limit of clients in each page.",
+        "description": "Route responsable to search client by filter (name, id or gender) and pagination, where you can choose the page and the limit of clients in each page.",
         "parameters": [
           {
             "in": "query",
