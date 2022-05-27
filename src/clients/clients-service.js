@@ -33,13 +33,13 @@ const searchClientsByGenderFilterOnDatabase = async (filter, page, limit) => {
 };
 
 const searchAllClientsOnDatabase = async () => {
-  const clientsFound = await Clients.find({});
+  const clientsFound = await Clients.find();
   return clientsFound;
 };
 
 const searchClientsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
   switch (searchBy) {
-    case 'name':
+    case 'fullName':
       return searchClientsByNameFilterOnDatabase(filter, page, limit);
     case 'id':
       return searchOneClientByIdOnDatabase(filter);
