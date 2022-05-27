@@ -13,6 +13,12 @@
     "url": "https://localhost:3000/api/health/ping",
     "description": "API teste"
   }],
+  "tags": [
+    {
+      "name": "Clients",
+      "description": "Rotas do módulo clients."
+    }
+  ],
   "paths": {
     "/clients": {
       "post": {
@@ -25,12 +31,12 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Clients"
+                "$ref": "#/components/schemas/Cadastro de cliente"
               },
               "example": {
                 "Clients": {
                   "value": {
-                    "fullname": "Maria Luisa Campos",
+                    "fullname": "Malu Campos",
                     "email": "marialuisa@email.com.br",
                     "birthdate": "16/01/2001",
                     "cpf": "12345678901",
@@ -43,13 +49,67 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object", 
+                  "$ref": "#/components/schemas/Cadastro de cliente"
+                }
+              }
+            }
+          }
         }
+      }
+    },
+    "/clients/{id}": {
+      "put": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Atualizar cliente.",
+        "description": "Rota responsável pela atualização de clientes, não sendo possível alterar o ID e atualizar por um email e cpf que já consta na base de clientes.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Atualização de cliente"
+              },
+              "example": {
+                "Clients": {
+                  "value": {
+                    "fullname": "Maria Luisa Campos",
+                    "email": "marialuisa@email.com.br",
+                    "birthdate": "16/01/2001",
+                    "cpf": "12345678901",
+                    "phonenumber": "81998929985",
+                    "postalcode": "50070123",
+                    "gender": "Mulher Cis",
+                    "oldPassword": "teste123",
+                    "password": "testeteste123",
+                    "confirmPassword": "testeteste123"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Buscar cliente por ID.",
+        "description": "Rota responsável pela busca de cliente de acordo com seu ID."
       }
     }
   },
   "components": {
     "schemas": {
-      "Clients": {
+      "Cadastro de cliente": {
         "type": "object",
         "properties": {
           "fullname": {
@@ -85,8 +145,44 @@
             "required": "true"
           },
           "password": {
-            "type": "String",
+            "type": "string",
             "required": "true"
+          }
+        }
+      },
+      "Atualização de cliente": {
+        "type": "object",
+        "properties": {
+          "fullname": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "lowercase": "true"
+          },
+          "birthdate": {
+            "type": "date"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "phonenumber": {
+            "type": "string"
+          },
+          "postalcode": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "oldPassword": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "confirmPassword": {
+            "type": "string"
           }
         }
       }
