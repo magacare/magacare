@@ -17,6 +17,14 @@
     {
       "name": "Clients",
       "description": "Routes of clients module."
+    },
+    {
+      "name": "Products",
+      "description": "Route of products module."
+    },
+    {
+      "name": "Wishlists",
+      "description": "Route of wishlists module."
     }
   ],
   "paths": {
@@ -31,7 +39,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cadastro de cliente"
+                "$ref": "#/components/schemas/Client"
               },
               "example": {
                 "Clients": {
@@ -269,7 +277,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cadastro de produto"
+                "$ref": "#/components/schemas/Product"
               },
               "example": {
                 "Products": {
@@ -293,7 +301,7 @@
             "description": "This name/code already exists."
           },
           "404": {
-            "description": "Not found."
+            "description": "Error creating product."
           }
         }
       }
@@ -304,19 +312,19 @@
           "Products"
         ],
         "summary": "Update product",
-        "description": "Route that updates products and it is not possible to update if the name already exists.",
+        "description": "Route that updates products and it is not possible to update if the name already exists. The code cannot be changed.",
         "parameters": [{
           "in": "path",
           "name": "code",
           "type": "string",
           "required": "true",
-          "description": "Product update."
+          "description": "Code of the product that will be updated."
         }],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Update product"
+                "$ref": "#/components/schemas/Product"
               },
               "example": {
                 "products": {
@@ -340,7 +348,7 @@
             "description": "This name already exists."
           },          
           "404": {
-            "description": "Not found"
+            "description": "Error updating product."
           }
         }
       },
@@ -363,7 +371,7 @@
             "description": "Product cannot be deleted as it is on a wish list."
           },
           "404": {
-            "description": "Not found."
+            "description": "Error deleting product."
           }
         }
       }
@@ -373,8 +381,8 @@
         "tags": [
           "Products"
         ],
-        "summary": "Search wishlists by product code.",
-        "description": "Route responsible to search wishlists by product code.",
+        "summary": "Search wishlists by product's code.",
+        "description": "Route responsible to search wishlists by product's code.",
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -402,26 +410,19 @@
         ],
         "summary": "Search product by code.",
         "description": "Route responsible to search a product by code.",
+        "parameters": [{
+          "in": "path",
+          "name": "code",
+          "type": "string",
+          "required": "true",
+          "description": "Product's code to search it."
+        }],
         "responses": {
           "200": {
-            "description": "OK.",
-            "schema": {
-              "$ref":"#/components/schemas/Create product",
-              "example": {
-                "Products": {
-                  "value": {
-                    "code": "549595295949",
-                    "name": "Água Micelar",
-                    "description": "Limpeza da pele de forma delicada",
-                    "volume": "150 ml",
-                    "recommendation": "todos os tipos de pele"
-                  }
-                }
-              }
-            }
+            "description": "OK."
           },
           "404": {
-            "description": "Error."
+            "description": "Error finding product."
           }
         }
       }
@@ -467,8 +468,11 @@
           "200": {
             "description": "OK."
           },
+          "400": {
+            "description": "No product found."
+          },
           "404": {
-            "description": "Error."
+            "description": "Error finding products."
           }
         }
       }
@@ -485,7 +489,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Cadastro de wishlists"
+                "$ref": "#/components/schemas/Wishlist"
               },
               "example": {
                 "Wishlists": {
@@ -505,10 +509,10 @@
             "description": "Wishlist registered."
           },
           "400": {
-            "description": "Bad request: change your requisition before repeating."
+            "description": "The wish list should have one product at least OR The client does not exist OR You cannot add duplicate products OR You cannot add product not existent"
           },
           "404": {
-            "description": "Not found."
+            "description": "Error creating wishlist."
           }
         }
       }
@@ -517,7 +521,7 @@
       "put": {
         "tags": [ "Wishlists" ],
         "summary": "Update wishlist",
-        "description": "Route that updates wishlists, but it can't be empty, have duplicate products or change client.",
+        "description": "Route that updates wishlists. It can't be empty, have duplicate products or change client.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -529,7 +533,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Update wishlist"
+                "$ref": "#/components/schemas/Wishlist"
               },
               "example": {
                 "Wishlists": {
@@ -549,10 +553,10 @@
             "description": "Wishlist updated."
           },
           "400": {
-            "description": "Bad request: change your requisition before repeating."
-          },          
+            "description": "The wish list update should have one product at least OR You cannot add duplicate products OR You cannot add products not existents"
+          },       
           "404": {
-            "description": "Not found"
+            "description": "Error."
           }
         }
       },
@@ -572,7 +576,7 @@
             "description": "Wishlist deleted."
           },
           "404": {
-            "description": "Not found."
+            "description": "Error deleting wishlist."
           }
         }
       }
@@ -620,6 +624,54 @@
             "description": "Error finding wishlist."
           }
         }
+      } 
+    },
+    "wishlists/id/{id}": {
+      "get": {
+        "tags": [
+          "Wishlists"
+        ],
+        "summary": "Search wishlist by id.",
+        "description": "Route responsible to search a wishlist by id.",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Wishlist's id to search it."
+        }],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error finding wishlist."
+          }
+        }
+      }
+    },
+    "wishlists/client/{id}": {
+      "get": {
+        "tags": [
+          "Wishlists"
+        ],
+        "summary": "Search wishlist by id.",
+        "description": "Route responsible to search a wishlist by id.",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Client's id to search wishlists."
+        }],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error finding wishlist."
+          }
+        }
       }
     }
 
@@ -633,7 +685,7 @@
 
   "components": {
     "schemas": {
-      "Create client": {
+      "Client": {
         "type": "object",
         "properties": {
           "fullname": {
@@ -708,6 +760,53 @@
           "confirmPassword": {
             "type": "string"
           }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "required": true,
+            "unique": true
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "unique": true
+          },
+          "description": {
+            "type": "string",
+            "required": true
+          },
+          "volume": {
+            "type": "string",
+            "required": true
+          },
+          "recommendation": {
+            "type": "string",
+            "required": true
+          }
+        }
+      },
+      "Wishlist": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": "true"
+          },
+          "client": {
+            "type": "objectid",
+            "ref": "clients"
+          },
+          "product": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "date",
+            "default": "timestamp"
+          } 
         }
       }
     }
