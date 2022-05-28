@@ -264,7 +264,7 @@
           "Products"
         ],
         "summary": "Create new product",
-        "description": "Route responsable to create new products.",
+        "description": "Route responsible to create new products.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -395,6 +395,85 @@
         }
       }
     },
+    "products/code/{code}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Search product by code.",
+        "description": "Route responsible to search a product by code.",
+        "responses": {
+          "200": {
+            "description": "OK.",
+            "schema": {
+              "$ref":"#/components/schemas/Create product",
+              "example": {
+                "Products": {
+                  "value": {
+                    "code": "549595295949",
+                    "name": "Água Micelar",
+                    "description": "Limpeza da pele de forma delicada",
+                    "volume": "150 ml",
+                    "recommendation": "todos os tipos de pele"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
+      }
+    },
+    "products/search": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Search client with filter and pagination.",
+        "description": "Route responsible to search product by filter and pagination, where you can choose the page and the limit of products in each page.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchBy",
+            "type": "string",
+            "required": "true",
+            "description": "Decides the type of filter you want to use. It can be the product's name, code or recommendation."
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "required": "true",
+            "description": "Filter used to search the product."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "required": "false",
+            "description": "Search's page. The default page is 1."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "required": "false",
+            "description": "How many products showing in each page. The default quantity is 5."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error."
+          }
+        }
+      }
+    },
+
   
 
 
