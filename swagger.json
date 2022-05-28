@@ -86,18 +86,14 @@
                 "$ref": "#/components/schemas/Client"
               },
               "example": {
-                "Clients": {
-                  "value": {
-                    "fullname": "Malu Campos",
-                    "email": "marialuisa@email.com.br",
-                    "birthdate": "16/01/2001",
-                    "cpf": "12345678901",
-                    "phonenumber": "81998929985",
-                    "postalcode": "50070123",
-                    "gender": "Mulher Cis",
-                    "password": "testeteste123"
-                  }
-                }
+                "fullname": "Malu Campos",
+                "email": "marialuisa@email.com.br",
+                "birthdate": "16/01/2001",
+                "cpf": "12345678901",
+                "phonenumber": "81998929985",
+                "postalcode": "50070123",
+                "gender": "Mulher Cis",
+                "password": "testeteste123"
               }
             }
           }
@@ -139,20 +135,16 @@
                 "$ref": "#/components/schemas/Update client"
               },
               "example": {
-                "Clients": {
-                  "value": {
-                    "fullname": "Maria Luisa Campos",
-                    "email": "marialuisa@email.com.br",
-                    "birthdate": "16/01/2001",
-                    "cpf": "12345678901",
-                    "phonenumber": "81998929985",
-                    "postalcode": "50070123",
-                    "gender": "Mulher Cis",
-                    "oldPassword": "teste123",
-                    "password": "testeteste123",
-                    "confirmPassword": "testeteste123"
-                  }
-                }
+                "fullname": "Maria Luisa Campos",
+                "email": "marialuisa@email.com.br",
+                "birthdate": "16/01/2001",
+                "cpf": "12345678901",
+                "phonenumber": "81998929985",
+                "postalcode": "50070123",
+                "gender": "Mulher Cis",
+                "oldPassword": "teste123",
+                "password": "testeteste123",
+                "confirmPassword": "testeteste123"
               }
             }
           }
@@ -239,18 +231,14 @@
             "schema": {
               "$ref":"#/components/schemas/Create client",
               "example": {
-                "Clients": {
-                  "value": {
-                    "fullname": "Maria Luisa Campos",
-                    "email": "marialuisa@email.com.br",
-                    "birthdate": "16/01/2001",
-                    "cpf": "12345678901",
-                    "phonenumber": "81998929985",
-                    "postalcode": "50070123",
-                    "gender": "Mulher Cis",
-                    "password": "testeteste123"
-                  }
-                }
+                "fullname": "Maria Luisa Campos",
+                "email": "marialuisa@email.com.br",
+                "birthdate": "16/01/2001",
+                "cpf": "12345678901",
+                "phonenumber": "81998929985",
+                "postalcode": "50070123",
+                "gender": "Mulher Cis",
+                "password": "testeteste123"
               }
             }
           },
@@ -345,15 +333,11 @@
                 "$ref": "#/components/schemas/Product"
               },
               "example": {
-                "Products": {
-                  "value": {
-                    "code": "549595295949",
-                    "name": "Água Micelar",
-                    "description": "Limpeza da pele de forma delicada",
-                    "volume": "150 ml",
-                    "recommendation": "todos os tipos de pele"
-                  }
-                }
+                "code": "549595295949",
+                "name": "Água Micelar",
+                "description": "Limpeza da pele de forma delicada",
+                "volume": "150 ml",
+                "recommendation": "todos os tipos de pele"
               }
             }
           }
@@ -395,15 +379,11 @@
                 "$ref": "#/components/schemas/Product"
               },
               "example": {
-                "products": {
-                  "value": {
-                    "code": "549595295949",
-                    "name": "Hidratante Karite",
-                    "description": "Hidratante facial com manteiga de Karite",
-                    "volume": "120 ml",
-                    "recommendation": "pele seca"
-                  }
-                }
+                "code": "549595295949",
+                "name": "Hidratante Karite",
+                "description": "Hidratante facial com manteiga de Karite",
+                "volume": "120 ml",
+                "recommendation": "pele seca"
               }
             }
           }
@@ -575,14 +555,10 @@
                 "$ref": "#/components/schemas/Wishlist"
               },
               "example": {
-                "Wishlists": {
-                  "value": {
-                    "title": "Lista de Natal",
-                    "client": "628e97add291a4d768eb119e",
-                    "product": "549595295949",
-                    "createdAt": "2022-05-25T23:53:01.428Z"
-                  }
-                }
+                "title": "Lista de Natal",
+                "client": "628e97add291a4d768eb119e",
+                "product": "549595295949",
+                "createdAt": "2022-05-25T23:53:01.428Z"
               }
             }
           }
@@ -622,14 +598,10 @@
                 "$ref": "#/components/schemas/Wishlist"
               },
               "example": {
-                "Wishlists": {
-                  "value": {
-                    "title": "Lista de Pascoa",
-                    "client": "628e97add291a4d768eb119e",
-                    "product": "549595295949",
-                    "createdAt": "2022-05-25T23:53:01.428Z"
-                  }
-                }
+                "title": "Lista de Pascoa",
+                "client": "628e97add291a4d768eb119e",
+                "product": "549595295949",
+                "createdAt": "2022-05-25T23:53:01.428Z"
               }
             }
           }
