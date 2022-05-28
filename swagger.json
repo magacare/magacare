@@ -120,7 +120,7 @@
       "delete": {
         "tags": ["Clients"],
         "summary": "Delete clients by ID.",
-        "description": "Route responsable to delete clients. If the client has a wishlist, it's also deleted.",
+        "description": "Route responsible to delete clients. If the client has a wishlist, it's also deleted.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -144,7 +144,7 @@
           "Clients"
         ],
         "summary": "Search client's wishlists.",
-        "description": "Route responsable to search the client's wishlists by his id.",
+        "description": "Route responsible to search the client's wishlists by his id.",
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -256,8 +256,148 @@
           }
         }
       }
-    }
-  },
+    },
+
+    "/products": {
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Create new product",
+        "description": "Route responsable to create new products.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cadastro de produto"
+              },
+              "example": {
+                "Products": {
+                  "value": {
+                    "code": "549595295949",
+                    "name": "Água Micelar",
+                    "description": "Limpeza da pele de forma delicada",
+                    "volume": "150 ml",
+                    "recommendation": "todos os tipos de pele"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product registered."
+          },
+          "400": {
+            "description": "This name/code already exists."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/products/{code}": {
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update client",
+        "description": "Route that updates products and it is not possible to update with an Email or with an CPF that already exists.",
+        "parameters": [{
+          "in": "path",
+          "name": "code",
+          "type": "string",
+          "required": "true",
+          "description": "Product update."
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update product"
+              },
+              "example": {
+                "products": {
+                  "value": {
+                    "code": "549595295949",
+                    "name": "Hidratante Karite",
+                    "description": "Hidratante facial com manteiga de Karite",
+                    "volume": "120 ml",
+                    "recommendation": "pele seca"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated."
+          },
+          "400": {
+            "description": "This name already exists."
+          },          
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Delete products by code.",
+        "description": "Route responsable to delete products. Product cannot be deleted if it's on a wishlist.",
+        "parameters": [{
+          "in": "path",
+          "name": "code",
+          "type": "string",
+          "required": "true",
+          "description": "Product's code to delete."
+        }],
+        "responses": {
+          "200": {
+            "description": "Product deleted."
+          },
+          "401": {
+            "description": "Product cannot be deleted as it is on a wish list."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "products/wishlists/{code}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Search wishlists by product code.",
+        "description": "Route responsible to search wishlists by product code.",
+        "parameters": [{
+          "in": "path",
+          "name": "code",
+          "type": "string",
+          "required": "true",
+          "description": "Product's code to search wishlists"
+        }],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "No product found."
+          },
+          "404": {
+            "description": "Error finding product."
+          }
+        }
+      }
+    },
+  
+
+
   "components": {
     "schemas": {
       "Create client": {
@@ -338,5 +478,7 @@
         }
       }
     }
+
   }
+}
 }
