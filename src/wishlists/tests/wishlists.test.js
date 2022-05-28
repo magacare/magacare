@@ -80,6 +80,22 @@ describe('Wishlist routes', () => {
     expect(body).toEqual({ message: 'WishList registered' });
   });
 
+  it('should not create wishlist without products', async () => {
+    const mockWishlistLocal = {
+      title: 'aniversario teste',
+      client: '628d7aadf48fb4029356cc51',
+      product: [],
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockWishlistLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body).toEqual({ error: 'The wishlist must contain at least 1 product' });
+  });
+
   it('should search wishlists and return status code 200', async () => {
     const { statusCode } = await supertest(app)
       .get('/wishlists')
@@ -127,6 +143,52 @@ describe('Wishlist routes', () => {
 
     const { statusCode, body } = await supertest(app)
       .get(`/wishlists/search?searchBy=client&filter=${idClient}&page=1&limit=1`)
+      .set('Authorization', `Bearer ${jwt}`);
+
+    expect(statusCode).toBe(200);
+
+    expect(body).toEqual([{
+      _id: expect.any(String),
+      title: expect.any(String),
+      client: expect.any(String),
+      product: expect.any(Array),
+      createdAt: expect.any(String),
+      __v: 0,
+    }]);
+  });
+
+  it('should search by filter by id', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idWishlist = response.body[0]._id;
+
+    const { statusCode, body } = await supertest(app)
+      .get(`/wishlists/search?searchBy=id&filter=${idWishlist}&page=1&limit=1`)
+      .set('Authorization', `Bearer ${jwt}`);
+
+    expect(statusCode).toBe(200);
+
+    expect(body).toEqual([{
+      _id: expect.any(String),
+      title: expect.any(String),
+      client: expect.any(String),
+      product: expect.any(Array),
+      createdAt: expect.any(String),
+      __v: 0,
+    }]);
+  });
+
+  it('should search by filter by product', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const codeProduct = response.body[0].product[0];
+
+    const { statusCode, body } = await supertest(app)
+      .get(`/wishlists/search?searchBy=product&filter=${codeProduct}&page=1&limit=1`)
       .set('Authorization', `Bearer ${jwt}`);
 
     expect(statusCode).toBe(200);
