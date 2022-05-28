@@ -92,8 +92,11 @@ const searchClientsByFilter = async (req, res) => {
 const searchWishlistByClient = async (req, res) => {
   try {
     const { id } = req.params;
-    const client = await searchWishlistByClientOnDatabase(id);
-    return res.status(200).json(client);
+    const wishlists = await searchWishlistByClientOnDatabase(id);
+    return res.status(200).json({
+      message: 'This client has this wishlists ids:',
+      wishlists,
+    });
   } catch(error) {
     return res.status(404).json({ message: 'Error finding client.' });
   }
