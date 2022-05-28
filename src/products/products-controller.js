@@ -88,7 +88,7 @@ const searchProductsByFilter = async (req, res) => {
     const {
       searchBy, filter, page = 1, limit = 5,
     } = req.query;
-    const products = await searchProductsByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
+    const products = await searchProductsByFilterOnDatabase(searchBy, filter, page, limit);
     if(products.length !== 0) {
       return res.status(200).json(products);
     } return res.status(400).json({ erro: 'No product found.' });
