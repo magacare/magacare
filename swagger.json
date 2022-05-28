@@ -431,7 +431,7 @@
         "tags": [
           "Products"
         ],
-        "summary": "Search client with filter and pagination.",
+        "summary": "Search product with filter and pagination.",
         "description": "Route responsible to search product by filter and pagination, where you can choose the page and the limit of products in each page.",
         "parameters": [
           {
@@ -576,11 +576,58 @@
           }
         }
       }
+    },
+    "wishlists/search": {
+      "get": {
+        "tags": [ "Wishlists" ],
+        "summary": "Search wishlist with filter and pagination.",
+        "description": "Route responsible to search wishlist by filter and pagination, where you can choose the page and the limit of wishlists in each page.",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchBy",
+            "type": "string",
+            "required": "true",
+            "description": "Decides the type of filter you want to use. It can be the wishlist's title, id or product."
+          },
+          {
+            "in": "query",
+            "name": "filter",
+            "type": "string",
+            "required": "true",
+            "description": "Filter used to search the wishlist."
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "required": "false",
+            "description": "Search's page. The default page is 1."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "required": "false",
+            "description": "How many wishlists showing in each page. The default quantity is 5."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error finding wishlist."
+          }
+        }
+      }
     }
 
 
 
-    },
+
+
+  },
   
 
 
