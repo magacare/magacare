@@ -10,10 +10,14 @@
     "version": "1.0.0"
   },
   "servers": [{
-    "url": "https://localhost:3000/api/health/ping",
+    "url": "http://localhost:3000/",
     "description": "API teste"
   }],
   "tags": [
+    {
+      "name": "Authentication",
+      "description": "Session to get the authentication token."
+    },
     {
       "name": "Clients",
       "description": "Routes of clients module."
@@ -28,6 +32,43 @@
     }
   ],
   "paths": {
+    "/session": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Get the authentication token.",
+        "description": "Session to give information and receive the authentication token.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Account unauthorized OR some information is wrong."
+          },
+          "404": {
+            "description": "Error authenticating account."
+          }
+        }
+      }
+    },
     "/clients": {
       "post": {
         "tags": [
@@ -35,6 +76,9 @@
         ],
         "summary": "Create new client",
         "description": "Route responsable to create new clients.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -78,6 +122,9 @@
         ],
         "summary": "Update client",
         "description": "Route that updates clients and it is not possible to update with an Email or with an CPF that already exists.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -129,6 +176,9 @@
         "tags": ["Clients"],
         "summary": "Delete clients by ID.",
         "description": "Route responsible to delete clients. If the client has a wishlist, it's also deleted.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -153,6 +203,9 @@
         ],
         "summary": "Search client's wishlists.",
         "description": "Route responsible to search the client's wishlists by his id.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -177,6 +230,9 @@
         ],
         "summary": "Search client by ID.",
         "description": "Route responsable to search client by his ID.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "responses": {
           "200": {
             "description": "OK.",
@@ -209,6 +265,9 @@
         "tags": ["Clients"],
         "summary": "Search clients by email",
         "description": "Route that search clients by his email by query params.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "query",
           "name": "email",
@@ -225,6 +284,9 @@
         ],
         "summary": "Search client with filter and pagination.",
         "description": "Route responsable to search client by filter (name, id or gender) and pagination, where you can choose the page and the limit of clients in each page.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [
           {
             "in": "query",
@@ -273,6 +335,9 @@
         ],
         "summary": "Create new product",
         "description": "Route responsible to create new products.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -313,6 +378,9 @@
         ],
         "summary": "Update product",
         "description": "Route that updates products and it is not possible to update if the name already exists. The code cannot be changed.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -356,6 +424,9 @@
         "tags": ["Products"],
         "summary": "Delete products by code.",
         "description": "Route responsable to delete products. Product cannot be deleted if it's on a wishlist.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -383,6 +454,9 @@
         ],
         "summary": "Search wishlists by product's code.",
         "description": "Route responsible to search wishlists by product's code.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -410,6 +484,9 @@
         ],
         "summary": "Search product by code.",
         "description": "Route responsible to search a product by code.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -434,6 +511,9 @@
         ],
         "summary": "Search product with filter and pagination.",
         "description": "Route responsible to search product by filter and pagination, where you can choose the page and the limit of products in each page.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [
           {
             "in": "query",
@@ -485,6 +565,9 @@
         ],
         "summary": "Create new wishlist",
         "description": "Route responsible to create new wishlists.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -522,6 +605,9 @@
         "tags": [ "Wishlists" ],
         "summary": "Update wishlist",
         "description": "Route that updates wishlists. It can't be empty, have duplicate products or change client.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -564,6 +650,9 @@
         "tags": ["Wishlists"],
         "summary": "Delete wishlists by id.",
         "description": "Route responsible to delete wishlists.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -586,6 +675,9 @@
         "tags": [ "Wishlists" ],
         "summary": "Search wishlist with filter and pagination.",
         "description": "Route responsible to search wishlist by filter and pagination, where you can choose the page and the limit of wishlists in each page.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [
           {
             "in": "query",
@@ -633,6 +725,9 @@
         ],
         "summary": "Search wishlist by id.",
         "description": "Route responsible to search a wishlist by id.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -657,6 +752,9 @@
         ],
         "summary": "Search wishlist by id.",
         "description": "Route responsible to search a wishlist by id.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "parameters": [{
           "in": "path",
           "name": "id",
@@ -809,8 +907,19 @@
           } 
         }
       }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid."
+      }
     }
-
   }
 }
 
