@@ -352,7 +352,7 @@ Passar como parâmetro na URL da requisição o code do product que deseja pesqu
 
 #### Atualizar produto
 ```http
-  PUT YOUR-SERVER//:id
+  PUT YOUR-SERVER/:id
 ```
  Passar como parâmetro na URL da requisição o ID do client que deseja atualizar
 | Parâmetro   | Descrição                                   |
@@ -371,7 +371,7 @@ Passar parâmetros no body da requisição em formato JSON:
 
 #### Remover produtos
 ```http
-  DELETE YOUR-SERVER/clients/:id
+  DELETE YOUR-SERVER/products/:id
 ```
 - Se um produto está em uma lista de desejos, então, ele não poderá ser removido.
 
