@@ -54,7 +54,7 @@ const searchProductsByFilterOnDatabase = async (searchBy, filter, page, limit) =
 
 const searchWishlistsByProductOnDatabase = async (productCode) => {
   const wishlistsSearch = await Wishlists.find({ product: { $in: productCode } });
-  const wishlists = wishlistsSearch.map((wishlist) => wishlist.id);
+  const wishlists = wishlistsSearch.map((wishlist) => wishlist);
   return wishlists;
 };
 
