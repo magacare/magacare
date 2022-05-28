@@ -6,6 +6,7 @@ const {
 const supertest = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const { createServer } = require('../../server');
+const { date } = require('joi');
 
 const app = createServer();
 
@@ -85,5 +86,58 @@ describe('Wishlist routes', () => {
       .set('Authorization', `Bearer ${jwt}`);
 
     expect(statusCode).toBe(200);
+  });
+
+  it('should search one wishlist successfully', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idWishlist = response.body[0]._id;
+
+    const { statusCode } = await supertest(app)
+      .get(`/wishlists/id/${idWishlist}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(idWishlist);
+
+    expect(statusCode).toBe(200);
+  });
+
+  it('should search wishlists by clients id successfully', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idClient = response.body[0].client;
+
+    const { statusCode } = await supertest(app)
+      .get(`/wishlists/client/${idClient}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(idClient);
+
+    expect(statusCode).toBe(200);
+  });
+
+  it('should search by filter by client', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idClient = response.body[0].client;
+
+    const { statusCode, body } = await supertest(app)
+      .get(`/wishlists/search?searchBy=client&filter=${idClient}&page=1&limit=1`)
+      .set('Authorization', `Bearer ${jwt}`);
+
+    expect(statusCode).toBe(200);
+
+    expect(body).toEqual([{
+      _id: expect.any(String),
+      title: expect.any(String),
+      client: expect.any(String),
+      product: expect.any(Array),
+      createdAt: expect.any(String),
+      __v: 0,
+    }]);
   });
 });
