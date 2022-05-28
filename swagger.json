@@ -303,8 +303,8 @@
         "tags": [
           "Products"
         ],
-        "summary": "Update client",
-        "description": "Route that updates products and it is not possible to update with an Email or with an CPF that already exists.",
+        "summary": "Update product",
+        "description": "Route that updates products and it is not possible to update if the name already exists.",
         "parameters": [{
           "in": "path",
           "name": "code",
@@ -474,6 +474,113 @@
       }
     },
 
+    "/wishlists": {
+      "post": {
+        "tags": [
+          "Wishlists"
+        ],
+        "summary": "Create new wishlist",
+        "description": "Route responsible to create new wishlists.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cadastro de wishlists"
+              },
+              "example": {
+                "Wishlists": {
+                  "value": {
+                    "title": "Lista de Natal",
+                    "client": "628e97add291a4d768eb119e",
+                    "product": "549595295949",
+                    "createdAt": "2022-05-25T23:53:01.428Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Wishlist registered."
+          },
+          "400": {
+            "description": "Bad request: change your requisition before repeating."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/wishlists/{id}": {
+      "put": {
+        "tags": [ "Wishlists" ],
+        "summary": "Update wishlist",
+        "description": "Route that updates wishlists, but it can't be empty, have duplicate products or change client.",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Wishlist update."
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update wishlist"
+              },
+              "example": {
+                "Wishlists": {
+                  "value": {
+                    "title": "Lista de Pascoa",
+                    "client": "628e97add291a4d768eb119e",
+                    "product": "549595295949",
+                    "createdAt": "2022-05-25T23:53:01.428Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Wishlist updated."
+          },
+          "400": {
+            "description": "Bad request: change your requisition before repeating."
+          },          
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Wishlists"],
+        "summary": "Delete wishlists by id.",
+        "description": "Route responsible to delete wishlists.",
+        "parameters": [{
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": "true",
+          "description": "Wishlist's id to delete."
+        }],
+        "responses": {
+          "200": {
+            "description": "Wishlist deleted."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    }
+
+
+
+    },
   
 
 
@@ -560,4 +667,4 @@
 
   }
 }
-}
+
