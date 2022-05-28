@@ -163,7 +163,7 @@ const searchWishlistsByFilter = async (req, res) => {
     const {
       searchBy, filter, page = 1, limit = 5,
     } = req.query;
-    const wishlists = await searchWishlistByFilterOnDatabase(searchBy[0], filter[0], page[0], limit[0]);
+    const wishlists = await searchWishlistByFilterOnDatabase(searchBy, filter, page, limit);
     if(wishlists.length !== 0) {
       return res.status(200).json(wishlists);
     } return res.status(400).json({ erro: 'No wishlist found.' });
