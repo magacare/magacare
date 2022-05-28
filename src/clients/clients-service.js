@@ -39,7 +39,7 @@ const searchAllClientsOnDatabase = async () => {
 
 const searchClientsByFilterOnDatabase = async (searchBy, filter, page, limit) => {
   switch (searchBy) {
-    case 'fullName':
+    case 'name':
       return searchClientsByNameFilterOnDatabase(filter, page, limit);
     case 'id':
       return searchOneClientByIdOnDatabase(filter);
