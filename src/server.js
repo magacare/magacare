@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 const HealthRoute = require('./config/health');
 const { connectionString } = require('./config/database');
 const clientRoutes = require('./clients/clients-routes');
@@ -24,7 +26,7 @@ const configRoutesProtected = (app) => {
 const configServer = (app) => {
   app.use(express.json());
   configRoutesNotProtected(app);
-
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   // REQUIRE A TOKEN FOR REQUEST
   app.use(authMiddleware);
   configRoutesProtected(app);

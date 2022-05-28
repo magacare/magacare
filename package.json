@@ -36,6 +36,7 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.4",
+    "swagger-ui-express": "^4.4.0",
     "util": "^0.12.4"
   },
   "devDependencies": {
