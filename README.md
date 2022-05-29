@@ -61,7 +61,7 @@ módulo de lista de desejos dos produtos da Magacare, e-commerce especializada e
 
 ### Configurando variável de ambiente para conexão com seu banco de dados
 - Esta aplicação utilizou como banco de dados o MongoDB e para configurá-lo você deve:
-- Criar um arquivo chamado .env com uma variável de ambiente chamada DATABASE, utilize o arquivo `.envExemple` para ver um exemplo de configuração.
+- Criar um arquivo chamado .env com uma variável de ambiente chamada DATABASE, utilize o arquivo `.envExample` para ver um exemplo de configuração.
 - A variável DATABASE deve receber a string do banco de dados criado previamente no MongoDB-Atlas.
 
 - A string do banco de dados pode ser acessada pelo MongoDB-atlas, ao acessar sua Database:
