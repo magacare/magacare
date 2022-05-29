@@ -18,9 +18,17 @@ const searchOneClientByEmailonDatabase = async (email) => {
 };
 
 const searchClientsByNameFilterOnDatabase = async (filter, page, limit) => {
+  function ignoreAccentsOnString(string) {
+    return string.replace(/a/g, '[a,á,à,ä,â]')
+      .replace(/e/g, '[e,é,ë,è]')
+      .replace(/i/g, '[i,í,ï,ì]')
+      .replace(/o/g, '[o,ó,ö,ò]')
+      .replace(/u/g, '[u,ü,ú,ù]');
+  }
+
   const clients = await Clients.find(
     {
-      fullName: { $regex: filter, $options: 'i' },
+      fullName: { $regex: ignoreAccentsOnString(filter), $options: 'i' },
     },
   ).limit(limit * 1).skip((page - 1) * limit);
   return clients;
