@@ -390,4 +390,44 @@ describe('Wishlist routes', () => {
 
     expect(statusCode).toBe(404);
   });
+
+  it('should delete product on wishlist successfully', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idWishlist = response.body[0]._id;
+    const productToDelete = response.body[0].product[0];
+
+    const { statusCode } = await supertest(app)
+      .delete(`/wishlists/product/${idWishlist}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send({ product: productToDelete });
+
+    expect(statusCode).toBe(200);
+  });
+
+  it('should not delete product that dont exist on wishlist', async () => {
+    const response = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const idWishlist = response.body[0]._id;
+
+    const { statusCode } = await supertest(app)
+      .delete(`/wishlists/product/${idWishlist}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send({ product: '00000' });
+
+    expect(statusCode).toBe(200);
+  });
+
+  it('should not delete product on wishlist that does not exist', async () => {
+    const { statusCode } = await supertest(app)
+      .delete('/wishlists/product/123987756asd5687')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send({ product: '000000' });
+
+    expect(statusCode).toBe(404);
+  });
 });
