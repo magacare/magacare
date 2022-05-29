@@ -69,7 +69,7 @@ const updateWishList = async (req, res) => {
     const wishlist = req.body;
     const { product: code } = wishlist;
 
-    const wishListExists = code && await verifyExistsWishList({ _id: id });
+    const wishListExists = await verifyExistsWishList({ _id: id });
 
     if(!wishListExists) {
       return res.status(404).json({
