@@ -118,14 +118,27 @@ describe('Products routes', () => {
   });
 
   it('should not update product if the name already exists in database and return status code 400', async () => {
+    const mockProdutoLocal = {
+      name: 'produto de rosto',
+      description: 'produto para o rosto',
+      volume: '120ml',
+      recommendation: 'pele mista',
+    };
+
+    await supertest(app)
+      .post('/products')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockProdutoLocal);
+
     const response = await supertest(app)
       .get('/products')
       .set('Authorization', `Bearer ${jwt}`);
 
     const codeProduct = response.body[0].code;
+    const productName = response.body[1].name;
 
     const mockProductLocal = {
-      name: 'tônico facial',
+      name: productName,
     };
 
     const { statusCode, body } = await supertest(app)
@@ -365,11 +378,11 @@ describe('Products routes', () => {
     expect(statusCode).toBe(200);
   });
 
-  it('should not delete product by code', async () => {
+  it('should not delete product by code that does not exist', async () => {
     const { statusCode } = await supertest(app)
       .delete('/products/123')
       .set('Authorization', `Bearer ${jwt}`);
 
-    expect(statusCode).toBe(400);
+    expect(statusCode).toBe(404);
   });
 });
