@@ -185,7 +185,7 @@
         }
       }
     },
-    "clients/wishlists/{clientId}": {
+    "/clients/wishlists/{clientId}": {
       "get": {
         "tags": [
           "Clients"
@@ -212,7 +212,7 @@
         }
       }
     },
-    "clients/id/{clientId}": {
+    "/clients/id/{clientId}": {
       "get": {
         "tags": [
           "Clients"
@@ -251,7 +251,7 @@
         }
       }
     },
-    "clients/email": {
+    "/clients/email": {
       "get": {
         "tags": ["Clients"],
         "summary": "Search clients by email",
@@ -268,7 +268,7 @@
         }]
       }
     },
-    "clients/search": {
+    "/clients/search": {
       "get": {
         "tags": [
           "Clients"
@@ -430,7 +430,7 @@
         }
       }
     },
-    "products/wishlists/{productCode}": {
+    "/products/wishlists/{productCode}": {
       "get": {
         "tags": [
           "Products"
@@ -460,7 +460,7 @@
         }
       }
     },
-    "products/code/{productCode}": {
+    "/products/code/{productCode}": {
       "get": {
         "tags": [
           "Products"
@@ -487,7 +487,7 @@
         }
       }
     },
-    "products/search": {
+    "/products/search": {
       "get": {
         "tags": [
           "Products"
@@ -690,7 +690,7 @@
         }
       }
     },
-    "wishlists/search": {
+    "/wishlists/search": {
       "get": {
         "tags": [ "Wishlists" ],
         "summary": "Search wishlist with filter and pagination.",
@@ -738,7 +738,7 @@
         }
       } 
     },
-    "wishlists/id/{wishlistId}": {
+    "/wishlists/id/{wishlistId}": {
       "get": {
         "tags": [
           "Wishlists"
@@ -765,7 +765,7 @@
         }
       }
     },
-    "wishlists/client/{clientId}": {
+    "/wishlists/client/{clientId}": {
       "get": {
         "tags": [
           "Wishlists"
