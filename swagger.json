@@ -10,7 +10,7 @@
     "version": "1.0.0"
   },
   "servers": [{
-    "url": "http://localhost:3000/",
+    "url": "https://magacare.herokuapp.com",
     "description": "API teste"
   }],
   "tags": [
