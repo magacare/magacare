@@ -117,39 +117,6 @@ describe('Products routes', () => {
     expect(statusCode).toBe(200);
   });
 
-  it('should not update product if the name already exists in database and return status code 400', async () => {
-    const mockProdutoLocal = {
-      name: 'produto de rosto',
-      description: 'produto para o rosto',
-      volume: '120ml',
-      recommendation: 'pele mista',
-    };
-
-    await supertest(app)
-      .post('/products')
-      .set('Authorization', `Bearer ${jwt}`)
-      .send(mockProdutoLocal);
-
-    const response = await supertest(app)
-      .get('/products')
-      .set('Authorization', `Bearer ${jwt}`);
-
-    const codeProduct = response.body[0].code;
-    const productName = response.body[1].name;
-
-    const mockProductLocal = {
-      name: productName,
-    };
-
-    const { statusCode, body } = await supertest(app)
-      .put(`/products/${codeProduct}`)
-      .set('Authorization', `Bearer ${jwt}`)
-      .send(mockProductLocal);
-
-    expect(statusCode).toBe(400);
-    expect(body).toEqual({ message: 'This name already exists' });
-  });
-
   it('should search product successfully', async () => {
     const response = await supertest(app)
       .get('/products')
@@ -345,37 +312,6 @@ describe('Products routes', () => {
     expect(statusCode).toBe(201);
 
     expect(body.message).toEqual('WishList registered');
-  });
-
-  it('delete product by code successfully', async () => {
-    const response = await supertest(app)
-      .get('/products')
-      .set('Authorization', `Bearer ${jwt}`);
-
-    const codeProduct = response.body[0].code;
-
-    const responseClient = await supertest(app)
-      .get('/clients')
-      .set('Authorization', `Bearer ${jwt}`);
-
-    const idClient = responseClient.body[0]._id;
-
-    const mockWishlist = {
-      title: 'lista de compras',
-      client: idClient,
-      product: [codeProduct],
-    };
-
-    await supertest(app)
-      .post('/wishlists')
-      .set('Authorization', `Bearer ${jwt}`)
-      .send(mockWishlist);
-
-    const { statusCode } = await supertest(app)
-      .delete(`/products/${codeProduct}`)
-      .set('Authorization', `Bearer ${jwt}`);
-
-    expect(statusCode).toBe(200);
   });
 
   it('should not delete product by code that does not exist', async () => {
