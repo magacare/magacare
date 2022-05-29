@@ -6,7 +6,6 @@ const {
 const supertest = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const { createServer } = require('../../server');
-const { date } = require('joi');
 
 const app = createServer();
 
@@ -80,6 +79,83 @@ describe('Wishlist routes', () => {
     expect(body).toEqual({ message: 'WishList registered' });
   });
 
+  it('should not create wishlist and return status code 404', async () => {
+    const clientId = '123';
+
+    const mockLocal = {
+      ...mockWishlist,
+      client: clientId,
+    };
+
+    const { statusCode } = await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(404);
+  });
+
+  it('should not create wishlist with client not exist and return status code 400', async () => {
+    const clientId = new mongoose.Types.ObjectId().toString();
+
+    const mockLocal = {
+      ...mockWishlist,
+      client: clientId,
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('This client does not exist');
+  });
+
+  it('should not create a wishlist with duplicate products', async () => {
+    const responseClient = await supertest(app)
+      .get('/clients')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const clientId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+      product: ['123456', '123456'],
+      client: clientId,
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('You cannot add duplicate products');
+  });
+
+  it('should not create a wishlist with a product not exists', async () => {
+    const responseClient = await supertest(app)
+      .get('/clients')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const clientId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+      product: ['55555'],
+      client: clientId,
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('You cannot add product not existent');
+  });
+
   it('should not create wishlist without products', async () => {
     const mockWishlistLocal = {
       title: 'aniversario teste',
@@ -96,6 +172,108 @@ describe('Wishlist routes', () => {
     expect(body).toEqual({ error: 'The wishlist must contain at least 1 product' });
   });
 
+  it('should update wishlist and return status code 200', async () => {
+    const responseClient = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const wishlistId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      title: 'lista de desejos',
+    };
+
+    const { statusCode } = await supertest(app)
+      .put(`/wishlists/${wishlistId}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(200);
+  });
+
+  it('should not update wishlist with duplicate products and return status code 400', async () => {
+    const responseClient = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const wishlistId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .put(`/wishlists/${wishlistId}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('You cannot add duplicate products');
+  });
+
+  it('should not update wishlist with no products and return status code 400', async () => {
+    const responseClient = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const wishlistId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+      product: [],
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .put(`/wishlists/${wishlistId}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('The wishlist must contain at least 1 product');
+  });
+
+  it('should not update wishlist with duplicated products in body and return status code 400', async () => {
+    const responseClient = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const wishlistId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+      product: ['8888888', '8888888'],
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .put(`/wishlists/${wishlistId}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('You cannot add duplicate products');
+  });
+
+  it('should not update wishlist with not exist product and return status code 400', async () => {
+    const responseClient = await supertest(app)
+      .get('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`);
+
+    const wishlistId = responseClient.body[0]._id;
+
+    const mockLocal = {
+      ...mockWishlist,
+      product: ['888888'],
+    };
+
+    const { statusCode, body } = await supertest(app)
+      .put(`/wishlists/${wishlistId}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockLocal);
+
+    expect(statusCode).toBe(400);
+    expect(body.error).toEqual('You cannot add products not existents');
+  });
+
   it('should search wishlists and return status code 200', async () => {
     const { statusCode } = await supertest(app)
       .get('/wishlists')
@@ -104,7 +282,7 @@ describe('Wishlist routes', () => {
     expect(statusCode).toBe(200);
   });
 
-  it('should search one wishlist successfully', async () => {
+  it('should delete wishlists and return status code 200', async () => {
     const response = await supertest(app)
       .get('/wishlists')
       .set('Authorization', `Bearer ${jwt}`);
@@ -201,5 +379,15 @@ describe('Wishlist routes', () => {
       createdAt: expect.any(String),
       __v: 0,
     }]);
+  });
+
+  it('should not delete wishlists and return status code 404', async () => {
+    const wishListId = '123';
+
+    const { statusCode } = await supertest(app)
+      .delete(`/wishlists/${wishListId}`)
+      .set('Authorization', `Bearer ${jwt}`);
+
+    expect(statusCode).toBe(404);
   });
 });
