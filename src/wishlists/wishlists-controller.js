@@ -198,42 +198,62 @@ const deleteProductOnWishlist = async (req, res) => {
     const wishListFound = await verifyExistsWishList({ _id: id });
 
     if(!wishListFound) {
-      return res.status(200).json({
+      return res.status(404).json({
         message: 'Wishlist not found',
       });
     }
 
-    if(code.length > 0 && wishListFound.product.length > 1) {
-      const productsExistsOnList = wishListFound.product;
-      code.filter((product) => {
-        const findOnWhisList = productsExistsOnList.find((p) => p === product);
-        if(!findOnWhisList) {
-          return res.status(200).json({
-            message: 'Product not exist in wishlist',
-          });
-        }
-        return false;
-      });
-
-      const findProduct = (value) => code.find((item) => item === value);
-      const newProductsOnWishList = wishListFound.product.filter((p) => p !== findProduct(p));
-
-      const newWishList = {
-        title: wishListFound.title,
-        client: wishListFound.client,
-        product: newProductsOnWishList,
-      };
-
-      const productDelete = await deleteProductOnDatabase(id, newWishList);
-
-      return res.status(200).json({
-        message: 'Product deleted in wishlist successfully',
-        product: productDelete,
+    if(code.length <= 0) {
+      return res.status(400).json({
+        message: 'You need inform a code to delete a product',
       });
     }
 
+    const productExists = await verifyExistsProduct({ code: { $in: [...code] } });
+
+    if(productExists.length <= 0) {
+      return res.status(404).json({
+        message: 'Product not exist',
+      });
+    }
+
+    if(wishListFound.product.length === 1) {
+      return res.status(400).json({
+        message: 'You cannot delete if the list has only one product',
+      });
+    }
+
+    const productsExistsOnList = wishListFound.product;
+
+    const productsNotExistsOnList = [];
+
+    code.forEach((product) => {
+      const findOnWhisList = productsExistsOnList.find((p) => p === product);
+      if(!findOnWhisList) {
+        productsNotExistsOnList.push(product);
+      }
+    });
+
+    if(productsNotExistsOnList.length > 0) {
+      return res.status(200).json({
+        message: 'Product not exist in wishlist',
+      });
+    }
+
+    const findProduct = (value) => code.find((item) => item === value);
+    const newProductsOnWishList = wishListFound.product.filter((p) => p !== findProduct(p));
+
+    const newWishList = {
+      title: wishListFound.title,
+      client: wishListFound.client,
+      product: newProductsOnWishList,
+    };
+
+    const productDelete = await deleteProductOnDatabase(id, newWishList);
+
     return res.status(200).json({
-      message: 'You cannot delete if the list has only one product',
+      message: 'Product deleted in wishlist successfully',
+      product: productDelete,
     });
   } catch(error) {
     return res.status(404).json(error.message);
