@@ -76,9 +76,6 @@
         ],
         "summary": "Create new client",
         "description": "Route responsable to create new clients.",
-        "security": [{
-          "bearerAuth": []
-        }],
         "requestBody": {
           "content": {
             "application/json": {
