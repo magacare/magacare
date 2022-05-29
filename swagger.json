@@ -83,12 +83,12 @@
                 "$ref": "#/components/schemas/Client"
               },
               "example": {
-                "fullname": "Malu Campos",
+                "fullName": "Malu Campos",
                 "email": "marialuisa@email.com.br",
-                "birthdate": "16/01/2001",
+                "birthDate": "16/01/2001",
                 "cpf": "12345678901",
-                "phonenumber": "81998929985",
-                "postalcode": "50070123",
+                "phoneNumber": "81998929985",
+                "postalCode": "50070123",
                 "gender": "Mulher Cis",
                 "password": "testeteste123"
               }
@@ -847,23 +847,23 @@
       "Update client": {
         "type": "object",
         "properties": {
-          "fullname": {
+          "fullName": {
             "type": "string"
           },
           "email": {
             "type": "string",
             "lowercase": "true"
           },
-          "birthdate": {
+          "birthDate": {
             "type": "date"
           },
           "cpf": {
             "type": "string"
           },
-          "phonenumber": {
+          "phoneNumber": {
             "type": "string"
           },
-          "postalcode": {
+          "postalCode": {
             "type": "string"
           },
           "gender": {
