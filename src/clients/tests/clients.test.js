@@ -411,15 +411,39 @@ describe('Clients routes', () => {
   });
 
   it('should search wishlist by client', async () => {
+    const mockProduct = {
+      code: '123456',
+      name: 'Produto',
+      description: 'Produto para pele',
+      volume: '30ml',
+      recommendation: 'Pele mista',
+    };
+
+    await supertest(app)
+      .post('/products')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockProduct);
+
     const response = await supertest(app)
       .get('/clients')
       .set('Authorization', `Bearer ${jwt}`);
 
     const idClient = response.body[0]._id;
+
+    const mockWishlist = {
+      title: 'Wishlist de Testes',
+      client: idClient,
+      product: ['123456'],
+    };
+
+    await supertest(app)
+      .post('/wishlists')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockWishlist);
+
     const { statusCode } = await supertest(app)
       .get(`/clients/wishlists/${idClient}`)
-      .set('Authorization', `Bearer ${jwt}`)
-      .send(idClient);
+      .set('Authorization', `Bearer ${jwt}`);
 
     expect(statusCode).toBe(200);
   });
