@@ -184,19 +184,27 @@ const deleteClient = async (req, res) => {
   try {
     const { id } = req.params;
 
+    const verifyClientExists = await verifyExistsClients({ _id: id });
+
     const wishlists = await searchWishlistByClientOnDatabase(id);
+
+    if(!verifyClientExists) {
+      return res.status(400).json({
+        message: 'This client does not exist in the database',
+      });
+    }
 
     if(wishlists.length === 0) {
       const clientDeleted = await deleteClientOnDatabase({ _id: id });
       return res.status(200).json({
-        message: 'client deleted',
+        message: 'Client deleted',
         client: clientDeleted,
       });
     }
     const wishlistDeleted = await deletehWishlistByClientOnDatabase({ _id: id });
     const clientWithWishlistDeleted = await deleteClientOnDatabase({ _id: id });
     return res.status(200).json({
-      message: 'client and wishlist deleted',
+      message: 'Client and wishlists have been deleted',
       client: [clientWithWishlistDeleted, wishlistDeleted],
     });
   } catch(error) {
