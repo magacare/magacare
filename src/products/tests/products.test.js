@@ -303,7 +303,7 @@ describe('Products routes', () => {
       .set('Authorization', `Bearer ${jwt}`);
 
     expect(statusCode).toEqual(400);
-    expect(body.error).toEqual('No product found.');
+    expect(body.error).toEqual('No wishlist founded.');
   });
 
   it('should create wishlist and return status code 201', async () => {
