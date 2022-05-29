@@ -104,7 +104,7 @@ const searchWishlistsByProduct = async (req, res) => {
 
     if(wishlists.length !== 0) {
       return res.status(200).json(wishlists);
-    } return res.status(400).json({ error: 'No product found.' });
+    } return res.status(400).json({ error: 'No wishlist founded.' });
   } catch(error) {
     return res.status(404).json({ error: 'Error finding product.' });
   }
