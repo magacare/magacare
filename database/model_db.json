@@ -4,20 +4,20 @@
   "fullName": "Camila Silva",
   "email": "camila@email.com.br",
   "birthDate": "01-28-1991",
-  "phoneNumber": "12112121212",
-  "postalCode": "13121123",
+  "phoneNumber": "11999885544",
+  "postalCode": "13720040",
   "gender": "mulher cis",
   "cpf": "000.456.789-00",
-  "password": "aaaaaaaaa"
+  "password": "123456"
 }
 
 
 //Model json for POST of products
 
 {
-  "name": "Clareador de manchassssssss",
+  "name": "Clareador de manchas",
   "code": "000000",
-  "description": "vitamina c58130000000",
+  "description": "vitamina c",
   "volume": "120ml",
   "recommendation": "pele mista"
 }
@@ -26,8 +26,8 @@
 //Model json for POST of wishlist
 
 {
-  "title": "lista presente2222",
+  "title": "lista de presente",
   "client": "628c17bfb68566fe546f3127",
-  "product": ["123654789"]
+  "product": ["000000"]
 }
 
