@@ -108,7 +108,7 @@
         }
       }
     },
-    "/clients/{id}": {
+    "/clients/{clientId}": {
       "put": {
         "tags": [
           "Clients"
@@ -120,7 +120,7 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "id",
+          "name": "clientId",
           "type": "string",
           "required": "true",
           "description": "Client's id to update."
@@ -185,19 +185,19 @@
         }
       }
     },
-    "clients/wishlists/{id}": {
+    "clients/wishlists/{clientId}": {
       "get": {
         "tags": [
           "Clients"
         ],
-        "summary": "Search client's wishlists.",
-        "description": "Route responsible to search the client's wishlists by his id.",
+        "summary": "Search client's wishlists ids.",
+        "description": "Route responsible to search the client's wishlists ids by his id.",
         "security": [{
           "bearerAuth": []
         }],
         "parameters": [{
           "in": "path",
-          "name": "id",
+          "name": "clientId",
           "type": "string",
           "required": "true",
           "description": "Client's id to search wishlists"
@@ -212,13 +212,19 @@
         }
       }
     },
-    "clients/id/{id}": {
+    "clients/id/{clientId}": {
       "get": {
         "tags": [
           "Clients"
         ],
         "summary": "Search client by ID.",
         "description": "Route responsable to search client by his ID.",
+        "parameters": {
+          "in": "path",
+          "name": "clientId",
+          "required": "true",
+          "description": "Client's id to search its informations."
+        },
         "security": [{
           "bearerAuth": []
         }],
@@ -352,7 +358,7 @@
         }
       }
     },
-    "/products/{code}": {
+    "/products/{productCode}": {
       "put": {
         "tags": [
           "Products"
@@ -364,7 +370,7 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "code",
+          "name": "productCode",
           "type": "string",
           "required": "true",
           "description": "Code of the product that will be updated."
@@ -424,7 +430,7 @@
         }
       }
     },
-    "products/wishlists/{code}": {
+    "products/wishlists/{productCode}": {
       "get": {
         "tags": [
           "Products"
@@ -436,10 +442,10 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "code",
+          "name": "productCode",
           "type": "string",
           "required": "true",
-          "description": "Product's code to search wishlists"
+          "description": "Product's code to search wishlists that has it."
         }],
         "responses": {
           "200": {
@@ -454,7 +460,7 @@
         }
       }
     },
-    "products/code/{code}": {
+    "products/code/{productCode}": {
       "get": {
         "tags": [
           "Products"
@@ -466,7 +472,7 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "code",
+          "name": "productCode",
           "type": "string",
           "required": "true",
           "description": "Product's code to search it."
@@ -573,7 +579,7 @@
         }
       }
     },
-    "/wishlists/product/{code}": {
+    "/wishlists/product/{wishlistId}": {
       "delete": {
         "tags": [ "Wishlists" ],
         "summary": "Delete product on wishlist.",
@@ -583,10 +589,10 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "code",
+          "name": "wishlistId",
           "type": "string",
           "required": "true",
-          "description": "Code of the product that will be deleted."
+          "description": "Wishlist's id where the product will be deleted."
         }],
         "requestBody": {
           "content": {
@@ -618,7 +624,7 @@
         }
       }
     },
-    "/wishlists/{id}": {
+    "/wishlists/{wishlistId}": {
       "put": {
         "tags": [ "Wishlists" ],
         "summary": "Update wishlist",
@@ -628,7 +634,7 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "id",
+          "name": "wishlistId",
           "type": "string",
           "required": "true",
           "description": "Wishlist update."
@@ -732,7 +738,7 @@
         }
       } 
     },
-    "wishlists/id/{id}": {
+    "wishlists/id/{wishlistId}": {
       "get": {
         "tags": [
           "Wishlists"
@@ -744,7 +750,7 @@
         }],
         "parameters": [{
           "in": "path",
-          "name": "id",
+          "name": "wishlistId",
           "type": "string",
           "required": "true",
           "description": "Wishlist's id to search it."
@@ -759,19 +765,19 @@
         }
       }
     },
-    "wishlists/client/{id}": {
+    "wishlists/client/{clientId}": {
       "get": {
         "tags": [
           "Wishlists"
         ],
-        "summary": "Search wishlist by id.",
-        "description": "Route responsible to search a wishlist by id.",
+        "summary": "Search wishlist by client's id.",
+        "description": "Route responsible to search wishlists by client's id.",
         "security": [{
           "bearerAuth": []
         }],
         "parameters": [{
           "in": "path",
-          "name": "id",
+          "name": "clientId",
           "type": "string",
           "required": "true",
           "description": "Client's id to search wishlists."
