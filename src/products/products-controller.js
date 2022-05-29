@@ -33,7 +33,7 @@ const createProduct = async (req, res) => {
 
     createProductOnDatabase(product);
     return res.status(201).json({
-      messagem: 'Product registered',
+      message: 'Product registered',
     });
   } catch(error) {
     return res.status(404).json(error.message);
@@ -68,9 +68,9 @@ const searchOneProduct = async (req, res) => {
     const product = await searchOneProductOnDatabase(req.params.code);
     if(product) {
       return res.status(200).json(product);
-    } return res.status(400).json({ erro: 'No product found.' });
+    } return res.status(400).json({ error: 'No product found.' });
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding product.' });
+    return res.status(404).json({ error: 'Error finding product.' });
   }
 };
 
@@ -79,7 +79,7 @@ const searchAllProducts = async (req, res) => {
     const products = await searchAllProductsOnDatabase();
     return res.status(200).json(products);
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding product.' });
+    return res.status(404).json({ error: 'Error finding product.' });
   }
 };
 
@@ -91,9 +91,9 @@ const searchProductsByFilter = async (req, res) => {
     const products = await searchProductsByFilterOnDatabase(searchBy, filter, page, limit);
     if(products.length !== 0) {
       return res.status(200).json(products);
-    } return res.status(400).json({ erro: 'No product found.' });
+    } return res.status(400).json({ error: 'No product found.' });
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding product.' });
+    return res.status(404).json({ error: 'Error finding product.' });
   }
 };
 
@@ -101,11 +101,12 @@ const searchWishlistsByProduct = async (req, res) => {
   try {
     const { code } = req.params;
     const wishlists = await searchWishlistsByProductOnDatabase(code);
+
     if(wishlists.length !== 0) {
       return res.status(200).json(wishlists);
-    } return res.status(400).json({ erro: 'No product found.' });
+    } return res.status(400).json({ error: 'No product found.' });
   } catch(error) {
-    return res.status(404).json({ erro: 'Error finding product.' });
+    return res.status(404).json({ error: 'Error finding product.' });
   }
 };
 
@@ -113,12 +114,12 @@ const deleteProduct = async (req, res) => {
   try {
     const { code } = req.params;
     const findProductInWishlist = await Wishlists.findOne({ product: code });
-
-    if(findProductInWishlist) {
-      return res.status(401).json({
+    if(!findProductInWishlist) {
+      return res.status(400).json({
         message: 'Product cannot be deleted as it is on a wish list',
       });
     }
+
     const productDeleted = await deleteProductOnDatabase({ code });
     return res.status(200).json({
       message: 'Product deleted',

@@ -17,14 +17,7 @@ const createWishList = async (req, res) => {
     const wishList = req.body;
     const { product: code, client } = wishList;
 
-    if(code.length <= 0) {
-      return res.status(400).json({
-        error: 'The wish list should have one product at least',
-      });
-    }
-
     const clientExists = await verifyExistsClient({ _id: client });
-
     if(!clientExists) {
       return res.status(400).json({
         error: 'This client does not exist',
@@ -76,23 +69,17 @@ const updateWishList = async (req, res) => {
     const wishlist = req.body;
     const { product: code } = wishlist;
 
-    if(code.length <= 0) {
-      return res.status(400).json({
-        error: 'The wish list update should have one product at least',
-      });
-    }
-
-    const duplicatedCodesSent = code.filter(((productCode) => (item) => productCode.has(item) || !productCode.add(item))(new Set()));
-    if(duplicatedCodesSent.length > 0) {
+    const duplicatedCodesSentInList = code && code.filter(((productCode) => (item) => productCode.has(item) || !productCode.add(item))(new Set()));
+    if(code && duplicatedCodesSentInList.length > 0) {
       return res.status(400).json({
         error: 'You cannot add duplicate products',
-        products: duplicatedCodesSent,
+        products: duplicatedCodesSentInList,
       });
     }
 
     const wishListFound = code && await verifyExistsWishList({ _id: id });
-    const productsInWhishList = wishListFound.product;
-    const productsDuplicated = code.filter((product) => {
+    const productsInWhishList = code && wishListFound.product;
+    const productsDuplicated = code && code.filter((product) => {
       const findOnWhisList = productsInWhishList.find((p) => p === product);
       if(findOnWhisList) {
         return product;
@@ -100,7 +87,7 @@ const updateWishList = async (req, res) => {
       return false;
     });
 
-    if(productsDuplicated.length > 0) {
+    if(code && productsDuplicated.length > 0) {
       return res.status(400).json({
         error: 'You cannot add duplicate products',
         products: productsDuplicated,
@@ -111,7 +98,7 @@ const updateWishList = async (req, res) => {
 
     const productsNotExists = [];
 
-    if(code.length > 0) {
+    if(code && code.length > 0) {
       code.forEach((item) => {
         const existProduct = productExists.find((prod) => prod.code === item);
         if(!existProduct) {
