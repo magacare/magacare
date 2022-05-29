@@ -75,7 +75,10 @@ const deleteClientOnDatabase = async (id) => {
   const clientDeleted = await Clients.findOneAndDelete(id);
   return clientDeleted;
 };
-
+const deletehWishlistByClientOnDatabase = async (idClient) => {
+  const deleteWishlist = await Wishlists.deleteMany({ client: idClient });
+  return deleteWishlist;
+};
 module.exports = {
   createClientOnDatabase,
   updateClientOnDatabase,
@@ -88,4 +91,5 @@ module.exports = {
   searchWishlistByClientOnDatabase,
   searchClientsByNameFilterOnDatabase,
   searchClientsByGenderFilterOnDatabase,
+  deletehWishlistByClientOnDatabase,
 };
