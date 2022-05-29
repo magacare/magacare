@@ -45,9 +45,9 @@ const updateProduct = async (req, res) => {
     const { code } = req.params;
     const { name } = req.body;
 
-    const verifyNameExists = await verifyExistsProducts({ name });
+    const productExists = await verifyExistsProducts({ name });
 
-    if(verifyNameExists) {
+    if(productExists && productExists.code !== code) {
       return res.status(400).json({
         message: 'This name already exists',
       });
@@ -113,14 +113,23 @@ const searchWishlistsByProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     const { code } = req.params;
-    const findProductInWishlist = await Wishlists.findOne({ product: code });
-    if(!findProductInWishlist) {
+
+    const findProductInWishlist = await Wishlists.find({ product: code });
+
+    if(findProductInWishlist.length > 0) {
       return res.status(400).json({
         message: 'Product cannot be deleted as it is on a wish list',
       });
     }
 
     const productDeleted = await deleteProductOnDatabase({ code });
+
+    if(!productDeleted) {
+      return res.status(404).json({
+        message: 'Product not exists',
+      });
+    }
+
     return res.status(200).json({
       message: 'Product deleted',
       client: productDeleted,
