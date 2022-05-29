@@ -15,7 +15,8 @@
     "delay": "3"
   },
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "test": "jest"
   },
   "repository": {
