@@ -348,14 +348,14 @@ describe('Wishlist routes', () => {
 
     expect(statusCode).toBe(200);
 
-    expect(body).toEqual([{
+    expect(body).toEqual({
       _id: expect.any(String),
       title: expect.any(String),
       client: expect.any(String),
       product: expect.any(Array),
       createdAt: expect.any(String),
       __v: 0,
-    }]);
+    });
   });
 
   it('should search by filter by product', async () => {
