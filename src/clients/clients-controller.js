@@ -93,6 +93,11 @@ const searchWishlistByClient = async (req, res) => {
   try {
     const { id } = req.params;
     const wishlists = await searchWishlistByClientOnDatabase(id);
+    if(wishlists.length === 0) {
+      return res.status(404).json({
+        message: 'This client does not have wishlists.',
+      });
+    }
     return res.status(200).json({
       message: 'This client has this wishlists ids:',
       wishlists,
