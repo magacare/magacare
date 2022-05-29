@@ -573,6 +573,51 @@
         }
       }
     },
+    "/wishlists/product/{code}": {
+      "delete": {
+        "tags": [ "Wishlists" ],
+        "summary": "Delete product on wishlist.",
+        "description": "Route that deletes products on a wishlist. It can't delete if there is only one product.",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "parameters": [{
+          "in": "path",
+          "name": "code",
+          "type": "string",
+          "required": "true",
+          "description": "Code of the product that will be deleted."
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "product": "888888"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product deleted."
+          },
+          "400": {
+            "description": "Wishlist not found."
+          },       
+          "404": {
+            "description": "Error deleting product."
+          }
+        }
+      }
+    },
     "/wishlists/{id}": {
       "put": {
         "tags": [ "Wishlists" ],
