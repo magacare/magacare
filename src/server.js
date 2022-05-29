@@ -38,7 +38,7 @@ const createServer = () => {
   return app;
 };
 
-const initServer = async (app, port = 3000) => {
+const initServer = async (app, port = process.env.PORT || 3000) => {
   app.listen(port);
   console.log(`Running! Port: ${port}`);
   await mongoose.connect(connectionString);
