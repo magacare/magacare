@@ -26,6 +26,14 @@ const mockProduct = {
   recommendation: 'pele mista',
 };
 
+const mockSecondProduct = {
+  name: 'tonico facial',
+  code: '303030',
+  description: 'água para tonificar o rosto',
+  volume: '120ml',
+  recommendation: 'pele mista',
+};
+
 const mockPayloadClient = {
   fullName: 'Test test',
   email: 'test@email.com',
@@ -56,6 +64,10 @@ describe('Wishlist routes', () => {
     await supertest(app).post('/products')
       .set('Authorization', `Bearer ${jwt}`)
       .send(mockProduct);
+
+    await supertest(app).post('/products')
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(mockSecondProduct);
   });
 
   it('should create wishlists and return status code 201', async () => {
@@ -397,29 +409,41 @@ describe('Wishlist routes', () => {
       .set('Authorization', `Bearer ${jwt}`);
 
     const idWishlist = response.body[0]._id;
-    const productToDelete = response.body[0].product[0];
+
+    const addProduct = {
+      product: ['303030'],
+    };
+
+    await supertest(app)
+      .put(`/wishlists/${idWishlist}`)
+      .set('Authorization', `Bearer ${jwt}`)
+      .send(addProduct);
+
+    const productToDelete = response.body[0].product;
 
     const { statusCode } = await supertest(app)
       .delete(`/wishlists/product/${idWishlist}`)
       .set('Authorization', `Bearer ${jwt}`)
-      .send({ product: productToDelete });
+      .send({ product: [...productToDelete] });
 
     expect(statusCode).toBe(200);
   });
 
-  it('should not delete product that dont exist on wishlist', async () => {
+  it('should not delete product does not exist on wishlist', async () => {
     const response = await supertest(app)
       .get('/wishlists')
       .set('Authorization', `Bearer ${jwt}`);
 
     const idWishlist = response.body[0]._id;
 
-    const { statusCode } = await supertest(app)
+    const { statusCode, body } = await supertest(app)
       .delete(`/wishlists/product/${idWishlist}`)
       .set('Authorization', `Bearer ${jwt}`)
       .send({ product: '00000' });
 
-    expect(statusCode).toBe(200);
+    expect(statusCode).toBe(404);
+
+    expect(body.message).toEqual('Product not exist');
   });
 
   it('should not delete product on wishlist that does not exist', async () => {
