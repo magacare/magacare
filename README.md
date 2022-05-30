@@ -226,7 +226,7 @@ Passar parâmetros no Query params:
 ```http
   PUT YOUR-SERVER/clients/:id
 ```
-Passar como parâmetro na URL da requisição o ID do client que deseja atualizar.
+Passar como parâmetro na URL da requisição o ID do cliente que deseja atualizar.
 
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
@@ -238,9 +238,9 @@ Passar parâmetros no body da requisição em formato JSON:
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `fullName` | `string` | **Opcional** |
-| `email` | `string` | **Opcional**. Desde que não seja igual ao e-mail de outro client |
+| `email` | `string` | **Opcional**. Desde que não seja igual ao e-mail de outro cliente |
 | `birthDate` | `string` | **Opcional** |
-| `cpf` | `string` | **Opcional**.  Desde que não seja igual ao CPF de outro client |
+| `cpf` | `string` | **Opcional**.  Desde que não seja igual ao CPF de outro cliente |
 | `phoneNumber` | `string` | **Opcional** |
 | `postalCode` | `string` | **Opcional** |
 | `gender` | `string` | **Opcional** |
@@ -257,7 +257,7 @@ Passar parâmetros no body da requisição em formato JSON:
 
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
-| `id`      | **Obrigatório**. Passar como parâmetro na URL da requisição o ID do client que deseja deletar |
+| `id`      | **Obrigatório**. Passar como parâmetro na URL da requisição o ID do cliente que deseja deletar |
 
 ## Gerenciamento de produtos
 
