@@ -150,12 +150,12 @@
                 "$ref": "#/components/schemas/Update client"
               },
               "example": {
-                "fullname": "Maria Luisa Campos",
+                "fullName": "Maria Luisa Campos",
                 "email": "marialuisa@email.com.br",
-                "birthdate": "01/16/2001",
+                "birthDate": "01/16/2001",
                 "cpf": "12345678901",
-                "phonenumber": "81998929985",
-                "postalcode": "50070123",
+                "phoneNumber": "81998929985",
+                "postalCode": "50070123",
                 "gender": "Mulher Cis",
                 "oldPassword": "teste123",
                 "password": "testeteste123",
@@ -240,6 +240,7 @@
         "parameters": {
           "in": "path",
           "name": "clientId",
+          "type": "string",
           "required": "true",
           "description": "Client's id to search its informations."
         },
@@ -604,7 +605,7 @@
               "example": {
                 "title": "Lista de Natal",
                 "client": "628e97add291a4d768eb119e",
-                "product": "549595295949",
+                "product": ["549595295949"],
                 "createdAt": "2022-05-25T23:53:01.428Z"
               }
             }
