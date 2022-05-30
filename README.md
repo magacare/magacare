@@ -61,7 +61,8 @@ módulo de lista de desejos dos produtos da Magacare, e-commerce especializada e
 ### Iniciando o projeto
 - Clonar ou baixar esse projeto para seu computador;
 - Digite no terminal o comando `npm install`, assim instalará todas as dependências necessárias para rodar a API; 
-- Digite o comando `npm start` para iniciar o server;
+- Digite o comando `npm start` para inicializar o server sem o nodemon.
+- Ou digite o comando `npm run dev` para inicializar o server com o nodemon (desenvolvimento).
 
 
 ### Configurando variável de ambiente para conexão com seu banco de dados
@@ -523,12 +524,10 @@ Passar como parâmetro na URL da requisição o id da lista de desejos que desej
 ## Swagger
 
 - Foi utilizado o swagger para documentação da API;
-- Para acessá-la [clique aqui](https://magacare.herokuapp.com/api-docs)
-
-
-Para acessar o deploy basta clicar aqui: 
+- Para acessá-la [clique aqui](https://magacare.herokuapp.com/api-docs).
 
 ## Melhorias
+
 Caso o grupo tivesse mais tempo para desenvolvimento, implementaríamos:
 - Middleware de autorização de rotas, como por exemplo: somente teria acesso a algumas funcionalidades da aplicação se a pessoa fosse administradora;
 - Implementar Logging;
