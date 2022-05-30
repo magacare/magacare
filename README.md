@@ -455,7 +455,7 @@ Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
 | `searchBy`   |  product | **Obrigatório**. | 
-| `filter`     |  O deseja filtrar | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
 | `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
@@ -538,6 +538,6 @@ Caso o grupo tivesse mais tempo para desenvolvimento, implementaríamos:
 ## Desenvolvedoras 
 
 
-| [<img src="https://avatars.githubusercontent.com/u/84817222?v=4" width=115><br><sub>Bruna Hirano Imbriani</sub>](https://github.com/brunahirano) |  [<img src="https://avatars.githubusercontent.com/u/100802546?v=4" width=115><br><sub>Graziella Costa</sub>](https://github.com/grazie-lla) |  [<img src="https://avatars.githubusercontent.com/u/96178284?v=4" width=115><br><sub>Maria Luisa Campos</sub>](https://github.com/marialuisacampos) | [<img src="https://avatars.githubusercontent.com/u/88402963?v=4" width=115><br><sub>Priscilla Prado</sub>](https://github.com/Erica08muniz) | [<img src="https://avatars.githubusercontent.com/u/73727259?v=4" width=115><br><sub>Tatiane Moraes</sub>](https://github.com/tatianemoraes)
+| [<img src="https://avatars.githubusercontent.com/u/84817222?v=4" width=115><br><sub>Bruna Hirano Imbriani</sub>](https://github.com/brunahirano) |  [<img src="https://avatars.githubusercontent.com/u/100802546?v=4" width=115><br><sub>Graziella Costa</sub>](https://github.com/grazie-lla) |  [<img src="https://avatars.githubusercontent.com/u/96178284?v=4" width=115><br><sub>Maria Luisa Campos</sub>](https://github.com/marialuisacampos) | [<img src="https://avatars.githubusercontent.com/u/88402963?v=4" width=115><br><sub>Priscilla Prado</sub>](https://github.com/PriscillaPrado) | [<img src="https://avatars.githubusercontent.com/u/73727259?v=4" width=115><br><sub>Tatiane Moraes</sub>](https://github.com/tatianemoraes)
 | :---: | :---: | :---: | :---: | :---: 
 
