@@ -85,7 +85,7 @@
               "example": {
                 "fullName": "Malu Campos",
                 "email": "marialuisa@email.com.br",
-                "birthDate": "16/01/2001",
+                "birthDate": "01/16/2001",
                 "cpf": "12345678901",
                 "phoneNumber": "81998929985",
                 "postalCode": "50070123",
@@ -134,7 +134,7 @@
               "example": {
                 "fullname": "Maria Luisa Campos",
                 "email": "marialuisa@email.com.br",
-                "birthdate": "16/01/2001",
+                "birthdate": "01/16/2001",
                 "cpf": "12345678901",
                 "phonenumber": "81998929985",
                 "postalcode": "50070123",
@@ -236,7 +236,7 @@
               "example": {
                 "fullname": "Maria Luisa Campos",
                 "email": "marialuisa@email.com.br",
-                "birthdate": "16/01/2001",
+                "birthdate": "01/16/2001",
                 "cpf": "12345678901",
                 "phonenumber": "81998929985",
                 "postalcode": "50070123",
@@ -265,7 +265,15 @@
           "type": "string",
           "required": "true",
           "description": "Client's email to get his informations. "
-        }]
+        }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Error finding client by email."
+          }
+        }
       }
     },
     "/clients/search": {
