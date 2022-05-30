@@ -455,7 +455,7 @@ Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
 | `searchBy`   |  product | **Obrigatório**. | 
-| `filter`     |  O deseja filtrar | **Obrigatório**. | 
+| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
 | `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
