@@ -106,6 +106,21 @@
             "description": "Error."
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "summary": "Search all clients",
+        "description": "Route responsable to search all clients.",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error finding clients."
+          }
+        }
       }
     },
     "/clients/{clientId}": {
@@ -364,6 +379,21 @@
             "description": "Error creating product."
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Search all products",
+        "description": "Route responsable to search all products.",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "Error finding products."
+          }
+        }
       }
     },
     "/products/{productCode}": {
@@ -585,49 +615,19 @@
             "description": "Error creating wishlist."
           }
         }
-      }
-    },
-    "/wishlists/product/{wishlistId}": {
-      "delete": {
-        "tags": [ "Wishlists" ],
-        "summary": "Delete product on wishlist.",
-        "description": "Route that deletes products on a wishlist. It can't delete if there is only one product.",
-        "security": [{
-          "bearerAuth": []
-        }],
-        "parameters": [{
-          "in": "path",
-          "name": "wishlistId",
-          "type": "string",
-          "required": "true",
-          "description": "Wishlist's id where the product will be deleted."
-        }],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "product": {
-                    "type": "string"
-                  }
-                }
-              },
-              "example": {
-                "product": "888888"
-              }
-            }
-          }
-        },
+      },
+      "get": {
+        "tags": [
+          "Wishlists"
+        ],
+        "summary": "Search all wishlists",
+        "description": "Route responsable to search all wishlists.",
         "responses": {
           "200": {
-            "description": "Product deleted."
+            "description": "OK."
           },
-          "400": {
-            "description": "Wishlist not found."
-          },       
           "404": {
-            "description": "Error deleting product."
+            "description": "Error finding wishlists."
           }
         }
       }
@@ -694,6 +694,51 @@
           },
           "404": {
             "description": "Error deleting wishlist."
+          }
+        }
+      }
+    },
+    "/wishlists/product/{wishlistId}": {
+      "delete": {
+        "tags": [ "Wishlists" ],
+        "summary": "Delete product on wishlist.",
+        "description": "Route that deletes products on a wishlist. It can't delete if there is only one product.",
+        "security": [{
+          "bearerAuth": []
+        }],
+        "parameters": [{
+          "in": "path",
+          "name": "wishlistId",
+          "type": "string",
+          "required": "true",
+          "description": "Wishlist's id where the product will be deleted."
+        }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "product": "888888"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product deleted."
+          },
+          "400": {
+            "description": "Wishlist not found."
+          },       
+          "404": {
+            "description": "Error deleting product."
           }
         }
       }
