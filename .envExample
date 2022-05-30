@@ -1,2 +1,2 @@
-DATABASE=mongodb+srv://<databaseName>:<password></password><pathDatabase>
+DATABASE=mongodb+srv://<username>:<password>@<pathDatabase>
 
