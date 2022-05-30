@@ -139,7 +139,6 @@
         "parameters": [{
           "in": "path",
           "name": "clientId",
-          "type": "string",
           "required": "true",
           "description": "Client's id to update."
         }],
@@ -237,15 +236,15 @@
         ],
         "summary": "Search client by ID.",
         "description": "Route responsable to search client by his ID.",
-        "parameters": {
+        "security": [{
+          "bearerAuth": []
+        }],
+        "parameters": [{
           "in": "path",
           "name": "clientId",
           "type": "string",
           "required": "true",
           "description": "Client's id to search its informations."
-        },
-        "security": [{
-          "bearerAuth": []
         }],
         "responses": {
           "200": {
