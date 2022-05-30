@@ -22,8 +22,6 @@
 
 - [Swagger](#swagger)
 
-- [Deploy](#deploy)
-
 - [Melhorias](#melhorias)
 
 - [Desenvolvedoras](#desenvolvedoras)
@@ -95,7 +93,7 @@ módulo de lista de desejos dos produtos da Magacare, e-commerce especializada e
 
 ### Modelo json para testes da aplicação
 - Caso tenha interesse:
-    - Utilize um documento chamado `model_db.json` que está pasta `database` para acessar modelos de json para teste da aplicação na sua ferramenta de prefência.
+    - Utilize um documento chamado `model_db.json` que está pasta `database` para acessar modelos de json para teste da aplicação na sua ferramenta de preferência.
     
 ## Documentação da API
 
@@ -105,7 +103,7 @@ módulo de lista de desejos dos produtos da Magacare, e-commerce especializada e
 Rota não autenticada
 
 ```http
-  POST/YOUR-SERVER/clients
+  POST YOUR-SERVER/clients
 ```
 Passar parâmetros no body da requisição em formato JSON:
 
@@ -163,7 +161,7 @@ Rota autenticada - necessário configurar sua ferramenta de teste da aplicação
 | :---------- | :--------- | :------------------------------------------|
 | `email`      | O email que deseja filtrar | **Obrigatório**. O email que deseja filtrar | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
 
 #### Filtrar por "contém", utilizando o nome, lista paginada
@@ -180,7 +178,7 @@ Passar parâmetros no Query params:
 | `searchBy`   |  name | **Obrigatório**. | 
 | `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
 #### Filtrar por "contém", utilizando o gênero, lista paginada
 
@@ -196,20 +194,20 @@ Passar parâmetros no Query params:
 | `searchBy`   |  gender | **Obrigatório**. | 
 | `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
 
 #### Filtrar utilizando ID
 
 ```http
-  GET YOUR-SERVER/clients/search?searchBy=gender&filter=exemplodefilter
+  GET YOUR-SERVER/clients/search?searchBy=id&filter=exemplodefilter
 ```
 
 Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
-| `searchBy`   |  id | **Obrigatório**. | 
-| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `searchBy`   |  id | **Obrigatório** | 
+| `filter`     |  O id que deseja filtrar | **Obrigatório** | 
 
 
 #### Pesquisar se cliente possui lista de desejos
@@ -217,11 +215,11 @@ Passar parâmetros no Query params:
 ```http
   GET YOUR-SERVER/clients/wishlists/:id
 ```
- Passar como parâmetro na URL da requisição o ID do client que deseja pesquisar.
- 
+ Passar como parâmetro na URL da requisição o ID do cliente que deseja pesquisar.
+      
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
-| `id`      | **Obrigatório**.
+| `id`      | **Obrigatório** |
 
 #### Atualizar cliente
 ```http
@@ -266,7 +264,7 @@ Passar parâmetros no body da requisição em formato JSON:
 Rota autenticada - necessário configurar sua ferramenta de teste da aplicação de preferência com Authorization - tipo Bearer token
 
 ```http
-  POST/YOUR-SERVER/products
+  POST YOUR-SERVER/products
 ```
 Passar parâmetros no body da requisição em formato JSON:
 
@@ -291,7 +289,7 @@ Rota autenticada - necessário configurar sua ferramenta de teste da aplicação
 ```http
   GET YOUR-SERVER/products/code/:code
 ```
-Passar como parâmetro na URL da requisição o code do product que deseja detalhar.
+Passar como parâmetro na URL da requisição o código do produto que deseja detalhar.
 
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
@@ -310,7 +308,7 @@ Passar parâmetros no Query params:
 | `searchBy`   |  name | **Obrigatório**. | 
 | `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
 #### Filtrar por "contém", utilizando a recomendação, lista paginada
 
@@ -322,10 +320,10 @@ Exemplo: ao pesquisar por "pele" pesquisa pode retornar: “pele seca”, “pel
 Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
-| `searchBy`   |  recommendatio | **Obrigatório**. | 
+| `searchBy`   |  recommendation | **Obrigatório**. | 
 | `filter`     |  O que deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
+| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
 
 #### Filtrar utilizando o código do produto
@@ -337,17 +335,17 @@ Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
 | `searchBy`   |  code | **Obrigatório**. | 
-| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `filter`     |  O código que deseja filtrar | **Obrigatório**. | 
 
 #### Pesquisar as listas de desejos em que o produto aparece
 
 ```http
   GET YOUR-SERVER/products/wishlists/:code
 ```
-Passar como parâmetro na URL da requisição o code do produto que deseja pesquisar.
+Passar como parâmetro na URL da requisição o código do produto que deseja pesquisar.
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
-| `code`      | **Obrigatório**. 
+| `code`      | **Obrigatório**
 
 #### Atualizar produto
 ```http
@@ -363,7 +361,7 @@ Passar parâmetros no body da requisição em formato JSON:
      
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
-| `name` | `string` | **Opcional**. Desde que não seja igual a um nome de produto existente |
+| `name` | `string` | **Opcional**. Desde que não seja igual a um nome de um produto existente |
 | `description` | `string` | **Opcional** |
 | `volume` | `string` | **Opcional** |
 | `recommendation` | `string` | **Opcional** |
@@ -417,7 +415,7 @@ Passar como parâmetro na URL da requisição o ID da wishlist que deseja detalh
 
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
-| `id`      | **Obrigatório**. 
+| `id`      | **Obrigatório** |
 
 #### Filtrar utilizando o id da lista de desejos
 
@@ -427,25 +425,8 @@ Passar como parâmetro na URL da requisição o ID da wishlist que deseja detalh
 Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
-| `searchBy`   |  product | **Obrigatório**. | 
-| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
-
-
-#### Filtrar por "contém", utilizando id da lista de desejos, lista paginada
-
-Exemplo: ao pesquisar por "777" a pesquisa pode retornar: “000444777”, “888999777”.
-
-```http
-  GET YOUR-SERVER/wishlists/search?searchBy=id&filter=exemplodefilter&page=1&limit=4
-```
-Passar parâmetros no Query params:
-| Query Params   | Value       |  Descrição                                 |
-| :---------- | :--------- | :------------------------------------------|
 | `searchBy`   |  id | **Obrigatório**. | 
-| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
-| `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
-| `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
-
+| `filter`     |  O id que deseja filtrar | **Obrigatório**. | 
 
 #### Filtrar por "contém", utilizando id do cliente, lista paginada
 
@@ -473,7 +454,7 @@ Passar parâmetros no Query params:
 | Query Params   | Value       |  Descrição                                 |
 | :---------- | :--------- | :------------------------------------------|
 | `searchBy`   |  product | **Obrigatório**. | 
-| `filter`     |  O que deseja filtrar | **Obrigatório**. | 
+| `filter`     |  O deseja filtrar | **Obrigatório**. | 
 | `page`       | 1 | **Obrigatório**. Iniciar com 1, primeira página|
 | `limit`      | Número que deseja de itens por página | **Obrigatório**. O número de itens que deseja ter em cada paginação | 
 
@@ -504,7 +485,7 @@ Passar parâmetros no body da requisição em formato JSON:
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 | `title` | `string` | **Opcional** |
-| `product` | `array` | **Obrigatório** | O array será composto por id(s) de produto(s) que desejo inserir na lista de desejos
+| `product` | `array` | **Obrigatório** O array será composto por id(s) de produto(s) que desejo inserir na lista de desejos|
 
 #### Remover produto da lista de desejos
 ```http
@@ -513,7 +494,7 @@ Passar parâmetros no body da requisição em formato JSON:
 Passar como parâmetro na URL da requisição o código do produto que desejo remover da lista de desejos.
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
-| `id`      | **Obrigatório** |
+| `code`      | **Obrigatório**. O código do produto que deseja remover. |
 
 Passar parâmetros no body da requisição em formato JSON:
 | Parâmetro   | Tipo       | Descrição                           |
@@ -537,7 +518,7 @@ Passar como parâmetro na URL da requisição o id da lista de desejos que desej
 - Versão 7.20.5;
 - Para inicializar o teste, você deve utilizar o comando `npm test`;
 - Após inicialização, uma pasta chamada coverage será criada automaticamente;
-- Cada queira ver os resultados no browser, basta clicar no arquivo `index.js` da pasta coverage;
+- Cada queira ver os resultados no navegador, basta clicar no arquivo `index.html`, que está no caminho coverage -> pasta icov-report -> index.html
 
 ## Swagger
 
@@ -549,7 +530,7 @@ Para acessar o deploy basta clicar aqui:
 
 ## Melhorias
 Caso o grupo tivesse mais tempo para desenvolvimento, implementaríamos:
-- Middleware de autorização de rotas, como por exemplo: somente teria acesso as funcionalidades da aplicação se a pessoa fosse administradora;
+- Middleware de autorização de rotas, como por exemplo: somente teria acesso a algumas funcionalidades da aplicação se a pessoa fosse administradora;
 - Implementar Logging;
 - Implementar Caching;
 - Desenvolver front-end para consumir nossa API.
