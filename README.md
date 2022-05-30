@@ -168,7 +168,7 @@ Rota autenticada - necessário configurar sua ferramenta de teste da aplicação
 
 #### Filtrar por "contém", utilizando o nome, lista paginada
 
-Exemplo: ao pesquisar pelos clientes com nome ‘silva’ a pesquisa pode retorna nomes tais
+Exemplo: ao arsar pelos clientes com nome ‘silva’ a pesquisa pode retorna nomes tais
 como: “Silvana”, “Silvanir”, “Júlia Silva”.
 
 Passar parâmetros no Query params:
@@ -217,7 +217,7 @@ Passar parâmetros no Query params:
 ```http
   GET YOUR-SERVER/clients/wishlists/:id
 ```
- Passar como parâmetro na URL da requisição o ID do client que deseja pesquiar.
+ Passar como parâmetro na URL da requisição o ID do client que deseja pesquisar.
  
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
@@ -254,7 +254,7 @@ Passar parâmetros no body da requisição em formato JSON:
 ```http
   DELETE YOUR-SERVER/clients/:id
 ```
-- Ao deletar um clients as wishlists associadas a ele também serão deletadas
+- Ao deletar um cliente as listas de desejos associadas a ele também serão deletadas
 
 | Parâmetro   | Descrição                                   |
 | :---------- | :------------------------------------------ |
@@ -272,7 +272,7 @@ Passar parâmetros no body da requisição em formato JSON:
 
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
-| `name` | `string` | **Obrigatório** |
+| `name` | `string` | **Obrigatório**. Cheve única | 
 | `code` | `string` | **Obrigatório**. Chave única |
 | `description` | `string` | **Obrigatório** |
 | `volume` | `string` | **Obrigatório**. |
@@ -542,13 +542,8 @@ Passar como parâmetro na URL da requisição o id da lista de desejos que desej
 ## Swagger
 
 - Foi utilizado o swagger para documentação da API;
-- Para acessá-la basta digitar no seu navegador com o servidor rodando:
+- Para acessá-la [clique aqui](https://magacare.herokuapp.com/api-docs)
 
-```http
-  YOUR-SERVER/api-docs
-```
-
-## Deploy
 
 Para acessar o deploy basta clicar aqui: 
 
