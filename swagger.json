@@ -113,6 +113,9 @@
         ],
         "summary": "Search all clients",
         "description": "Route responsable to search all clients.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "responses": {
           "200": {
             "description": "OK."
@@ -386,6 +389,9 @@
         ],
         "summary": "Search all products",
         "description": "Route responsable to search all products.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "responses": {
           "200": {
             "description": "OK."
@@ -622,6 +628,9 @@
         ],
         "summary": "Search all wishlists",
         "description": "Route responsable to search all wishlists.",
+        "security": [{
+          "bearerAuth": []
+        }],
         "responses": {
           "200": {
             "description": "OK."
